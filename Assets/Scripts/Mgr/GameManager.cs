@@ -5,17 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : SingletonMono<GameManager>
 {
+    public bool IsPass; //소환 버튼 넘김
     public float PlayerHp, MaxPlayerHp, EnemyHp, MaxEnemyHp, Money, MaxMoney, FireCoolTime;
     public Text MoneyText, UpgradeMoneyText, UpgradeNeedMoneyText, StageText;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
