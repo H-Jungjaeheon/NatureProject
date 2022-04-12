@@ -24,13 +24,15 @@ public class MainManager : MonoBehaviour
     [SerializeField]
     GameObject Trash;
     [SerializeField]
-    float SpawnWaitTime;
+    GameObject Brush;
+    [SerializeField]
+    int MaxSpawnCnt;
     [SerializeField] // 레이어 마스크(체크용)
     int layerMask  = 1 << 6;
 
     private void Start()
     {
-        StartCoroutine(SpawnTrash());
+        SpawnTrash();
     }
 
     private void Update()
@@ -62,20 +64,19 @@ public class MainManager : MonoBehaviour
 
         if(hit.collider != null)
         {
+            Instantiate(Brush, hit.collider.gameObject.transform.position, Quaternion.identity);
             hit.collider.gameObject.GetComponent<Main_Trash>().OnHit();
         }
     }
 
-    IEnumerator SpawnTrash()
+    private void SpawnTrash()
     {
-        yield return null;
+        for (int i = 0; i < MaxSpawnCnt + Random.Range(-1, 1); i++)
+        {
+            float RanPosX = Random.Range(-SpawnPosX, SpawnPosX + 0.1f);
+            float RanPosY = Random.Range(-SpawnPosY, SpawnPosY + 0.1f);
 
-        float RanPosX = Random.Range(-SpawnPosX, SpawnPosX + 0.1f);
-        float RanPosY = Random.Range(-SpawnPosY, SpawnPosY + 0.1f);
-
-        GameObject TrashObj = Instantiate(Trash, new Vector2(RanPosX, RanPosY), Quaternion.identity);
-
-        yield return new WaitForSeconds(SpawnWaitTime + Random.Range(-0.5f, 0.6f));
-        StartCoroutine(SpawnTrash());
+            GameObject TrashObj = Instantiate(Trash, new Vector2(RanPosX, RanPosY), Quaternion.identity);
+        }
     }
 }
