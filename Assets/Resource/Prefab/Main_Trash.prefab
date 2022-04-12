@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1735956756278007213}
   - component: {fileID: 1735956756278007210}
   m_Layer: 6
-  m_Name: Trash
+  m_Name: Main_Trash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,4 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 0
-  HpRandomRange: 1
+  FadeSpeed: 1
+  SpawnItemType:
+  - {fileID: 2431611967952555660, guid: 0aab69bd35d9cff4bb31d6bb5f926431, type: 3}
+  - {fileID: 1103029070338593810, guid: efc0a7a373f05264cbee4446cd538298, type: 3}

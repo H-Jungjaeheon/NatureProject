@@ -531,7 +531,8 @@ MonoBehaviour:
   SpawnPosX: 7.5
   SpawnPosY: 2.75
   Trash: {fileID: 1735956756278007214, guid: f48a73181db534d459a17883884f33f2, type: 3}
-  SpawnWaitTime: 10
+  Brush: {fileID: 5457131031609257799, guid: 25a9cb6a3fd833b42a0203696de68329, type: 3}
+  MaxSpawnCnt: 2
   layerMask: 64
 --- !u!4 &1075969935
 Transform:
