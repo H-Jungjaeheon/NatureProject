@@ -27,9 +27,8 @@ public class GameManager : SingletonMono<GameManager>
         if (IsTouch == true)
         {
             Pos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Pos2.y < Pos.y && Pos2.x == Pos.x)
+            if (Pos2.y < Pos.y - 1 && Pos.x + 0.5f >= Pos2.x && Pos.x - 0.5f <= Pos2.x)
             {
-                Debug.Log("¿Ö ¾ÈµÊ");
                 IsTouch = false;
                 if (IsPass == false)
                     IsPass = true;
