@@ -59,8 +59,8 @@ public class MainManager : MonoBehaviour
     {
         Vector2 Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Ray2D ray = new Ray2D(Pos, Vector2.zero);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, layerMask);
+            Ray2D ray = new Ray2D(Pos, Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, layerMask);
 
         if(hit.collider != null)
         {
