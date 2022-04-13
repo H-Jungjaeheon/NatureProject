@@ -14,4 +14,11 @@ public class FoodItem : MainItem
         AddCount = Random.Range(2, 5);
         base.BasicSetting();
     }
+
+    protected override void DestroyObject()
+    {
+        GameManager.In.Food += AddCount;
+
+        base.DestroyObject();
+    }
 }

@@ -67,7 +67,7 @@ public abstract class MainItem : MonoBehaviour
         yield return null;                                       //코루틴 종료
     }
 
-    protected void DestroyObject()
+    protected virtual void DestroyObject()
     {
         // 효과 넣어주면 됨
 

@@ -1042,6 +1042,9 @@ MonoBehaviour:
   Brush: {fileID: 5457131031609257799, guid: 25a9cb6a3fd833b42a0203696de68329, type: 3}
   MaxSpawnCnt: 2
   layerMask: 64
+  EnergyTxt: {fileID: 0}
+  FoodTxt: {fileID: 1363510784}
+  MoneyTxt: {fileID: 1325219027}
 --- !u!4 &1075969935
 Transform:
   m_ObjectHideFlags: 0
@@ -1224,6 +1227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1331478078}
+  - component: {fileID: 1331478079}
   m_Layer: 0
   m_Name: GameMgr
   m_TagString: Untagged
@@ -1245,6 +1249,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1331478079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331478077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a469379296f0943a7a9b9353acd570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Energy: 0
+  Food: 0
+  Money: 0
 --- !u!1 &1331656935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,7 +1298,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -87.23, y: 0}
+  m_AnchoredPosition: {x: -87.23001, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1331656937
@@ -1799,7 +1818,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -66.2, y: -0.0000019073486}
+  m_AnchoredPosition: {x: -66.20001, y: 9.14}
   m_SizeDelta: {x: 140, y: 140}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1730518196

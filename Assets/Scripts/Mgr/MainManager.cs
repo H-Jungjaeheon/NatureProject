@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
 {
@@ -30,6 +31,14 @@ public class MainManager : MonoBehaviour
     [SerializeField] // 레이어 마스크(체크용)
     int layerMask  = 1 << 6;
 
+    [Header("UI_변수")]
+    [SerializeField]
+    Text EnergyTxt;
+    [SerializeField]
+    Text FoodTxt;
+    [SerializeField]
+    Text MoneyTxt;
+
     private void Start()
     {
         SpawnTrash();
@@ -37,12 +46,15 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        SettingTxt();
+
+        if (Input.GetMouseButtonDown(0))
         {
             MouseClick();
         }
     }
 
+    #region 쓰레기 치우기
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -78,5 +90,12 @@ public class MainManager : MonoBehaviour
 
             GameObject TrashObj = Instantiate(Trash, new Vector2(RanPosX, RanPosY), Quaternion.identity);
         }
+    }
+    #endregion
+
+    private void SettingTxt()
+    {
+        FoodTxt.text = $"{GameManager.In.Food.ToString("N0")}개";
+        MoneyTxt.text = $"{GameManager.In.Money.ToString("N0")}원";
     }
 }
