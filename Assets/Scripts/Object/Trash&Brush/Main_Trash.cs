@@ -44,6 +44,7 @@ public class Main_Trash : MonoBehaviour
 
     void DestroyObject()
     {
+        ItemSpawn();
         Destroy(this.gameObject);
     }
 
@@ -57,7 +58,6 @@ public class Main_Trash : MonoBehaviour
     IEnumerator FadeOut(SpriteRenderer Image)
     {
         Color color = Image.color;                            //color 에 판넬 이미지 참조
-        ItemSpawn();
 
         while (true)
         {
