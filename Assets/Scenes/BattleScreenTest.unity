@@ -527,7 +527,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 157040579}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1972201213}
+        m_TargetAssemblyTypeName: BattleSceneManager, Assembly-CSharp
+        m_MethodName: UpGradeMoney
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &157040579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,11 +1223,11 @@ RectTransform:
   m_Father: {fileID: 360351791}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 120, y: 120}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &854368893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,11 +1617,11 @@ RectTransform:
   m_Father: {fileID: 360351791}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -250, y: -31}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -85}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1178651078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1637,7 +1649,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 82
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -3149,7 +3161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 175, y: 17}
+  m_AnchoredPosition: {x: 150, y: 40}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1824385625
@@ -3595,7 +3607,7 @@ GameObject:
   - component: {fileID: 1972201214}
   - component: {fileID: 1972201213}
   m_Layer: 0
-  m_Name: BattleSceneManager
+  m_Name: BattleSceneManagerObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3614,17 +3626,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPass: 0
-  PlayerHp: 0
-  MaxPlayerHp: 0
-  EnemyHp: 0
-  MaxEnemyHp: 0
+  PlayerHp: 100
+  MaxPlayerHp: 100
+  EnemyHp: 100
+  MaxEnemyHp: 100
   Money: 0
-  MaxMoney: 0
-  FireCoolTime: 0
-  MoneyText: {fileID: 0}
-  UpgradeMoneyText: {fileID: 0}
-  UpgradeNeedMoneyText: {fileID: 0}
-  StageText: {fileID: 0}
+  MaxMoney: 100
+  FireCoolTime: 100
+  MaxFireCoolTime: 0
+  MoneyLevel: 1
+  MaxMoneyLevel: 8
+  UpgradeNeedMoney: 40
+  MoneyText: {fileID: 1178651078}
+  MoneyLevelText: {fileID: 487225981}
+  UpgradeNeedMoneyText: {fileID: 125352640}
+  StageText: {fileID: 1824385625}
+  PlayerHpBar: {fileID: 1057796956}
+  EnemyHpBar: {fileID: 1616064051}
+  FireCoolTimeImage: {fileID: 1206585255}
   Pos: {x: 0, y: 0}
   Pos2: {x: 0, y: 0}
   IsTouch: 0
@@ -3804,7 +3823,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2062944243}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1972201213}
+        m_TargetAssemblyTypeName: BattleSceneManager, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2062944243
 MonoBehaviour:
   m_ObjectHideFlags: 0
