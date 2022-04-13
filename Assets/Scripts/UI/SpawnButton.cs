@@ -15,7 +15,7 @@ public class SpawnButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.In.IsPass == true)
+        if(BattleSceneManager.In.IsPass == true)
         {
             for (int a = 0; a < 5; a++)
             {
