@@ -7,13 +7,15 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
 {
     public bool IsPass; //소환 버튼 넘김
     public float PlayerHp, MaxPlayerHp, EnemyHp, MaxEnemyHp, Money, MaxMoney, FireCoolTime,
-    MaxFireCoolTime, MoneyLevel, MaxMoneyLevel, UpgradeNeedMoney;
-    public Text MoneyText, MoneyLevelText, UpgradeNeedMoneyText, StageText;
+    MaxFireCoolTime, MoneyLevel, MaxMoneyLevel, UpgradeNeedMoney, Timer;
+    public int Min = 0, ST = 0;
+    public Text MoneyText, MoneyLevelText, UpgradeNeedMoneyText, StageText, TimeText;
     public Image PlayerHpBar, EnemyHpBar, FireCoolTimeImage;
     [SerializeField] private Vector2 Pos, Pos2;
     [SerializeField] private bool IsTouch;
     private void Start()
     {
+        Timer = 0;
         Money = 0;
         MaxMoney = 100;
         FireCoolTime = 100;
@@ -34,6 +36,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     void BattleAmounts()
     {
         Money += Time.deltaTime * (2 + MoneyLevel); //나중에 10에다가 돈 업그레이드 레벨 or 레벨당 수치만큼 더해주기
+        Timer += Time.deltaTime;
         FireCoolTime -= Time.deltaTime * (5); //나중에 5에다가 쿨타임 업그레이드 레벨 or 레벨당 수치만큼 더해주기
         if(Money >= MaxMoney)       
             Money = MaxMoney;
@@ -42,7 +45,18 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     void BattleUI()
     {
-        MoneyText.text = $"{Money:N0} / {MaxMoney}";
+        if (Timer > 1)
+        {
+            Timer = 0;
+            ST++;
+        }
+        if(ST > 59)
+        {
+            Min++;
+            ST = 0;
+        }
+        MoneyText.text = $"{Money:N0} / {MaxMoney} 원";
+        TimeText.text = string.Format($"{Min:D2} : {ST:D2}");
         //StageText.text = ""; 나중에 스테이지 정보마다 바꾸기
         MoneyLevelText.text = $"Level.{MoneyLevel:N0}";
         PlayerHpBar.fillAmount = PlayerHp / MaxPlayerHp;
