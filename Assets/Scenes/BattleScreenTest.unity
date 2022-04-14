@@ -447,7 +447,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 115765708}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1972201213}
+        m_TargetAssemblyTypeName: BattleSceneManager, Assembly-CSharp
+        m_MethodName: ExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &115765708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1076,7 +1088,7 @@ RectTransform:
   - {fileID: 870280897}
   - {fileID: 1891261284}
   - {fileID: 812479840}
-  - {fileID: 647178145}
+  - {fileID: 541470754}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1351,6 +1363,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487225979}
   m_CullTransparentMesh: 1
+--- !u!1 &541470753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 541470754}
+  m_Layer: 5
+  m_Name: StopUIObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &541470754
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541470753}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 647178145}
+  m_Father: {fileID: 360351791}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &647178144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,13 +1424,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647178144}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1063721003}
-  m_Father: {fileID: 360351791}
-  m_RootOrder: 11
+  m_Father: {fileID: 541470754}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1821,7 +1869,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 854368894}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1972201213}
+        m_TargetAssemblyTypeName: BattleSceneManager, Assembly-CSharp
+        m_MethodName: GameStopButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &854368894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4814,6 +4874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPass: 0
+  IsStop: 0
   PlayerHp: 100
   MaxPlayerHp: 100
   EnemyHp: 100
@@ -4839,6 +4900,7 @@ MonoBehaviour:
   Pos: {x: 0, y: 0}
   Pos2: {x: 0, y: 0}
   IsTouch: 0
+  StopObj: {fileID: 541470753}
 --- !u!4 &1972201214
 Transform:
   m_ObjectHideFlags: 0
