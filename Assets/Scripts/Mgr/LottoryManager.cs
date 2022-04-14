@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class LottoryManager : MonoBehaviour
 {
+    #region 알슬라이드
     [Header("알슬라이드_변수")]
     [SerializeField]
     GameObject EggZip;
@@ -24,7 +25,8 @@ public class LottoryManager : MonoBehaviour
     Vector2 BeginPos1, EndPos2;
     [SerializeField]
     bool OnSlide = false;
-
+    #endregion
+    #region ui
     [Header("UI_변수")]
     [SerializeField]
     Text EnergyTxt;
@@ -34,7 +36,8 @@ public class LottoryManager : MonoBehaviour
     Text MoneyTxt;
     [SerializeField]
     Text BuyMoneyTxt;
-
+    #endregion
+    #region Egg뽑기
     [Header("Egg뽑기_변수")]
     [SerializeField]
     private int LottoryCost;
@@ -42,12 +45,40 @@ public class LottoryManager : MonoBehaviour
     GameObject FadeImg;
     [SerializeField]
     float FadeSpeed;
+    #endregion
+    #region Egg뽑기확률
+    [Header("Egg뽑기확률_변수")]
+    [SerializeField]
+    float MaxPersent;
 
+    [SerializeField]
+    LottoryPersent SelectLottoryType;
+    #endregion
+    #region Egg뽑기ui
+    [Header("Egg뽑기UI_변수")]
+    [SerializeField]
+    GameObject Info_Pan;
+    [SerializeField]
+    RawImage Info_Img;
+    [SerializeField]
+    Text Info_Name;
+    [SerializeField]
+    Text Info_Cost;
+    [SerializeField]
+    GameObject Info_Fade;
+    [SerializeField]
+    bool OnInfo = false;
+
+    #endregion
+
+    #region Shake함수
     [Header("Shake함수_변수")]
     [SerializeField]
     Vector3 OrizinPos;
     [SerializeField]
     float BasicShakePower;
+    [SerializeField]
+    float CurShakePower;
     [SerializeField]
     float MinusShakePower;
     [SerializeField]
@@ -58,6 +89,7 @@ public class LottoryManager : MonoBehaviour
     float ShakeDuration;
     [SerializeField]
     bool isShake = false;
+    #endregion
 
     private void Start()
     {
@@ -132,6 +164,7 @@ public class LottoryManager : MonoBehaviour
             if (data.NextPos == 0)
             {
                 MainEgg = data.EggType;
+                LottorySetting();
                 LottoryCost = data.EggType.GetComponent<Egg>().BuyMoney;
             }
         }
@@ -140,6 +173,7 @@ public class LottoryManager : MonoBehaviour
     private void SettingEggPos()
     {
         int Idx = 0;
+        CurShakePower = BasicShakePower;
 
         foreach (Transform Tr in EggZip.transform)
         {
@@ -150,6 +184,7 @@ public class LottoryManager : MonoBehaviour
             if (Idx == 0)
             {
                 MainEgg = eggData.EggType;
+                LottorySetting();
                 LottoryCost = eggData.EggType.GetComponent<Egg>().BuyMoney;
             }
 
@@ -195,6 +230,35 @@ public class LottoryManager : MonoBehaviour
             GameManager.In.Money -= LottoryCost;
             isShake = true;
             StartCoroutine(Shake());
+            StartLottory();
+        }
+    }
+
+    public void LottorySetting()
+    {
+        MaxPersent = 0;
+
+        foreach(LottoryPersent Persents in MainEgg.GetComponent<Egg>().lottoryPersents)
+        {
+            MaxPersent += Persents.Persent;
+        }
+    }
+
+    public void StartLottory()
+    {
+        int RanPersent = (int)UnityEngine.Random.Range(0, MaxPersent + 1);
+        //int RanPersent = 100; //테스트 용
+
+        foreach (LottoryPersent Persents in MainEgg.GetComponent<Egg>().lottoryPersents)
+        {
+            RanPersent -= Persents.Persent;
+
+            if(RanPersent <= 0)
+            {
+                SelectLottoryType = Persents;
+                Debug.Log(Persents.Name);
+                break;
+            }
         }
     }
 
@@ -217,22 +281,20 @@ public class LottoryManager : MonoBehaviour
             }
 
             yield return null;
-            MainEgg.transform.GetChild(0).transform.DORotate(OrizinPos + new Vector3(0, 0, MoveMaximum), BasicShakePower);
+            MainEgg.transform.GetChild(0).transform.DORotate(OrizinPos + new Vector3(0, 0, MoveMaximum), CurShakePower);
 
             Timer += Time.deltaTime;
 
-            if (BasicShakePower >= MaximumShakePower)
+            if (CurShakePower >= MaximumShakePower)
             {
                 if (ShakeDuration / 2 >= Timer)
                 {
-                    Debug.Log(MinusShakePower);
-                    BasicShakePower -= Time.deltaTime * MinusShakePower;
+                    CurShakePower -= Time.deltaTime * MinusShakePower;
                 }
 
                 else if (ShakeDuration / 2 < Timer)
                 {
-                    Debug.Log(MinusShakePower * 2);
-                    BasicShakePower -= Time.deltaTime * (MinusShakePower * 2);
+                    CurShakePower -= Time.deltaTime * (MinusShakePower * 2);
                 }
             }
         }
@@ -240,8 +302,92 @@ public class LottoryManager : MonoBehaviour
         FadeImg.SetActive(true);
         StartCoroutine(FadeInOut(FadeImg.GetComponent<RawImage>()));
 
-        isShake = false;
+        CurShakePower = BasicShakePower;
         Debug.Log("End");
+    }
+
+    public void StartOnInfo()
+    {
+        StartCoroutine(OnInfoPan());
+    }
+
+    public IEnumerator OnInfoPan()
+    {
+        yield return null;
+
+        if (OnInfo == false)
+        {
+            OnInfo = true;
+            //Info_Img.texture = SelectLottoryType.UnitImg; //리소스 들어오면 입력
+            Info_Name.text = SelectLottoryType.Name;
+            //Info_Cost.text = $"{SelectLottoryType.SpawnCost}원"; //리소스 들어오면 입력
+
+            Info_Fade.SetActive(true);
+
+            Color color = Info_Fade.GetComponent<RawImage>().color;
+            //color 에 판넬 이미지 참조
+
+            while (true)
+            {
+                yield return null;
+                color.a += Time.deltaTime * FadeSpeed;               //이미지 알파 값을 타임 델타 값 * 0.
+                Info_Fade.GetComponent<RawImage>().color = color;                                //판넬 이미지 컬러에 바뀐 알파값 참조
+
+                if (Info_Fade.GetComponent<RawImage>().color.a >= 0.5f)                        //만약 판넬 이미지 알파 값이 0보다 작으면
+                {
+                    break;
+                }
+            }
+
+            Info_Pan.SetActive(true);
+
+            while (true)
+            {
+                Debug.Log("qwe");
+                yield return null;
+                Info_Pan.transform.DOScale(Vector2.one, FadeSpeed);
+
+                if (Info_Pan.transform.localScale.x >= 0.99f)                        //만약 판넬 이미지 알파 값이 0보다 작으면
+                {
+                    break;
+                }
+            }
+        }
+
+        else if (OnInfo == true)
+        {
+            OnInfo = false;
+            Color color = Info_Fade.GetComponent<RawImage>().color;
+
+            while (true)
+            {
+                Debug.Log("ui");
+                yield return null;
+                Info_Pan.transform.DOScale(new Vector2(0,0), FadeSpeed);
+
+                if (Info_Pan.transform.localScale.x <= 0.02f)                        //만약 판넬 이미지 알파 값이 0보다 작으면
+                {
+                    break;
+                }
+            }
+
+            Info_Pan.SetActive(false);
+
+            while (true)
+            {
+                yield return null;
+                color.a -= Time.deltaTime * FadeSpeed;               //이미지 알파 값을 타임 델타 값 * 0.
+                Info_Fade.GetComponent<RawImage>().color = color;                                //판넬 이미지 컬러에 바뀐 알파값 참조
+
+                if (Info_Fade.GetComponent<RawImage>().color.a <= 0.0f)                        //만약 판넬 이미지 알파 값이 0보다 작으면
+                {
+                    break;
+                }
+            }
+            Info_Fade.SetActive(false);
+
+            isShake = false;
+        }
     }
 
     IEnumerator FadeInOut(RawImage FadeImg)
@@ -277,6 +423,7 @@ public class LottoryManager : MonoBehaviour
         }
 
         FadeImg.gameObject.SetActive(false);
+        StartOnInfo();
 
         yield return null;                                        //코루틴 종료
     }

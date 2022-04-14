@@ -7,6 +7,5 @@ public abstract class Egg : MonoBehaviour
     [Header("Egg상속_변수")]
     public int BuyMoney;
 
-    [SerializeField]
-    List<LottoryPersent> lottoryPersents;
+    public List<LottoryPersent> lottoryPersents;
 }
