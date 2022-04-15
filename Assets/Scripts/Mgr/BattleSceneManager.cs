@@ -25,6 +25,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     private void Start()
     {
         IsStart = true;
+        IsStop = true;
         Timer = 0;
         Money = 0;
         MaxMoney = 100;
@@ -38,6 +39,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     {
         yield return new WaitForSeconds(3);
         IsStart = false;
+        IsStop = false;
         yield return null;
     }
     private void Update()
@@ -45,16 +47,14 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
         DragInput();
         BattleUI();
         BattleAmounts();
-        Starts();
     }
     void Starts()
     {
+        float CastleX = Castle.transform.position.x;
         if(IsStart == true)
-        {
-            if(Castle.transform.position.z > -5)
-            {
-                WeelRt += Time.deltaTime * 250;
-            }         
+        {           
+            if(CastleX < -5)
+                WeelRt += Time.deltaTime * 250; 
             Castle.transform.position = Vector3.MoveTowards(Castle.transform.position, new Vector3(-5, 0.3f, 0), Time.deltaTime * 3f);
             Weel.transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
             Weel2.transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
@@ -62,7 +62,8 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     private void FixedUpdate()
     {
-        SpawnButtonMove();       
+        SpawnButtonMove();
+        Starts();
     }
     void BattleAmounts()
     {
