@@ -7,9 +7,9 @@ using DG.Tweening;
 public class BattleSceneManager : SingletonMono<BattleSceneManager>
 {
     [Header("전투씬 관련 변수들")]
-    public bool IsPass, IsStop; //소환 버튼 넘김
+    public bool IsPass, IsStop, IsStart; //소환 버튼 넘김
     public float PlayerHp, MaxPlayerHp, EnemyHp, MaxEnemyHp, Money, MaxMoney, FireCoolTime,
-    MaxFireCoolTime, MoneyLevel, MaxMoneyLevel, UpgradeNeedMoney, Timer;
+    MaxFireCoolTime, MoneyLevel, MaxMoneyLevel, UpgradeNeedMoney, Timer, WeelRt;
     [Header("전투씬 시간 초 변수")]
     public int Min = 0, ST = 0;
     [Header("전투씬 텍스트 UI")]
@@ -19,11 +19,12 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     [Header("전투씬 커서(터치) 변수")]
     [SerializeField] private Vector2 Pos, Pos2;
     [SerializeField] private bool IsTouch;
-    [Header("일시 정지 오브젝트")]
-    [SerializeField] private GameObject StopObj;
+    [Header("전투씬 관련 오브젝트")]
+    [SerializeField] private GameObject StopObj, Castle, Weel, Weel2;
 
     private void Start()
     {
+        IsStart = true;
         Timer = 0;
         Money = 0;
         MaxMoney = 100;
@@ -31,12 +32,33 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
         MoneyLevel = 1;
         MaxFireCoolTime = 100;
         UpgradeNeedMoney = 40; //돈 차는 속도 or 돈 총량 레벨 비례 올리기
+        StartCoroutine(StartCastle());
+    }
+    IEnumerator StartCastle()
+    {
+        yield return new WaitForSeconds(3);
+        IsStart = false;
+        yield return null;
     }
     private void Update()
     {
         DragInput();
         BattleUI();
         BattleAmounts();
+        Starts();
+    }
+    void Starts()
+    {
+        if(IsStart == true)
+        {
+            if(Castle.transform.position.z > -5)
+            {
+                WeelRt += Time.deltaTime * 250;
+            }         
+            Castle.transform.position = Vector3.MoveTowards(Castle.transform.position, new Vector3(-5, 0.3f, 0), Time.deltaTime * 3f);
+            Weel.transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
+            Weel2.transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
+        }
     }
     private void FixedUpdate()
     {
@@ -141,7 +163,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
         if(IsStop == false)
         {
             IsStop = true;
-            StopObj.transform.DOScale(1, 1.5f).SetEase(Ease.OutBack);
+            StopObj.transform.DOScale(1, 0.8f).SetEase(Ease.OutBack);
         }
     }
     public void ExitButton()
