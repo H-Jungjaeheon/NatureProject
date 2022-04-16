@@ -7,20 +7,21 @@ using DG.Tweening;
 public class BattleSceneManager : SingletonMono<BattleSceneManager>
 {
     [Header("전투씬 관련 변수들")]
-    public bool IsPass, IsStop, IsStart; //소환 버튼 넘김
+    public bool IsPass, IsStop; //소환 버튼 넘김
     public float PlayerHp, MaxPlayerHp, EnemyHp, MaxEnemyHp, Money, MaxMoney, FireCoolTime,
-    MaxFireCoolTime, MoneyLevel, MaxMoneyLevel, UpgradeNeedMoney, Timer, WeelRt;
+    MaxFireCoolTime, MoneyLevel, MaxMoneyLevel, UpgradeNeedMoney, Timer;
+    private float WeelRt, DoorRt;
+    [SerializeField] private Vector2 Pos, Pos2;
+    [SerializeField] private bool IsTouch, IsStart, IsStart2;
     [Header("전투씬 시간 초 변수")]
     public int Min = 0, ST = 0;
     [Header("전투씬 텍스트 UI")]
     public Text MoneyText, MoneyLevelText, UpgradeNeedMoneyText, StageText, TimeText;
     [Header("전투씬 이미지 UI")]
     public Image PlayerHpBar, EnemyHpBar, FireCoolTimeImage;
-    [Header("전투씬 커서(터치) 변수")]
-    [SerializeField] private Vector2 Pos, Pos2;
-    [SerializeField] private bool IsTouch;
     [Header("전투씬 관련 오브젝트")]
-    [SerializeField] private GameObject StopObj, Castle, Weel, Weel2;
+    [SerializeField] private GameObject StopObj, Castle, CastleBody, CastleDoor;
+    [SerializeField] private GameObject[] Weel;
 
     private void Start()
     {
@@ -37,9 +38,48 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     IEnumerator StartCastle()
     {
-        yield return new WaitForSeconds(3);
+        StartCoroutine(StartCastle2());
+        yield return new WaitForSeconds(4);
         IsStart = false;
+        IsStart2 = true;
+        StartCoroutine(StartCastle3());
+        yield return new WaitForSeconds(3);
+        IsStart2 = false;
         IsStop = false;
+        yield return null;
+    }
+    IEnumerator StartCastle2()
+    {
+        while (IsStart == true)
+        {
+            if (CastleBody.transform.position.y == 0.27f)
+            {
+                CastleBody.transform.position = new Vector2(CastleBody.transform.position.x, 0.23f);
+                yield return new WaitForSeconds(0.09f);
+            }
+            else if (CastleBody.transform.position.y == 0.23f)
+            {
+                CastleBody.transform.position = new Vector2(CastleBody.transform.position.x, 0.27f);
+                yield return new WaitForSeconds(0.09f);
+            }
+            else
+            {
+                CastleBody.transform.position = new Vector2(CastleBody.transform.position.x, 0.27f);
+                yield return new WaitForSeconds(0.09f);
+            }
+        }
+        CastleBody.transform.position = new Vector2(CastleBody.transform.position.x, 0.3f);
+        yield return null;
+    }
+    IEnumerator StartCastle3()
+    {
+        while (IsStart2 == true)
+        {
+            if(DoorRt < 70)
+                DoorRt += 1;           
+            CastleDoor.transform.rotation = Quaternion.Euler(0, 0, DoorRt);
+            yield return new WaitForSeconds(0.03f);
+        }
         yield return null;
     }
     private void Update()
@@ -56,8 +96,12 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
             if(CastleX < -5)
                 WeelRt += Time.deltaTime * 250; 
             Castle.transform.position = Vector3.MoveTowards(Castle.transform.position, new Vector3(-5, 0.3f, 0), Time.deltaTime * 3f);
-            Weel.transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
-            Weel2.transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
+            for(int a = 0; a< 2; a++)
+                Weel[a].transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
+        }
+        if(IsStart2 == true)
+        {
+            CastleDoor.transform.position = Vector3.MoveTowards(CastleDoor.transform.position, new Vector3(-1.4f, 2f, 0), Time.deltaTime * 0.5f);
         }
     }
     private void FixedUpdate()
