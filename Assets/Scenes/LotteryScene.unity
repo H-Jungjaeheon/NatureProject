@@ -202,88 +202,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18636037}
   m_CullTransparentMesh: 1
---- !u!1 &63996991
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 63996993}
-  - component: {fileID: 63996992}
-  m_Layer: 0
-  m_Name: LottoryType
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &63996992
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63996991}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 21
-  m_Sprite: {fileID: 21300000, guid: 4725e2979ea476d42b7ad7f0b34cd416, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &63996993
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63996991}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 877680914}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &183161414
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,106 +323,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183161414}
   m_CullTransparentMesh: 1
---- !u!1 &185635654
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 185635655}
-  - component: {fileID: 185635658}
-  - component: {fileID: 185635657}
-  - component: {fileID: 185635656}
-  m_Layer: 0
-  m_Name: Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &185635655
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185635654}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 1086688309}
-  m_Father: {fileID: 877680914}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!114 &185635656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185635654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &185635657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185635654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &185635658
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185635654}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 1
-  m_Camera: {fileID: 776369620}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 20
-  m_TargetDisplay: 0
 --- !u!1 &267639407
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,33 +423,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuyMoney: 50000
   lottoryPersents:
-  - UnitImg: {fileID: 21300000, guid: a7f2e0ba1657e8f4a90f7b9d6e182459, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 0d5e1b4c01533f847b1f8dd0685ca424, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 30
     Name: "\uBB3C\uAC78\uB808 \uBE44\uB458\uAE30"
     SpawnCost: 420
-  - UnitImg: {fileID: 21300000, guid: 9fa22bdf82d0f7a4889fdf611ed608fc, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 79ba37e810de3cb43930c6f8e79c653d, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 20
     Name: "\uC804\uB3D9 \uBE44\uB458\uAE30"
     SpawnCost: 600
-  - UnitImg: {fileID: 21300000, guid: 169841fc4ba84c0429f941b0f84efab5, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 3a42e67e00b1bfd459a3db7b3e6681ea, type: 3}
     ImgScale: 1
+    ImgPosition: -48
     Persent: 20
     Name: "\uC790\uB3D9 \uC4F0\uB808\uBC1B\uAE30 \uBE44\uB458\uAE30"
     SpawnCost: 800
-  - UnitImg: {fileID: 21300000, guid: e98143530eade524ab5e9cf4125389bb, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 7a877ddcf7d87674e83c8312789e89c6, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 15
     Name: "\uD0DC\uC591\uC5F4 \uBE44\uB458\uAE30"
     SpawnCost: 1000
-  - UnitImg: {fileID: 21300000, guid: 4725e2979ea476d42b7ad7f0b34cd416, type: 3}
+  - UnitImg: {fileID: 2800000, guid: cc764b39f1e01e14cb30fcc87f0b400e, type: 3}
     ImgScale: 1
+    ImgPosition: -48
     Persent: 10
     Name: "\uCCAD\uC18C\uCC28 \uBE44\uB458\uAE30"
     SpawnCost: 1100
-  - UnitImg: {fileID: 21300000, guid: 62d7fbfe092553947a19a2671f78da6b, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 3ef824d8bb5a721459563f2f06c0db6e, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 5
     Name: "\uC9C4\uACF5 \uCCAD\uC18C\uAE30 \uBE44\uB458\uAE30"
     SpawnCost: 2000
@@ -1233,7 +1057,7 @@ Transform:
   - {fileID: 931269054}
   - {fileID: 267639408}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &657507525
 GameObject:
@@ -1409,6 +1233,7 @@ RectTransform:
   - {fileID: 2028431454}
   - {fileID: 1379483136}
   - {fileID: 1605172690}
+  - {fileID: 1086688309}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1754,38 +1579,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865873244}
   m_CullTransparentMesh: 1
---- !u!1 &877680913
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 877680914}
-  m_Layer: 0
-  m_Name: LottoryPanel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &877680914
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877680913}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06573395, y: -0.33255875, z: 107.74527}
-  m_LocalScale: {x: 1, y: 1, z: 0}
-  m_Children:
-  - {fileID: 63996993}
-  - {fileID: 185635655}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931269053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1886,33 +1679,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuyMoney: 30000
   lottoryPersents:
-  - UnitImg: {fileID: 21300000, guid: 6db42570f884c1647b417024b44c166c, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 30831516c33fa594f85d9ed52ea84cb6, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 30
     Name: "\uC18C\uB3C5\uC81C \uBE44\uB458\uAE30"
     SpawnCost: 300
-  - UnitImg: {fileID: 21300000, guid: 7adc0dc485ef43947990a772f6f6e6a2, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 257c43ba0f408364ba4be7c5976e662f, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 20
     Name: "\uB85C\uBD07 \uCCAD\uC18C\uAE30 \uBE44\uB458\uAE30"
     SpawnCost: 300
-  - UnitImg: {fileID: 21300000, guid: 84b178651f7c76e4e939b41c887e623f, type: 3}
+  - UnitImg: {fileID: 2800000, guid: a5f039a4f4ca12f44aaacf50fb74fec5, type: 3}
     ImgScale: 1
+    ImgPosition: -48
     Persent: 20
     Name: "\uBB3C\uB300\uD3EC \uBE44\uB458\uAE30"
     SpawnCost: 400
-  - UnitImg: {fileID: 21300000, guid: a7f2e0ba1657e8f4a90f7b9d6e182459, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 0d5e1b4c01533f847b1f8dd0685ca424, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 15
     Name: "\uBB3C\uAC78\uB808 \uBE44\uB458\uAE30"
     SpawnCost: 420
-  - UnitImg: {fileID: 21300000, guid: 9fa22bdf82d0f7a4889fdf611ed608fc, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 79ba37e810de3cb43930c6f8e79c653d, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 10
     Name: "\uC804\uB3D9 \uBE44\uB458\uAE30"
     SpawnCost: 600
-  - UnitImg: {fileID: 21300000, guid: 169841fc4ba84c0429f941b0f84efab5, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 3a42e67e00b1bfd459a3db7b3e6681ea, type: 3}
     ImgScale: 1
+    ImgPosition: -48
     Persent: 5
     Name: "\uC790\uB3D9 \uC4F0\uB808\uBC1B\uAE30 \uBE44\uB458\uAE30"
     SpawnCost: 800
@@ -2099,11 +1898,12 @@ MonoBehaviour:
   SelectLottoryType:
     UnitImg: {fileID: 0}
     ImgScale: 0
+    ImgPosition: 0
     Persent: 0
     Name: 
     SpawnCost: 0
-  Info_Pan: {fileID: 877680913}
-  Info_Img: {fileID: 63996992}
+  Info_Pan: {fileID: 1819694839}
+  Info_Img: {fileID: 1490255163}
   Info_Name: {fileID: 2057117527}
   Info_Cost: {fileID: 2123094019}
   Info_Fade: {fileID: 1379483135}
@@ -2128,7 +1928,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1086688308
 GameObject:
@@ -2154,16 +1954,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086688308}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1916.4891}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 1819694840}
-  m_Father: {fileID: 185635655}
-  m_RootOrder: 0
+  m_Father: {fileID: 663590798}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -7.099266, y: -35.916344}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1097978746
@@ -2435,7 +2235,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1331478079
 MonoBehaviour:
@@ -2449,6 +2249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a469379296f0943a7a9b9353acd570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxEnergy: 0
   Energy: 0
   Food: 0
   Money: 0
@@ -3112,8 +2913,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -48}
-  m_SizeDelta: {x: 181, y: 232}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 522, y: 379}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1490255163
 MonoBehaviour:
@@ -3135,7 +2936,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 7a877ddcf7d87674e83c8312789e89c6, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3697,7 +3498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1819694840
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3707,7 +3508,7 @@ RectTransform:
   m_GameObject: {fileID: 1819694839}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1490255162}
   - {fileID: 2057117526}
@@ -3856,33 +3657,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuyMoney: 15000
   lottoryPersents:
-  - UnitImg: {fileID: 21300000, guid: 6260c2de9b2452f499dc0e9b24186743, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 91f6b01d34c564c4ca9c3cec03e48b03, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 40
     Name: "\uBE57\uC790\uB8E8 \uBE44\uB458\uAE30"
     SpawnCost: 50
-  - UnitImg: {fileID: 21300000, guid: d029cc8b07058ee4584e67b46bafe93b, type: 3}
+  - UnitImg: {fileID: 2800000, guid: d0fc15efc6cfcc241bca1c6624e65032, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 20
     Name: "\uCCAD\uC18C\uAE30 \uBE44\uB458\uAE30"
     SpawnCost: 100
-  - UnitImg: {fileID: 21300000, guid: edef2fb5a01eb284db9cd7df846b0c18, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 43eed73031b3bf240a53c43f3303ba09, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 20
     Name: "\uC2A4\uCF00\uC774\uD2B8 \uBE44\uB458\uAE30"
     SpawnCost: 200
-  - UnitImg: {fileID: 21300000, guid: 6db42570f884c1647b417024b44c166c, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 30831516c33fa594f85d9ed52ea84cb6, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 10
     Name: "\uC18C\uB3C5\uC81C \uBE44\uB458\uAE30"
     SpawnCost: 300
-  - UnitImg: {fileID: 21300000, guid: 7adc0dc485ef43947990a772f6f6e6a2, type: 3}
+  - UnitImg: {fileID: 2800000, guid: 257c43ba0f408364ba4be7c5976e662f, type: 3}
     ImgScale: 1.6
+    ImgPosition: 80
     Persent: 5
     Name: "\uB85C\uBD07 \uCCAD\uC18C\uAE30 \uBE44\uB458\uAE30"
     SpawnCost: 300
-  - UnitImg: {fileID: 21300000, guid: 84b178651f7c76e4e939b41c887e623f, type: 3}
+  - UnitImg: {fileID: 2800000, guid: a5f039a4f4ca12f44aaacf50fb74fec5, type: 3}
     ImgScale: 1
+    ImgPosition: -48
     Persent: 5
     Name: "\uBB3C\uB300\uD3EC \uBE44\uB458\uAE30"
     SpawnCost: 400

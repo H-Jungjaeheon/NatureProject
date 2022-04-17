@@ -59,7 +59,7 @@ public class LottoryManager : MonoBehaviour
     [SerializeField]
     GameObject Info_Pan;
     [SerializeField]
-    SpriteRenderer Info_Img;
+    RawImage Info_Img;
     [SerializeField]
     Text Info_Name;
     [SerializeField]
@@ -318,8 +318,10 @@ public class LottoryManager : MonoBehaviour
         if (OnInfo == false)
         {
             OnInfo = true;
-            Info_Img.sprite = SelectLottoryType.UnitImg; //리소스 들어오면 입력
-            Info_Img.transform.localScale = new Vector2(SelectLottoryType.ImgScale, SelectLottoryType.ImgScale); //리소스 들어오면 입력
+            Info_Img.texture = SelectLottoryType.UnitImg; //리소스 들어오면 입력
+            Info_Img.transform.localScale = new Vector2(SelectLottoryType.ImgScale, SelectLottoryType.ImgScale);
+            Info_Img.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, SelectLottoryType.ImgPosition);
+
             Info_Name.text = SelectLottoryType.Name;
             Info_Cost.text = $"{SelectLottoryType.SpawnCost}원"; //리소스 들어오면 입력
 
