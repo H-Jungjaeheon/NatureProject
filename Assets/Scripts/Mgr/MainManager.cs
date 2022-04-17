@@ -95,6 +95,7 @@ public class MainManager : MonoBehaviour
 
     private void SettingTxt()
     {
+        EnergyTxt.text = $"{GameManager.In.Energy}/{GameManager.In.MaxEnergy}";
         FoodTxt.text = $"{GameManager.In.Food.ToString("N0")}°³";
         MoneyTxt.text = $"{GameManager.In.Money.ToString("N0")}¿ø";
     }
