@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class BattleSceneManager : SingletonMono<BattleSceneManager>
 {
+    #region 전투씬 관련 변수 모음
     [Header("전투씬 관련 변수들")]
     public bool IsPass, IsStop; //소환 버튼 넘김
     public float PlayerHp, MaxPlayerHp, EnemyHp, MaxEnemyHp, Money, MaxMoney, FireCoolTime,
@@ -15,15 +16,25 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     [SerializeField] private bool IsTouch, IsStart, IsStart2;
     [Header("전투씬 시간 초 변수")]
     public int Min = 0, ST = 0;
+    #endregion 
+    #region 전투씬 UI 모음
     [Header("전투씬 텍스트 UI")]
     public Text MoneyText, MoneyLevelText, UpgradeNeedMoneyText, StageText, TimeText;
     [Header("전투씬 이미지 UI")]
     public Image PlayerHpBar, EnemyHpBar, FireCoolTimeImage;
+    #endregion
+    #region 전투씬 오브젝트 모음
     [Header("전투씬 관련 오브젝트")]
     [SerializeField] private GameObject StopObj, Castle, CastleBody, CastleDoor;
     [SerializeField] private GameObject[] Weel;
+    #endregion
 
     private void Start()
+    {
+        StartSetting();
+    }
+    #region 전투 시작 세팅 및 애니메이션
+    void StartSetting()
     {
         IsStart = true;
         IsStop = true;
@@ -82,27 +93,28 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
         }
         yield return null;
     }
+    void Starts()
+    {
+        float CastleX = Castle.transform.position.x;
+        if (IsStart == true)
+        {
+            if (CastleX < -5)
+                WeelRt += Time.deltaTime * 250;
+            Castle.transform.position = Vector3.MoveTowards(Castle.transform.position, new Vector3(-5, 0.3f, 0), Time.deltaTime * 3f);
+            for (int a = 0; a < 2; a++)
+                Weel[a].transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
+        }
+        if (IsStart2 == true)
+        {
+            CastleDoor.transform.position = Vector3.MoveTowards(CastleDoor.transform.position, new Vector3(-1.4f, 2f, 0), Time.deltaTime * 0.5f);
+        }
+    }
+    #endregion
     private void Update()
     {
         DragInput();
         BattleUI();
         BattleAmounts();
-    }
-    void Starts()
-    {
-        float CastleX = Castle.transform.position.x;
-        if(IsStart == true)
-        {           
-            if(CastleX < -5)
-                WeelRt += Time.deltaTime * 250; 
-            Castle.transform.position = Vector3.MoveTowards(Castle.transform.position, new Vector3(-5, 0.3f, 0), Time.deltaTime * 3f);
-            for(int a = 0; a< 2; a++)
-                Weel[a].transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
-        }
-        if(IsStart2 == true)
-        {
-            CastleDoor.transform.position = Vector3.MoveTowards(CastleDoor.transform.position, new Vector3(-1.4f, 2f, 0), Time.deltaTime * 0.5f);
-        }
     }
     private void FixedUpdate()
     {
