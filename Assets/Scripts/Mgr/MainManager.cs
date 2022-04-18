@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
 {
+    #region 쓰레기 소환
     [Header("Gizmo - 소환 영역 표시")]
     [SerializeField]
     Vector2 SpawnPos;
@@ -29,7 +31,8 @@ public class MainManager : MonoBehaviour
     [SerializeField]
     int MaxSpawnCnt;
     [SerializeField] // 레이어 마스크(체크용)
-    int layerMask  = 1 << 6;
+    int layerMask = 1 << 6;
+    #endregion
 
     [Header("UI_변수")]
     [SerializeField]
@@ -38,6 +41,22 @@ public class MainManager : MonoBehaviour
     Text FoodTxt;
     [SerializeField]
     Text MoneyTxt;
+
+    [Header("ButtonSlide_변수")]
+    [SerializeField]
+    GameObject ParantButtons;
+    [SerializeField]
+    int CurButton = 1;
+    [SerializeField]
+    List<Vector2> MovePoint;
+    [SerializeField]
+    List<RawImage> Buttons;
+    [SerializeField]
+    float MoveSpeed;
+    [SerializeField]
+    Vector2 BeginPos1, EndPos2;
+    [SerializeField]
+    bool OnSlide = false;
 
     private void Start()
     {
@@ -52,6 +71,9 @@ public class MainManager : MonoBehaviour
         {
             MouseClick();
         }
+
+        Mouse();
+        SlideButtons();
     }
 
     #region 쓰레기 치우기
@@ -71,10 +93,10 @@ public class MainManager : MonoBehaviour
     {
         Vector2 Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            Ray2D ray = new Ray2D(Pos, Vector2.zero);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, layerMask);
+        Ray2D ray = new Ray2D(Pos, Vector2.zero);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, layerMask);
 
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
             Instantiate(Brush, hit.collider.gameObject.transform.position, Quaternion.identity);
             hit.collider.gameObject.GetComponent<Main_Trash>().OnHit();
@@ -98,5 +120,69 @@ public class MainManager : MonoBehaviour
         EnergyTxt.text = $"{GameManager.In.Energy}/{GameManager.In.MaxEnergy}";
         FoodTxt.text = $"{GameManager.In.Food.ToString("N0")}개";
         MoneyTxt.text = $"{GameManager.In.Money.ToString("N0")}원";
+    }
+
+    private void Mouse()
+    {
+        int idx = 0;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnSlide = true;
+            Debug.Log(MovePoint.Count);
+            BeginPos1 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            EndPos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (BeginPos1.x > EndPos2.x + 5 && OnSlide == true)
+            {
+                Debug.Log("++");
+                OnSlide = false;
+
+                if(CurButton < MovePoint.Count-1)
+                {
+                    CurButton += 1;
+                }
+                //TrueSlideEgg(1);
+            }
+
+            else if (BeginPos1.x < EndPos2.x - 5 && OnSlide == true)
+            {
+                Debug.Log("--");
+                OnSlide = false;
+
+                if (CurButton > 0)
+                {
+                    CurButton += -1;
+                }
+                //TrueSlideEgg(-1);
+            }
+
+            foreach (RawImage image in Buttons)
+            {
+                if (idx == CurButton)
+                {
+                    image.raycastTarget = true;
+                    image.gameObject.GetComponent<Button>().interactable = true;
+                }
+
+                else
+                {
+                    image.raycastTarget = false;
+                    image.gameObject.GetComponent<Button>().interactable = false;
+                }
+
+                idx++;
+            }
+        }
+
+    }
+
+    private void SlideButtons()
+    {
+        ParantButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(ParantButtons.GetComponent<RectTransform>().anchoredPosition, MovePoint[CurButton], MoveSpeed * Time.deltaTime);
     }
 }

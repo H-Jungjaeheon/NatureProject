@@ -11,6 +11,8 @@ public class TitleManager : MonoBehaviour
     [SerializeField]
     Button StartBtn;
     [SerializeField]
+    float MaxAlpha;
+    [SerializeField]
     float FadeSpeed;
     [Header("UI_TitleTxt변수")]
     [SerializeField]
@@ -27,6 +29,7 @@ public class TitleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MaxAlpha = StartBtn.GetComponent<Image>().color.a;
         StartCoroutine(FadeInOut(StartBtn.GetComponent<Image>()));
         StartCoroutine(TitleMove());
     }
@@ -61,7 +64,12 @@ public class TitleManager : MonoBehaviour
 
             else if (OnMainScene == true)
             {
+                TitleTxt.transform.DOMove(OriginPos + new Vector2(0, 600), MoveSpeed/18);
 
+                if(TitleTxt.transform.position.y >= OriginPos.y + 550)
+                {
+                    SceneManager.LoadScene("MainScene");
+                }
             }
         }
     }
@@ -71,34 +79,38 @@ public class TitleManager : MonoBehaviour
         if (OnMainScene == false)
         {
             Color color = FadeImg.color;
+
             //color 에 판넬 이미지 참조
 
-            while (true || OnMainScene == false)
+            while (true)
             {
+                Debug.Log(MaxAlpha);
                 yield return null;
                 color.a += Time.deltaTime * FadeSpeed;               //이미지 알파 값을 타임 델타 값 * 0.
                 FadeImg.color = color;                                //판넬 이미지 컬러에 바뀐 알파값 참조
 
-                if (FadeImg.color.a >= 1)                        //만약 판넬 이미지 알파 값이 0보다 작으면
+                if (FadeImg.color.a >= MaxAlpha || OnMainScene == true)                        //만약 판넬 이미지 알파 값이 0보다 작으면
                 {
+                    Debug.Log("qwe");
                     break;
                 }
             }
 
-            yield return new WaitForSeconds(FadeSpeed);
+            //yield return new WaitForSeconds(FadeSpeed);
 
-            while (true || OnMainScene == false)
+            while (true)
             {
                 yield return null;
                 color.a -= Time.deltaTime * FadeSpeed;               //이미지 알파 값을 타임 델타 값 * 0.
                 FadeImg.color = color;                                //판넬 이미지 컬러에 바뀐 알파값 참조
 
-                if (FadeImg.color.a <= 0)                        //만약 판넬 이미지 알파 값이 0보다 작으면
+                if (FadeImg.color.a <= 0 || OnMainScene == true)                        //만약 판넬 이미지 알파 값이 0보다 작으면
                 {
                     break;
                 }
             }
-            yield return new WaitForSeconds(FadeSpeed);
+
+            //yield return new WaitForSeconds(FadeSpeed);
 
             if (OnMainScene == false)
             {
@@ -139,7 +151,7 @@ public class TitleManager : MonoBehaviour
         while (true)
         {
             yield return null;
-            color.a -= Time.deltaTime * FadeSpeed;               //이미지 알파 값을 타임 델타 값 * 0.
+            color.a -= Time.deltaTime * (FadeSpeed * 4);               //이미지 알파 값을 타임 델타 값 * 0.
             FadeImg.color = color;                                //판넬 이미지 컬러에 바뀐 알파값 참조
 
             if (FadeImg.color.a <= 0)                        //만약 판넬 이미지 알파 값이 0보다 작으면
