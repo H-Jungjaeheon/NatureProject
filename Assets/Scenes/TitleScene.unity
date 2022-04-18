@@ -456,7 +456,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1053346988}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1095954317}
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: ClickBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1053346988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +538,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartBtn: {fileID: 1053346987}
   FadeSpeed: 1
+  TitleTxt: {fileID: 1461883619}
+  OriginPos: {x: 0, y: 0}
+  MaxYPos: 20
+  MoveSpeed: 20
+  OnMainScene: 0
 --- !u!4 &1095954318
 Transform:
   m_ObjectHideFlags: 0
@@ -646,7 +663,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -247.36}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1461883621
