@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class SpawnButton : MonoBehaviour
 {
+    //List<GameObject> list = new List<GameObject>();
     [SerializeField] GameObject[] SpawnButtons;
+    [SerializeField] Image[] ButtonImage;
     // Start is called before the first frame update
     void Start()
     {

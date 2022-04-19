@@ -8,7 +8,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
 {
     #region 전투씬 관련 변수 모음
     [Header("전투씬 관련 변수들")]
-    public bool IsPass, IsStop; //소환 버튼 넘김
+    public bool IsPass,IsStop,IsOut; //소환 버튼 넘김
     public float PlayerHp, MaxPlayerHp, EnemyHp, MaxEnemyHp, Money, MaxMoney, FireCoolTime,
     MaxFireCoolTime, MoneyLevel, MaxMoneyLevel, UpgradeNeedMoney, Timer;
     private float WeelRt, DoorRt;
@@ -22,10 +22,11 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     public Text MoneyText, MoneyLevelText, UpgradeNeedMoneyText, StageText, TimeText;
     [Header("전투씬 이미지 UI")]
     public Image PlayerHpBar, EnemyHpBar, FireCoolTimeImage;
+    [SerializeField] private RawImage StopBG, BlackFade;
     #endregion
     #region 전투씬 오브젝트 모음
     [Header("전투씬 관련 오브젝트")]
-    [SerializeField] private GameObject StopObj, Castle, CastleBody, CastleDoor, NullFireButton;
+    [SerializeField] private GameObject PauseObj, ExitObj, SoundObj, Castle, CastleBody, CastleDoor, NullFireButton;
     [SerializeField] private GameObject[] Weel;
     #endregion
 
@@ -33,9 +34,21 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     {
         StartSetting();
     }
+    private void Update()
+    {
+        DragInput();
+        BattleUI();
+        BattleAmounts();
+    }
+    private void FixedUpdate()
+    {
+        SpawnButtonMove();
+        Starts();
+    }
     #region 전투 시작 세팅 및 애니메이션
     void StartSetting()
     {
+        IsOut = false;
         IsStart = true;
         IsStop = true;
         Timer = 0;
@@ -45,6 +58,9 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
         MoneyLevel = 1;
         MaxFireCoolTime = 100;
         UpgradeNeedMoney = 40; //돈 차는 속도 or 돈 총량 레벨 비례 올리기
+        Color BC = BlackFade.GetComponent<RawImage>().color;
+        BC.a = 0;
+        BlackFade.GetComponent<RawImage>().color = BC;
         StartCoroutine(StartCastle());
     }
     IEnumerator StartCastle()
@@ -96,7 +112,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     void Starts()
     {
         float CastleX = Castle.transform.position.x;
-        if (IsStart == true)
+        if (IsStart == true && IsOut == false)
         {
             if (CastleX < -5)
                 WeelRt += Time.deltaTime * 250;
@@ -104,26 +120,15 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
             for (int a = 0; a < 2; a++)
                 Weel[a].transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
         }
-        if (IsStart2 == true)
+        if (IsStart2 == true && IsOut == false)
         {
             CastleDoor.transform.position = Vector3.MoveTowards(CastleDoor.transform.position, new Vector3(-1.4f, 2f, 0), Time.deltaTime * 0.5f);
         }
     }
     #endregion
-    private void Update()
-    {
-        DragInput();
-        BattleUI();
-        BattleAmounts();
-    }
-    private void FixedUpdate()
-    {
-        SpawnButtonMove();
-        Starts();
-    }
     void BattleAmounts()
     {
-        if (IsStop == false)
+        if (IsStop == false && IsOut == false)
         {
             Money += Time.deltaTime * (2 + MoneyLevel); //나중에 10에다가 돈 업그레이드 레벨 or 레벨당 수치만큼 더해주기
             Timer += Time.deltaTime;
@@ -136,7 +141,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     void BattleUI()
     {
-        if (IsStop == false)
+        if (IsStop == false && IsOut == false)
         {
             if (Timer > 1)
             {
@@ -165,18 +170,21 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
                 EnemyHp = MaxEnemyHp;
             if (FireCoolTime <= 0)
                 FireCoolTime = 0;
+            Color a = StopBG.GetComponent<RawImage>().color;
+            a.a = 0;
+            StopBG.GetComponent<RawImage>().color = a;
         }
 
-        if(FireCoolTime <= 0)
+        if(FireCoolTime <= 0 && IsOut == false)
         {
             NullFireButton.SetActive(false);
         }
-        else
+        else if(FireCoolTime > 0 && IsOut == false)
             NullFireButton.SetActive(true);
     }
     void DragInput()
     {
-        if (IsStop == false)
+        if (IsStop == false && IsOut == false)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -191,7 +199,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     void SpawnButtonMove()
     {
-        if (IsTouch == true && IsStop == false)
+        if (IsTouch == true && IsStop == false && IsOut == false)
         {
             Pos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (Pos2.y < Pos.y - 1 && Pos.x + 0.6f >= Pos2.x && Pos.x - 0.6f <= Pos2.x)
@@ -206,7 +214,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     public void UpGradeMoney()
     {
-        if (MoneyLevel < MaxMoneyLevel && Money >= UpgradeNeedMoney && IsStop == false)
+        if (MoneyLevel < MaxMoneyLevel && Money >= UpgradeNeedMoney && IsStop == false && IsOut == false)
         {
             Money -= UpgradeNeedMoney;
             MoneyLevel++;
@@ -216,26 +224,102 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     public void Fire()
     {
-        if(FireCoolTime <= 0 && IsStop == false)
+        if(FireCoolTime <= 0 && IsStop == false && IsOut == false)
         {
             FireCoolTime = MaxFireCoolTime;
             //대포 발사 능력 작동
         }
     }
-    public void GameStopButton()
+    #region 게임 정지 연출
+    public void GamePauseButton()
     {
-        if(IsStop == false)
+        if (IsStop == false && IsOut == false)
         {
             IsStop = true;
-            StopObj.transform.DOScale(1, 0.8f).SetEase(Ease.OutBack);
+            StartCoroutine(GamePauseBG());
         }
     }
-    public void ExitButton()
+    IEnumerator GamePauseBG()
     {
-        if(IsStop== true)
+        while (true)
         {
-            StopObj.transform.DOScale(0, 0.8f).SetEase(Ease.InBack);
+            Color a = StopBG.GetComponent<RawImage>().color;
+            a.a += Time.deltaTime;
+            StopBG.GetComponent<RawImage>().color = a;
+            if(a.a >= 0.6f)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(0.00001f);
+        }
+        PauseObj.transform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
+        yield return null;
+    }
+    public void ExitPauseButton()
+    {
+        if(IsStop== true && IsOut == false)
+        {
             IsStop = false;
+            StartCoroutine(ExitPauseBG());
         }
     }
+    IEnumerator ExitPauseBG()
+    {
+        PauseObj.transform.DOScale(0, 0.4f).SetEase(Ease.InBack);
+        while (true)
+        {
+            Color a = StopBG.GetComponent<RawImage>().color;
+            a.a -= Time.deltaTime;
+            StopBG.GetComponent<RawImage>().color = a;
+            if (a.a <= 0f)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(0.00001f);
+        }
+        yield return null;
+    }
+    public void SoundOnButton()
+    {
+        if (IsOut == false)
+            SoundObj.SetActive(true);
+    }
+    public void SoundExitButton()
+    {
+        if (IsOut == false)
+            SoundObj.SetActive(false);
+    }
+    public void GameExitButton()
+    {
+        if(IsOut == false)
+           ExitObj.SetActive(true);
+    }
+    public void CloseGameExitButton()
+    {
+        if (IsOut == false)
+            ExitObj.SetActive(false);
+    }
+    public void CloseGameButton()
+    {
+        if (IsOut == false)
+            StartCoroutine(CloseGame());
+    }
+    IEnumerator CloseGame()
+    {
+        IsOut = true;
+        while (true)
+        {
+            Color a = BlackFade.GetComponent<RawImage>().color;
+            a.a += Time.deltaTime;
+            BlackFade.GetComponent<RawImage>().color = a;
+            if (a.a <= 0f)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(0.001f);
+        }
+        //스테이지 씬 이동
+        yield return null;
+    }
+    #endregion
 }
