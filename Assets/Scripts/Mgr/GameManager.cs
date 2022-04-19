@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : SingletonMono<GameManager>
 {
-    const int MaxLevel = 20;
+    public int MaxLevel = 20;
 
     [Header("게임 기본 변수")]
     public int MaxEnergy;
