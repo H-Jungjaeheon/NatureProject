@@ -25,7 +25,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     #endregion
     #region 전투씬 오브젝트 모음
     [Header("전투씬 관련 오브젝트")]
-    [SerializeField] private GameObject StopObj, Castle, CastleBody, CastleDoor;
+    [SerializeField] private GameObject StopObj, Castle, CastleBody, CastleDoor, NullFireButton;
     [SerializeField] private GameObject[] Weel;
     #endregion
 
@@ -166,6 +166,13 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
             if (FireCoolTime <= 0)
                 FireCoolTime = 0;
         }
+
+        if(FireCoolTime <= 0)
+        {
+            NullFireButton.SetActive(false);
+        }
+        else
+            NullFireButton.SetActive(true);
     }
     void DragInput()
     {
