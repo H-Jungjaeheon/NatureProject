@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 
 public class FixedTruckManager : MonoBehaviour
-{ 
+{
     #region MainManager..
     [Header("Gizmo - 소환 영역 표시")]
     [SerializeField]
@@ -52,7 +52,39 @@ public class FixedTruckManager : MonoBehaviour
 
     [Header("TruckSceneUI_변수")]
     [SerializeField]
-    List<Text> UpgradeText;
+    Text HPCostText;
+    [SerializeField]
+    Text ChargeCostText;
+    [SerializeField]
+    Text PowerCostText;
+
+    [Space(10)]
+
+    [SerializeField]
+    Text HPLevelText;
+    [SerializeField]
+    Text ChargeLevelText;
+    [SerializeField]
+    Text PowerLevelText;
+
+    [Space(10)]
+
+    [SerializeField]
+    Text HpInfoText;
+    [SerializeField]
+    Text ChargeInfoText;
+    [SerializeField]
+    Text PowerInfoText;
+
+
+    [Header("TruckUpgreadCost_변수")]
+    [SerializeField]
+    int BodyCost;
+    [SerializeField]
+    int ChargeCost;
+    [SerializeField]
+    int PowerCost;
+
 
     [Header("TruckScene연출_변수")]
     [SerializeField]
@@ -64,12 +96,12 @@ public class FixedTruckManager : MonoBehaviour
 
     private void Start()
     {
-
+        StartSetting();
     }
 
     private void Update()
     {
-        SettingTxt();
+        UpdateSetting();
         Mouse();
         SlideButtons();
         ActiveButton();
@@ -90,12 +122,59 @@ public class FixedTruckManager : MonoBehaviour
 
     //#endregion
 
-    private void SettingTxt()
+    private void StartSetting()
+    {
+        TextSetting();
+    }
+
+    private void UpdateSetting()
     {
         EnergyTxt.text = $"{GameManager.In.Energy}/{GameManager.In.MaxEnergy}";
         FoodTxt.text = $"{GameManager.In.Food.ToString("N0")}개";
         MoneyTxt.text = $"{GameManager.In.Money.ToString("N0")}원";
+
+        TextSetting();
     }
+
+    #region UpgreadSetting
+    private void TextSetting()
+    {
+        UpgreadCostSetting();
+        LevelTxtSetting();
+        CostTxtSetting();
+        InfoTxtSetting();
+    }
+
+    private void UpgreadCostSetting()
+    {
+        BodyCost = 500 + (100 * (GameManager.In.BodyLevel - 1));
+        ChargeCost = 400 + (100 * (GameManager.In.LaserChargeLevel - 1));
+        PowerCost = 600 + (100 * (GameManager.In.LaserPowerLevel - 1));
+    }
+
+    private void LevelTxtSetting()
+    {
+        string Max = "MAX";
+
+        HPLevelText.text = $"트럭 몸체 Lv.{(GameManager.In.BodyLevel >= GameManager.In.MaxLevel ? Max : GameManager.In.BodyLevel.ToString())}";
+        ChargeLevelText.text = $"태양열 발전기 Lv.{(GameManager.In.LaserChargeLevel >= GameManager.In.MaxLevel ? Max : GameManager.In.LaserChargeLevel.ToString())}";
+        PowerLevelText.text = $"레이저 빔 발사기 Lv.{(GameManager.In.LaserPowerLevel >= GameManager.In.MaxLevel ? Max : GameManager.In.LaserPowerLevel.ToString())}";
+    }
+
+    private void CostTxtSetting()
+    {
+        HPCostText.text = $"{BodyCost}원";
+        ChargeCostText.text = $"{ChargeCost}원";
+        PowerCostText.text = $"{PowerCost}원";
+    }
+
+    private void InfoTxtSetting()
+    {
+        HpInfoText.text = $"{2000 + (100 * (GameManager.In.BodyLevel - 1))}";
+        ChargeInfoText.text = $"{180 - (2 * (GameManager.In.LaserChargeLevel - 1))}s";
+        PowerInfoText.text = $"{100 + (20 * (GameManager.In.LaserPowerLevel - 1))}";
+    }
+    #endregion
 
     private void Mouse()
     {
@@ -117,7 +196,7 @@ public class FixedTruckManager : MonoBehaviour
                 Debug.Log("++");
                 OnSlide = false;
 
-                if(CurButton < MovePoint.Count-1)
+                if (CurButton < MovePoint.Count - 1)
                 {
                     CurButton += 1;
                 }
@@ -168,9 +247,9 @@ public class FixedTruckManager : MonoBehaviour
         Camera cam = Camera.main;
         cam.gameObject.transform.position = Vector3.Lerp(cam.gameObject.transform.position, MoveCamPos[CurButton], MoveSpeed * Time.deltaTime);
 
-        foreach(RawImage image in checkImgs)
+        foreach (RawImage image in checkImgs)
         {
-            if(idx == CurButton)
+            if (idx == CurButton)
             {
                 image.color = Color.red;
             }
@@ -187,17 +266,29 @@ public class FixedTruckManager : MonoBehaviour
     #region 레이저 업그레이드 함수
     public void LevelUpBody()
     {
-
+        if (GameManager.In.MaxLevel > GameManager.In.BodyLevel)
+        {
+            GameManager.In.Money -= BodyCost;
+            GameManager.In.BodyLevel++;
+        }
     }
 
     public void LevelUpLaserCharge()
     {
-
+        if (GameManager.In.MaxLevel > GameManager.In.LaserChargeLevel)
+        {
+            GameManager.In.Money -= ChargeCost;
+            GameManager.In.LaserChargeLevel++;
+        }
     }
 
     public void LevelUpLaserPower()
     {
-
+        if (GameManager.In.MaxLevel > GameManager.In.LaserPowerLevel)
+        {
+            GameManager.In.Money -= PowerCost;
+            GameManager.In.LaserPowerLevel++;
+        }
     }
     #endregion
 }
