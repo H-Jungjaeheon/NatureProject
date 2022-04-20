@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SpawnButton : MonoBehaviour
 {
     //List<GameObject> list = new List<GameObject>();
-    [SerializeField] GameObject[] SpawnButtons;
+    [SerializeField] GameObject[] SpawnButtons, Units;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +47,13 @@ public class SpawnButton : MonoBehaviour
                 SpawnButtons[a].transform.SetAsLastSibling();
                 SpawnButtons[a].GetComponent<Button>().interactable = true;
             }
+        }
+    }
+    public void Spawn()
+    {
+        if(BattleSceneManager.In.IsStop == false)
+        {
+            Instantiate(Units[0], new Vector3(-1, -1.25f, 0), Units[0].transform.rotation);
         }
     }
 }
