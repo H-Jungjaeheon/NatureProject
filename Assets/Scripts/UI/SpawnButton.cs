@@ -7,7 +7,6 @@ public class SpawnButton : MonoBehaviour
 {
     //List<GameObject> list = new List<GameObject>();
     [SerializeField] GameObject[] SpawnButtons;
-    [SerializeField] Image[] ButtonImage;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +20,9 @@ public class SpawnButton : MonoBehaviour
         {
             for (int a = 0; a < 5; a++)
             {
+                Color color = SpawnButtons[a].GetComponent<Image>().color;
+                color = new Color(115, 115, 115, 255);
+                SpawnButtons[a].GetComponent<Image>().color = color;
                 SpawnButtons[a].transform.SetAsLastSibling();
                 SpawnButtons[a].GetComponent<Button>().interactable = true;
             }
@@ -39,6 +41,9 @@ public class SpawnButton : MonoBehaviour
             }
             for (int a = 5; a < 10; a++)
             {
+                Color color = SpawnButtons[a].GetComponent<Image>().color;
+                color = new Color(115, 115, 115, 255);
+                SpawnButtons[a].GetComponent<Image>().color = color;
                 SpawnButtons[a].transform.SetAsLastSibling();
                 SpawnButtons[a].GetComponent<Button>().interactable = true;
             }
