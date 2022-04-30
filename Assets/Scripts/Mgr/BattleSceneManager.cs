@@ -8,26 +8,34 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
 {
     #region 전투씬 관련 변수 모음
     [Header("전투씬 관련 변수들")]
-    public bool IsPass,IsStop,IsOut; //소환 버튼 넘김
+    public bool IsPass;
+    public bool IsStop, IsOut, IsFire;
     public float PlayerHp, MaxPlayerHp, EnemyHp, MaxEnemyHp, Money, MaxMoney, FireCoolTime,
     MaxFireCoolTime, MoneyLevel, MaxMoneyLevel, UpgradeNeedMoney, Timer;
     private float WeelRt, DoorRt;
     [SerializeField] private Vector2 Pos, Pos2;
     [SerializeField] private bool IsTouch, IsStart, IsStart2;
     [Header("전투씬 시간 초 변수")]
-    public int Min = 0, ST = 0;
+    public int Min = 0;
+    public int ST = 0;
     #endregion 
     #region 전투씬 UI 모음
     [Header("전투씬 텍스트 UI")]
-    public Text MoneyText, MoneyLevelText, UpgradeNeedMoneyText, StageText, TimeText;
+    public Text MoneyText;
+    public Text MoneyLevelText, UpgradeNeedMoneyText, StageText, TimeText;
     [Header("전투씬 이미지 UI")]
-    public Image PlayerHpBar, EnemyHpBar, FireCoolTimeImage;
+    public Image PlayerHpBar;
+    public Image EnemyHpBar, FireCoolTimeImage;
     [SerializeField] private RawImage StopBG, BlackFade;
     #endregion
     #region 전투씬 오브젝트 모음
     [Header("전투씬 관련 오브젝트")]
-    [SerializeField] private GameObject PauseObj, ExitObj, SoundObj, Castle, CastleBody, CastleDoor, NullFireButton;
+    public GameObject PauseObj;
+    public GameObject ExitObj, SoundObj, Castle, CastleBody, CastleDoor, NullFireButton;
+    [SerializeField] private GameObject SolaPanel, FireEffect;
     [SerializeField] private GameObject[] Weel;
+    [SerializeField] private Sprite[] SolaSprite;
+    [SerializeField] private SpriteRenderer SSR;
     #endregion
 
     private void Start()
@@ -58,6 +66,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
         MoneyLevel = 1;
         MaxFireCoolTime = 100;
         UpgradeNeedMoney = 40; //돈 차는 속도 or 돈 총량 레벨 비례 올리기
+        SSR = SolaPanel.GetComponent<SpriteRenderer>();
         Color BC = BlackFade.GetComponent<RawImage>().color;
         BC.a = 0;
         BlackFade.GetComponent<RawImage>().color = BC;
@@ -224,11 +233,48 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     public void Fire()
     {
-        if(FireCoolTime <= 0 && IsStop == false && IsOut == false)
+        if(FireCoolTime <= 0 && IsStop == false && IsOut == false && IsFire == false)
         {
+            IsFire = true;
             FireCoolTime = MaxFireCoolTime;
+            SSR.sprite = SolaSprite[1];
+            StartCoroutine(FireTruckAnim());
+            StartCoroutine(Lazer());
             //대포 발사 능력 작동
         }
+    }
+    IEnumerator Lazer()
+    {
+        yield return new WaitForSeconds(1.5f);
+        IsFire = false;
+        SSR.sprite = SolaSprite[0];
+        yield return null;
+    }
+    IEnumerator FireTruckAnim()
+    {
+        Instantiate(FireEffect, new Vector2(SolaPanel.transform.position.x - 0.6f, SolaPanel.transform.position.y + 1.9f), SolaPanel.transform.rotation);
+        Instantiate(FireEffect, new Vector2(SolaPanel.transform.position.x, SolaPanel.transform.position.y + 1.5f), SolaPanel.transform.rotation);
+        Instantiate(FireEffect, new Vector2(SolaPanel.transform.position.x + 1f, SolaPanel.transform.position.y + 1.7f), SolaPanel.transform.rotation);
+        while (IsFire == true)
+        {
+            if (CastleBody.transform.position.x == -5f)
+            {
+                CastleBody.transform.position = new Vector2(-4.98f, CastleBody.transform.position.y);
+                yield return new WaitForSeconds(0.05f);
+            }
+            else if (CastleBody.transform.position.x == -4.98f)
+            {
+                CastleBody.transform.position = new Vector2(-5.02f, CastleBody.transform.position.y);
+                yield return new WaitForSeconds(0.05f);
+            }
+            else
+            {
+                CastleBody.transform.position = new Vector2(-4.98f, CastleBody.transform.position.y);
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
+        CastleBody.transform.position = new Vector2(-5f, CastleBody.transform.position.y);
+        yield return null;
     }
     #region 게임 정지 연출
     public void GamePauseButton()
