@@ -2642,6 +2642,9 @@ MonoBehaviour:
   - {fileID: 1193332466}
   - {fileID: 1427903210}
   - {fileID: 1637305209}
+  SwipeImg:
+  - {fileID: 2800000, guid: f0facb74f1ae8e94599348d77baec14b, type: 3}
+  - {fileID: 2800000, guid: da5a986d7e202974091502bd48d02453, type: 3}
 --- !u!1 &1081998323
 GameObject:
   m_ObjectHideFlags: 0

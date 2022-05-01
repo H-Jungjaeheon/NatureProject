@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public abstract class MainItem : MonoBehaviour
 {
@@ -10,9 +9,9 @@ public abstract class MainItem : MonoBehaviour
     [SerializeField]
     protected int AddCount;
     [SerializeField]
-    protected TextMeshProUGUI AddCountText;
+    protected Text AddCountText;
     [SerializeField]
-    protected TextMeshProUGUI PlusText;
+    protected Text PlusText;
     [SerializeField]
     protected float DestroySpeed;
     [SerializeField]
@@ -31,11 +30,11 @@ public abstract class MainItem : MonoBehaviour
         AddCountText.text = $"X{AddCount}";
     }
 
-    protected IEnumerator FadeOut(SpriteRenderer Image,  TextMeshProUGUI TMP_Plus, TextMeshProUGUI TMP_Count)
+    protected IEnumerator FadeOut(SpriteRenderer Image,  Text Txt_Plus, Text Txt_Count)
     {
         Color Imgcolor = Image.color;                            //color 에 판넬 이미지 참조
-        Color PlusTxtcolor = TMP_Plus.color;                     //color 에 판넬 이미지 참조
-        Color CountTxtcolor = TMP_Count.color;                   //color 에 판넬 이미지 참조
+        Color PlusTxtcolor = Txt_Plus.color;                     //color 에 판넬 이미지 참조
+        Color CountTxtcolor = Txt_Count.color;                   //color 에 판넬 이미지 참조
 
         while (true)
         {
@@ -46,10 +45,10 @@ public abstract class MainItem : MonoBehaviour
             Image.color = Imgcolor;                                //판넬 이미지 컬러에 바뀐 알파값 참조
 
             PlusTxtcolor.a -= Time.deltaTime * DestroySpeed;               //이미지 알파 값을 타임 델타 값 * 0.
-            TMP_Plus.color = PlusTxtcolor;
+            Txt_Plus.color = PlusTxtcolor;
 
             CountTxtcolor.a -= Time.deltaTime * DestroySpeed;               //이미지 알파 값을 타임 델타 값 * 0.
-            TMP_Count.color = CountTxtcolor;
+            Txt_Count.color = CountTxtcolor;
 
             if (Image.color.a <= 0)                        //만약 판넬 이미지 알파 값이 0보다 작으면
             {
