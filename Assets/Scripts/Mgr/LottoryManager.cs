@@ -108,9 +108,10 @@ public class LottoryManager : MonoBehaviour
     private void BasicSetting()
     {
         OrizinPos = new Vector3(0, 0, 0);
-        FoodTxt.text = $"{GameManager.In.Food.ToString("N0")}°³";
-        MoneyTxt.text = $"{GameManager.In.Money.ToString("N0")}¿ø";
-        BuyMoneyTxt.text = $"{MainEgg.GetComponent<Egg>().BuyMoney.ToString("N0")})";
+        EnergyTxt.text = $"{GameManager.In.Energy}/{GameManager.In.MaxEnergy}";
+        FoodTxt.text = $"{GameManager.In.Food.ToString("N0")}";
+        MoneyTxt.text = $"{GameManager.In.Money.ToString("N0")}";
+        BuyMoneyTxt.text = $"{MainEgg.GetComponent<Egg>().BuyMoney.ToString("N0")}";
     }
 
     private void Mouse()

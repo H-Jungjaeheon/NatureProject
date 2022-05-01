@@ -91,6 +91,8 @@ public class FixedTruckManager : MonoBehaviour
     List<Vector3> MoveCamPos;
     [SerializeField]
     List<RawImage> checkImgs;
+    [SerializeField]
+    Texture[] SwipeImg;
 
     #endregion
 
@@ -130,8 +132,8 @@ public class FixedTruckManager : MonoBehaviour
     private void UpdateSetting()
     {
         EnergyTxt.text = $"{GameManager.In.Energy}/{GameManager.In.MaxEnergy}";
-        FoodTxt.text = $"{GameManager.In.Food.ToString("N0")}°³";
-        MoneyTxt.text = $"{GameManager.In.Money.ToString("N0")}¿ø";
+        FoodTxt.text = $"{GameManager.In.Food.ToString("N0")}";
+        MoneyTxt.text = $"{GameManager.In.Money.ToString("N0")}";
 
         TextSetting();
     }
@@ -251,12 +253,12 @@ public class FixedTruckManager : MonoBehaviour
         {
             if (idx == CurButton)
             {
-                image.color = Color.red;
+                image.texture = SwipeImg[1];
             }
 
             else
             {
-                image.color = Color.white;
+                image.texture = SwipeImg[0];
             }
 
             idx++;

@@ -30,11 +30,14 @@ public class Main_Trash : MonoBehaviour
 
     [SerializeField]
     GameObject[] SpawnItemType;
+    [SerializeField]
+    Sprite[] TrashImg;
 
     private void Start()
     {
         HP = 1;
         Debug.Log(SpawnItemType.Length);
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = TrashImg[Random.Range(0, TrashImg.Length)];
     }
 
     public void OnHit()

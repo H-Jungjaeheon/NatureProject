@@ -77,6 +77,10 @@ public class GameManager : SingletonMono<GameManager>
         }
     }
 
+    [Header("스테이지 선택 기본 변수")]
+    public int UnlockStage = 1;
+    
+
     private void Start()
     {
         BasicSetting();
