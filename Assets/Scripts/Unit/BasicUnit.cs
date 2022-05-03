@@ -52,7 +52,7 @@ public class BasicUnit : MonoBehaviour
     {
         if (IsKnockBack == true)
         {
-            float KnockBackUpSpeed = 200, KnockBackBackSpeed = 120;
+            float KnockBackUpSpeed = 210, KnockBackBackSpeed = 150;
             rigid.AddForce(Vector2.left * KnockBackBackSpeed);
             rigid.AddForce(Vector2.up * KnockBackUpSpeed);
             yield return new WaitForSeconds(0.3f);

@@ -90,7 +90,7 @@ public class BasicEnemy : MonoBehaviour
     {
         if(IsKnockBack == true)
         {
-            float KnockBackUpSpeed = 200, KnockBackBackSpeed = 180;
+            float KnockBackUpSpeed = 210, KnockBackBackSpeed = 200;
             rigid.AddForce(Vector2.right * KnockBackBackSpeed);
             rigid.AddForce(Vector2.up * KnockBackUpSpeed);
             yield return new WaitForSeconds(0.3f);
