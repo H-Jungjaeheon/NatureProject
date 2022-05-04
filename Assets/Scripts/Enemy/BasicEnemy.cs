@@ -5,9 +5,10 @@ using UnityEngine;
 public class BasicEnemy : MonoBehaviour
 {
     [Header("유닛 관련 변수")]
-    public float Hp, ReceivDamage;
+    public float Hp;
+    public float ReceivDamage, StopCount;
     [SerializeField] private float MaxHp, Damage, MaxReceivDamage, Speed, Range, KnockBackCount, AttackCount, MaxAttackCount;
-    public bool IsKnockBack;
+    public bool IsKnockBack, IsStop;
     [SerializeField] private bool IsAttack;
     [SerializeField] private GameObject Target;
     Rigidbody2D rigid;
@@ -15,13 +16,15 @@ public class BasicEnemy : MonoBehaviour
     public virtual void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        Move();
+        if(IsKnockBack == false)
+            Move();
     }
     public virtual void FixedUpdate()
     {
@@ -90,7 +93,7 @@ public class BasicEnemy : MonoBehaviour
     {
         if(IsKnockBack == true)
         {
-            float KnockBackUpSpeed = 210, KnockBackBackSpeed = 200;
+            float KnockBackUpSpeed = 170, KnockBackBackSpeed = 150;
             rigid.AddForce(Vector2.right * KnockBackBackSpeed);
             rigid.AddForce(Vector2.up * KnockBackUpSpeed);
             yield return new WaitForSeconds(0.27f);

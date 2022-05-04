@@ -4,30 +4,46 @@ using UnityEngine;
 
 public class BasicUnit : MonoBehaviour
 {
-    public float Hp, ReceivDamage;
-    [SerializeField] private float MaxHp, Damage, MaxReceivDamage, Speed, Range, KnockBackCount, AttackCount, MaxAttackCount;
-    public bool IsKnockBack;
-    [SerializeField] private bool IsAttack;
-    [SerializeField] private GameObject Target, DeadEffect;
+    [Header("유닛 관련 변수")]
+    public float Hp;
+    public float ReceivDamage, StopCount, AttackCount, MaxAttackCount, Range, Damage;
+    [SerializeField] private float MaxHp, MaxReceivDamage, Speed, KnockBackCount;
+    public bool IsKnockBack, IsStop, IsAttack;
+    public GameObject Target;// DeadEffect;
     Rigidbody2D rigid;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
+        StartCoroutine(FirstSpawnAnim());
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        Move();
+        if(IsKnockBack == false && IsStop == false)
+           Move();
+        Stops();
     }
     private void FixedUpdate()
     {
-        Attack();
+        if(IsStop == false && IsKnockBack == false)
+           Attack();
         StatManagement();
         KnockBack();
+    }
+    public virtual void Stops()
+    {
+        if (StopCount > 0)
+        {
+            StopCount -= Time.deltaTime;
+            IsStop = true;
+        }
+        else
+            IsStop = false;
     }
     public virtual void KnockBack()
     {
@@ -45,18 +61,25 @@ public class BasicUnit : MonoBehaviour
             IsKnockBack = true;
             StartCoroutine(KnockBacking());
         }
-        //체력이 0 이거나 0이하면, 넉백 실행 후 사망처리
         Dead();
     }
-    public virtual void FirstSpawnAnim()
+    public virtual IEnumerator FirstSpawnAnim()
     {
-
+        IsKnockBack = true;
+        rigid.AddForce(new Vector2(80, 110));
+        yield return new WaitForSeconds(0.3f);
+        rigid.velocity = Vector2.zero;
+        rigid.AddForce(new Vector2(80, -213));
+        yield return new WaitForSeconds(0.5f);
+        rigid.velocity = Vector2.zero;
+        IsKnockBack = false;
+        yield return null;
     }
     public virtual IEnumerator KnockBacking()
     {
         if (IsKnockBack == true)
         {
-            float KnockBackUpSpeed = 210, KnockBackBackSpeed = 200;
+            float KnockBackUpSpeed = 170, KnockBackBackSpeed = 150;
             rigid.AddForce(Vector2.left * KnockBackBackSpeed);
             rigid.AddForce(Vector2.up * KnockBackUpSpeed);
             yield return new WaitForSeconds(0.27f);
@@ -109,7 +132,7 @@ public class BasicUnit : MonoBehaviour
     {
         if(Hp <= 0)
         {
-            Instantiate(DeadEffect, transform.position, DeadEffect.transform.rotation);
+            //Instantiate(DeadEffect, transform.position, DeadEffect.transform.rotation);
             Destroy(this.gameObject);
         }
     }
