@@ -23,19 +23,33 @@ public class BasicEnemy : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if(IsKnockBack == false)
+        if(IsKnockBack == false && IsStop == false)
             Move();
+        Stops();
     }
     public virtual void FixedUpdate()
     {
-        Attack();
+        if (IsStop == false && IsKnockBack == false)
+            Attack();
         StatManagement();
         KnockBack();
+    }
+    public virtual void Stops()
+    {
+        if (StopCount > 0)
+        {
+            StopCount -= Time.deltaTime;
+            IsStop = true;
+        }
+        else
+            IsStop = false;
     }
     public virtual void StatManagement()
     {
         if (Hp >= MaxHp)
             Hp = MaxHp;
+        if (StopCount <= 0)
+            StopCount = 0;
     }
     public virtual void Attack()
     {

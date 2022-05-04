@@ -100,6 +100,8 @@ public class BasicUnit : MonoBehaviour
     {
         if (Hp >= MaxHp)
             Hp = MaxHp;
+        if (StopCount <= 0)
+            StopCount = 0;
     }
     public virtual void Move()
     {

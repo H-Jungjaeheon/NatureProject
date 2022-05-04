@@ -18,8 +18,8 @@ public class DisinfectantUnit : BasicUnit
                 IsAttack = true;
                 if (AttackCount >= MaxAttackCount && IsAttack == true)
                 {
-                    StopAttack = Random.Range(0, 2);
-                    if(StopAttack == 0)
+                    StopAttack = Random.Range(0, 101);
+                    if(StopAttack <= 100)
                     {
                         Target.GetComponent<BasicEnemy>().IsStop = true;
                         Target.GetComponent<BasicEnemy>().StopCount = 1;
