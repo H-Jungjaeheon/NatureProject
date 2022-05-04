@@ -54,7 +54,7 @@ public class SpawnButton : MonoBehaviour
     {
         if(BattleSceneManager.In.IsStop == false)
         {
-            Instantiate(Units[0], new Vector3(-1, -1.25f, 0), Units[0].transform.rotation);
+            Instantiate(Units[0], new Vector3(-1, 0.2f, 0), Units[0].transform.rotation); //-1.25
             StartCoroutine(SpawnCastleAnim());
         }
     }

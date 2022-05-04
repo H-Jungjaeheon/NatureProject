@@ -48,20 +48,24 @@ public class BasicUnit : MonoBehaviour
         //체력이 0 이거나 0이하면, 넉백 실행 후 사망처리
         Dead();
     }
+    public virtual void FirstSpawnAnim()
+    {
+
+    }
     public virtual IEnumerator KnockBacking()
     {
         if (IsKnockBack == true)
         {
-            float KnockBackUpSpeed = 210, KnockBackBackSpeed = 150;
+            float KnockBackUpSpeed = 210, KnockBackBackSpeed = 200;
             rigid.AddForce(Vector2.left * KnockBackBackSpeed);
             rigid.AddForce(Vector2.up * KnockBackUpSpeed);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.27f);
             rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2));
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.27f);
             rigid.AddForce(Vector2.up * ((KnockBackUpSpeed) * 2f));
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.17f);
             rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2f));
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.17f);
             rigid.velocity = Vector3.zero;
         }
         IsKnockBack = false;

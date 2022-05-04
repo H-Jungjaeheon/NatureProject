@@ -93,13 +93,13 @@ public class BasicEnemy : MonoBehaviour
             float KnockBackUpSpeed = 210, KnockBackBackSpeed = 200;
             rigid.AddForce(Vector2.right * KnockBackBackSpeed);
             rigid.AddForce(Vector2.up * KnockBackUpSpeed);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.27f);
             rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2));
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.27f);
             rigid.AddForce(Vector2.up * ((KnockBackUpSpeed) * 2f));
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.17f);
             rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2f));
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.17f);
             rigid.velocity = Vector3.zero;
         }
         IsKnockBack = false;
