@@ -4178,7 +4178,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7062640989124344457, guid: e806dc62b54ca4847833916285b93ee5, type: 3}
       propertyPath: m_Name
-      value: BasicUnit (1)
+      value: BasicUnit
       objectReference: {fileID: 0}
     - target: {fileID: 7062640989124344463, guid: e806dc62b54ca4847833916285b93ee5, type: 3}
       propertyPath: m_RootOrder
@@ -5242,6 +5242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 100
   ReceivDamage: 0
+  StopCount: 0
   MaxHp: 100
   Damage: 30
   MaxReceivDamage: 0
@@ -5251,6 +5252,7 @@ MonoBehaviour:
   AttackCount: 0
   MaxAttackCount: 1
   IsKnockBack: 0
+  IsStop: 0
   IsAttack: 0
   Target: {fileID: 0}
 --- !u!1 &1702767860
