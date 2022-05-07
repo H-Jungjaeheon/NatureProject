@@ -8,6 +8,8 @@ public class SelectStageManager : MonoBehaviour
     public List<GameObject> Stages;
     public Sprite[] SwipeImage;
     int layerMask = 1 << 6;
+    [SerializeField]
+    string StageName;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,8 @@ public class SelectStageManager : MonoBehaviour
         {
             MouseClick();
         }
+
+        Debug.Log(GameManager.In.DicStageInfo.ContainsKey("1_6"));
     }
 
     private void MouseClick()
@@ -36,7 +40,17 @@ public class SelectStageManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log("sad");
+            StageName = hit.collider.gameObject.name;
+            Debug.Log(hit.collider.gameObject.name);
+        }
+    }
+
+    public void StagePlay()
+    {
+        if (GameManager.In.DicStageInfo[StageName].Onplay == true)
+        {
+            GameManager.In.Energy -= GameManager.In.DicStageInfo[StageName].SpendEnergy;
+            GameManager.In.DicStageInfo[StageName].ClearCheck = true;
         }
     }
 
@@ -47,11 +61,38 @@ public class SelectStageManager : MonoBehaviour
             if(GameManager.In.DicStageInfo[Stage.name].Onplay == true)
             {
                 Stage.gameObject.GetComponent<SpriteRenderer>().sprite = SwipeImage[1];
+
+                if (GameManager.In.DicStageInfo[Stage.name].ClearCheck == true)
+                {
+                    Stage.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+
+                    string[] StageNameArr = Stage.name.Split('_');
+                    string StageName = $"{StageNameArr[0]}_{int.Parse(StageNameArr[1]) + 1}".ToString();
+
+                    if (GameManager.In.DicStageInfo.ContainsKey(StageName) == true)
+                    {
+                        GameManager.In.DicStageInfo[StageName].Onplay = true;
+                    }
+
+                    else if (GameManager.In.DicStageInfo.ContainsKey(StageName) == false)
+                    {
+                        GameManager.In.UnlockStage = int.Parse(StageNameArr[0]) + 1;
+
+                        StageName = $"{int.Parse(StageNameArr[0]) + 1}_{1}".ToString();
+                        GameManager.In.DicStageInfo[StageName].Onplay = true;
+                    }
+                }
+
+                else
+                {
+                    Stage.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                }
             }
 
             else
             {
                 Stage.gameObject.GetComponent<SpriteRenderer>().sprite = SwipeImage[0];
+                Stage.gameObject.transform.GetChild(0).gameObject.SetActive(false);
             }
             
             //Debug.Log($"Chapter{StageInfo[0]}, Stage{StageInfo[1]}");
