@@ -129,6 +129,7 @@ public class GameManager : SingletonMono<GameManager>
     public void LoadGameData()
     {
         string filePath = Application.persistentDataPath + GameDataFileName;
+        Debug.Log(filePath);
 
         // 저장된 게임이 있다면
         if (File.Exists(filePath))
