@@ -4,14 +4,36 @@ using UnityEngine;
 
 public class BasicUnit : MonoBehaviour
 {
+    #region 유닛 변수
     [Header("유닛 관련 변수")]
     public float Hp;
-    public float ReceivDamage, StopCount, AttackCount, MaxAttackCount, Range, Damage;
-    [SerializeField] private float MaxHp, MaxReceivDamage, Speed, KnockBackCount;
-    public bool IsKnockBack, IsStop, IsAttack;
+    public float Range, Damage;
+    [SerializeField] private float MaxHp, Speed;
     public GameObject Target;// DeadEffect;
-    Rigidbody2D rigid;
 
+    [Header("유닛이 걸린 상태이상 변수")]
+    public float StopCount;
+    public float AttackSlowCount, MoveSlowCount;
+    public bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady;
+
+    [Header("넉백 관련 변수")]
+    [SerializeField] private float MaxReceivDamage;
+    [SerializeField] private float KnockBackCount;
+    public float ReceivDamage;
+    public bool IsKnockBack;
+
+    [Header("공격 준비 쿨타임")]
+    public float AttackCoolTimeCount;
+    public float MaxAttackCoolTimeCount;
+
+    [Header("공격 실행 쿨타임")]
+    public float AttackCount;
+    public float MaxAttackCount;
+
+    [Header("그 외")]
+    [SerializeField] private bool IsAttackAnim;
+    Rigidbody2D rigid;
+    #endregion
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -24,14 +46,14 @@ public class BasicUnit : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if(IsKnockBack == false && IsStop == false)
-           Move();
+        if (IsKnockBack == false && IsStop == false)
+            Move();
         Stops();
     }
     private void FixedUpdate()
     {
-        if(IsStop == false && IsKnockBack == false)
-           Attack();
+        if (IsStop == false && IsKnockBack == false)
+            AttackCoolTime();
         StatManagement();
         KnockBack();
     }
@@ -61,7 +83,6 @@ public class BasicUnit : MonoBehaviour
             IsKnockBack = true;
             StartCoroutine(KnockBacking());
         }
-        Dead();
     }
     public virtual IEnumerator FirstSpawnAnim()
     {
@@ -102,15 +123,23 @@ public class BasicUnit : MonoBehaviour
             Hp = MaxHp;
         if (StopCount <= 0)
             StopCount = 0;
-    }
+    } 
+
     public virtual void Move()
     {
-        if(IsAttack == false)
-           transform.position = transform.position + new Vector3(Time.deltaTime * Speed,0,0);
+        //이동 애니 실행
+        if (IsAttackReady == false && IsMoveSlow == false)
+            transform.position = transform.position + new Vector3(Time.deltaTime * Speed,0,0);
+        else if (IsAttackReady == false && IsMoveSlow == true)
+            transform.position = transform.position + new Vector3(Time.deltaTime * 0.1f, 0, 0);
     }
-    public virtual void Attack()
+    public virtual void AttackCoolTime()
     {
-        AttackCount += Time.deltaTime;
+        if (IsAttackSlow == true)
+            AttackCoolTimeCount += Time.deltaTime / 1.5f;
+        else
+            AttackCoolTimeCount += Time.deltaTime;
+
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
         if(hit)
@@ -118,17 +147,43 @@ public class BasicUnit : MonoBehaviour
             Target = hit.collider.gameObject;
             if(Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
-                IsAttack = true;
-                if (AttackCount >= MaxAttackCount && IsAttack == true)
+                IsAttackReady = true;
+                if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
                 {
-                    Target.GetComponent<BasicEnemy>().Hp -= Damage;
-                    Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
-                    AttackCount = 0;
+                    AttackTime();
+                    AttackAnim();
+                }
+                else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
+                {
+                    //기본 애니 실행
                 }
             }
         }
-        else       
-            IsAttack = false;       
+        else
+            IsAttackReady = false;       
+    }
+    public virtual void AttackAnim()
+    {
+        if (IsAttackAnim == false)
+        {
+            IsAttackAnim = true;
+            //공격 애니 실행
+        }
+    }
+    public virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
+    public virtual void AttackTime()
+    {
+        if (IsAttackSlow == true)
+            AttackCount += Time.deltaTime / 1.5f;
+        else
+            AttackCount += Time.deltaTime;
+        if (AttackCount >= MaxAttackCount)
+        {
+            Target.GetComponent<BasicUnit>().Hp -= Damage;
+            Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+            AttackCount = 0;
+            AttackCoolTimeCount = 0;
+        }
     }
     public virtual void Dead()
     {
@@ -136,6 +191,7 @@ public class BasicUnit : MonoBehaviour
         {
             //Instantiate(DeadEffect, transform.position, DeadEffect.transform.rotation);
             Destroy(this.gameObject);
+            //죽음 효과 소환
         }
     }
 }
