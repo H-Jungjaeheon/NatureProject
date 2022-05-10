@@ -8399,7 +8399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4594071128736486564}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -4.43, y: 1.41, z: 0}
+  m_LocalPosition: {x: -4.31, y: 0.75, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8475,7 +8475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4594071128736486565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8489,10 +8489,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: 100
-  Range: 0
-  Damage: 0
-  MaxHp: 100
   Speed: 0.5
+  Range: 2.5
+  Damage: 1
+  MaxHp: 100
   Target: {fileID: 0}
   StopCount: 0
   AttackSlowCount: 0
@@ -8501,16 +8501,17 @@ MonoBehaviour:
   IsAttackSlow: 0
   IsMoveSlow: 0
   IsAttackReady: 0
-  IsRush: 0
+  IsPush: 0
   MaxReceivDamage: 0
-  KnockBackCount: 0
+  KnockBackCount: 2
   ReceivDamage: 0
   IsKnockBack: 0
-  AttackCoolTimeCount: 0
-  MaxAttackCoolTimeCount: 0
-  AttackCount: 0
-  MaxAttackCount: 0
+  AttackCoolTimeCount: 3
+  MaxAttackCoolTimeCount: 3
+  AttackCount: 3
+  MaxAttackCount: 3
   IsAttackAnim: 0
+  IsRush: 0
 --- !u!61 &5317184390479630114
 BoxCollider2D:
   m_ObjectHideFlags: 0

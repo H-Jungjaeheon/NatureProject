@@ -7,32 +7,31 @@ public class BasicUnit : MonoBehaviour
     #region 유닛 변수
     [Header("유닛 관련 변수")]
     public float Hp;
-    public float Range, Damage;
-    [SerializeField] private float MaxHp, Speed;
-    public GameObject Target;// DeadEffect;
+    [SerializeField] protected float Speed, Range, Damage, MaxHp;
+    [SerializeField] protected GameObject Target;// DeadEffect;
 
     [Header("유닛이 걸린 상태이상 변수")]
-    public float StopCount;
-    public float AttackSlowCount, MoveSlowCount;
-    public bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady, IsPush;
+    [SerializeField] protected float StopCount;
+    [SerializeField] protected float AttackSlowCount, MoveSlowCount;
+    [SerializeField] protected bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady, IsPush;
 
     [Header("넉백 관련 변수")]
-    [SerializeField] private float MaxReceivDamage;
-    [SerializeField] private float KnockBackCount;
+    [SerializeField] protected float MaxReceivDamage;
+    [SerializeField] protected float KnockBackCount;
     public float ReceivDamage;
     public bool IsKnockBack;
 
     [Header("공격 준비 쿨타임")]
-    public float AttackCoolTimeCount;
-    public float MaxAttackCoolTimeCount;
+    [SerializeField] protected float AttackCoolTimeCount;
+    [SerializeField] protected float MaxAttackCoolTimeCount;
 
     [Header("공격 실행 쿨타임")]
-    public float AttackCount;
-    public float MaxAttackCount;
+    [SerializeField] protected float AttackCount;
+    [SerializeField] protected float MaxAttackCount;
 
     [Header("그 외")]
-    [SerializeField] private bool IsAttackAnim;
-    Rigidbody2D rigid;
+    [SerializeField] protected bool IsAttackAnim;
+    protected Rigidbody2D rigid;
     #endregion
     // Start is called before the first frame update
     public virtual void Start()

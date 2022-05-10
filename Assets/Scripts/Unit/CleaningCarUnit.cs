@@ -3,42 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CleaningCarUnit : MonoBehaviour
+public class CleaningCarUnit : BasicUnit
 {
-    #region 유닛 변수
-    [Header("유닛 관련 변수")]
-    public float Hp;
-    public float Range, Damage;
-    [SerializeField] private float MaxHp, Speed;
-    public GameObject Target;// DeadEffect;
-    private RaycastHit2D[] Hit;
-
-    [Header("유닛이 걸린 상태이상 변수")]
-    public float StopCount;
-    public float AttackSlowCount, MoveSlowCount;
-    public bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady;
     [SerializeField] private bool IsRush;
-
-    [Header("넉백 관련 변수")]
-    [SerializeField] private float MaxReceivDamage;
-    [SerializeField] private float KnockBackCount;
-    public float ReceivDamage;
-    public bool IsKnockBack;
-
-    [Header("공격 준비 쿨타임")]
-    public float AttackCoolTimeCount;
-    public float MaxAttackCoolTimeCount;
-
-    [Header("공격 실행 쿨타임")]
-    public float AttackCount;
-    public float MaxAttackCount;
-
-    [Header("그 외")]
-    [SerializeField] private bool IsAttackAnim;
-    Rigidbody2D rigid;
-    #endregion
+    private RaycastHit2D[] Hit;
     // Start is called before the first frame update
-    private void Start()
+    public override void Start()
     {
         IsRush = true;
         rigid = GetComponent<Rigidbody2D>();
@@ -48,7 +18,7 @@ public class CleaningCarUnit : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    public override void Update()
     {
         if (IsKnockBack == false && IsStop == false) Move();
         Stops();
@@ -60,7 +30,7 @@ public class CleaningCarUnit : MonoBehaviour
         StatManagement();
         KnockBack();
     }
-    private void Stops()
+    public override void Stops()
     {
         if (StopCount > 0)
         {
@@ -70,7 +40,7 @@ public class CleaningCarUnit : MonoBehaviour
         else
             IsStop = false;
     }
-    private void KnockBack()
+    public override void KnockBack()
     {
         if (ReceivDamage == MaxReceivDamage)
         {
@@ -87,9 +57,9 @@ public class CleaningCarUnit : MonoBehaviour
             StartCoroutine(KnockBacking());
         }
     }
-    private IEnumerator FirstSpawnAnim()
+    public override IEnumerator FirstSpawnAnim()
     {
-        transform.DOScale(1, 1f).SetEase(Ease.OutSine);
+        transform.DOScale(1, 0.9f).SetEase(Ease.OutSine);
         IsKnockBack = true;
         rigid.AddForce(new Vector2(80, 110));
         yield return new WaitForSeconds(0.3f);
@@ -100,7 +70,7 @@ public class CleaningCarUnit : MonoBehaviour
         IsKnockBack = false;
         yield return null;
     }
-    private IEnumerator KnockBacking()
+    public override IEnumerator KnockBacking()
     {
         if (IsKnockBack == true)
         {
@@ -121,15 +91,15 @@ public class CleaningCarUnit : MonoBehaviour
             Dead();
         yield return null;
     }
-    private void StatManagement()
+    public override void StatManagement()
     {
         Damage = (IsRush == true) ? Damage = 100 : Damage = 45;
-        Speed = (IsRush == true) ? Speed = 1.7f : Speed = 0.4f;
+        Speed = (IsRush == true) ? Speed = 2.5f : Speed = 0.4f;
         Hp = (Hp >= MaxHp) ? Hp = MaxHp : Hp = (Hp + 0); 
         StopCount = (StopCount <= 0) ? StopCount = 0 : StopCount = (StopCount + 0);
     }
 
-    private void Move()
+    public override void Move()
     {
         //이동 애니 실행
         if (IsAttackReady == false && IsMoveSlow == false)
@@ -153,11 +123,12 @@ public class CleaningCarUnit : MonoBehaviour
                     AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
                     if (AttackCount >= MaxAttackCount)
                     {
-                        if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+                        if (Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false)
                         {
                             Hits.collider.GetComponent<BasicEnemy>().Hp -= Damage;
                             Hits.collider.GetComponent<BasicEnemy>().ReceivDamage += Damage;
                             //Target.GetComponent<BasicUnit>().; 밀치기 실행
+                            IsRush = false;
                         }
                         if (a >= Hit.Length - 1)
                         {
@@ -175,7 +146,7 @@ public class CleaningCarUnit : MonoBehaviour
                 IsAttackReady = false;
         }
     }
-    private void AttackCoolTime()
+    public override void AttackCoolTime()
     {
         AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);
@@ -200,7 +171,7 @@ public class CleaningCarUnit : MonoBehaviour
         else
             IsAttackReady = false;
     }
-    private void AttackAnim()
+    public override void AttackAnim()
     {
         if (IsAttackAnim == false)
         {
@@ -208,22 +179,22 @@ public class CleaningCarUnit : MonoBehaviour
             //공격 애니 실행
         }
     }
-    private void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
-    private void AttackTime()
+    public override void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
+    public override void AttackTime()
     {
         AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;       
         if(AttackCount >= MaxAttackCount)
         {
             if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
-                Target.GetComponent<BasicUnit>().Hp -= Damage;
-                Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+                Target.GetComponent<BasicEnemy>().Hp -= Damage;
+                Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
             }
             AttackCount = 0;
             AttackCoolTimeCount = 0;
         }
     }
-    private void Dead()
+    public override void Dead()
     {
         if (Hp <= 0)
         {
