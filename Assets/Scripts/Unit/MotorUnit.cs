@@ -7,11 +7,7 @@ public class MotorUnit : BasicUnit
     private RaycastHit2D[] Hit;
     public override void AttackCoolTime()
     {
-        if (IsAttackSlow == true)
-            AttackCoolTimeCount += Time.deltaTime / 1.5f;
-        else
-            AttackCoolTimeCount += Time.deltaTime;
-
+        AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);
         Hit = Physics2D.RaycastAll(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
         for (int a = 0; a < Hit.Length; a++)
@@ -23,14 +19,14 @@ public class MotorUnit : BasicUnit
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
                 {
                     AttackAnim();
-                    if (IsAttackSlow == true)
-                        AttackCount += Time.deltaTime / 1.5f;
-                    else
-                        AttackCount += Time.deltaTime;
+                    AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
                     if (AttackCount >= MaxAttackCount)
                     {
-                        Hits.collider.GetComponent<BasicEnemy>().Hp -= Damage;
-                        Hits.collider.GetComponent<BasicEnemy>().ReceivDamage += Damage;  
+                        if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+                        {
+                            Hits.collider.GetComponent<BasicEnemy>().Hp -= Damage;
+                            Hits.collider.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+                        }
                         if(a >= Hit.Length - 1)
                         {
                             AttackCount = 0;

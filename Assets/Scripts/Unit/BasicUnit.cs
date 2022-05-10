@@ -14,7 +14,7 @@ public class BasicUnit : MonoBehaviour
     [Header("유닛이 걸린 상태이상 변수")]
     public float StopCount;
     public float AttackSlowCount, MoveSlowCount;
-    public bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady;
+    public bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady, IsPush;
 
     [Header("넉백 관련 변수")]
     [SerializeField] private float MaxReceivDamage;
@@ -135,10 +135,7 @@ public class BasicUnit : MonoBehaviour
     }
     public virtual void AttackCoolTime()
     {
-        if (IsAttackSlow == true)
-            AttackCoolTimeCount += Time.deltaTime / 1.5f;
-        else
-            AttackCoolTimeCount += Time.deltaTime;
+        AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
 
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
@@ -179,8 +176,11 @@ public class BasicUnit : MonoBehaviour
             AttackCount += Time.deltaTime;
         if (AttackCount >= MaxAttackCount)
         {
-            Target.GetComponent<BasicUnit>().Hp -= Damage;
-            Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+            if(Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            {
+                Target.GetComponent<BasicUnit>().Hp -= Damage;
+                Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+            }
             AttackCount = 0;
             AttackCoolTimeCount = 0;
         }

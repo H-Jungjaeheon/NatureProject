@@ -712,7 +712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &219587016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3795,7 +3795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1121759646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5862,7 +5862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1722294214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8341,6 +8341,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AutomaticUnit
       objectReference: {fileID: 0}
+    - target: {fileID: 5251156149695615307, guid: 96e85f7bca3773d4790174ff4343ebf6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5251156149695615309, guid: 96e85f7bca3773d4790174ff4343ebf6, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -8396,7 +8400,7 @@ Transform:
   m_GameObject: {fileID: 4594071128736486564}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -4.43, y: 1.41, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
@@ -8465,14 +8469,13 @@ GameObject:
   - component: {fileID: 5317184390479630114}
   - component: {fileID: 6445714919658501103}
   - component: {fileID: 4594071128736486565}
-  - component: {fileID: 4594071128736486567}
   m_Layer: 8
   m_Name: CleaningCarUnit
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4594071128736486565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8485,23 +8488,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a84db4125732e4a9593cf264b42d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4594071128736486567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4594071128736486564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f665bbd81a3ad544bf1b1fce922c958, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Hp: 700
-  Range: 1.5
-  Damage: 50
-  MaxHp: 700
-  Speed: 0.3
+  Hp: 100
+  Range: 0
+  Damage: 0
+  MaxHp: 100
+  Speed: 0.5
   Target: {fileID: 0}
   StopCount: 0
   AttackSlowCount: 0
@@ -8510,16 +8501,16 @@ MonoBehaviour:
   IsAttackSlow: 0
   IsMoveSlow: 0
   IsAttackReady: 0
+  IsRush: 0
   MaxReceivDamage: 0
-  KnockBackCount: 2
+  KnockBackCount: 0
   ReceivDamage: 0
   IsKnockBack: 0
-  AttackCoolTimeCount: 3
-  MaxAttackCoolTimeCount: 3
+  AttackCoolTimeCount: 0
+  MaxAttackCoolTimeCount: 0
   AttackCount: 0
   MaxAttackCount: 0
   IsAttackAnim: 0
-  StopAttack: 0
 --- !u!61 &5317184390479630114
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8533,7 +8524,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08559203, y: -0.6480549}
+  m_Offset: {x: 0.23886919, y: -0.005050242}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -8544,7 +8535,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9233642, y: 2.4848318}
+  m_Size: {x: 4.674467, y: 2.9770083}
   m_EdgeRadius: 0
 --- !u!1001 &5764823281760820481
 PrefabInstance:
@@ -8685,7 +8676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 898993224189712413, guid: 66031a7a1a33a6346a3badd9233d3ec1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66031a7a1a33a6346a3badd9233d3ec1, type: 3}
