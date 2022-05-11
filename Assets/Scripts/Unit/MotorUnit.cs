@@ -5,7 +5,7 @@ using UnityEngine;
 public class MotorUnit : BasicUnit
 {
     private RaycastHit2D[] Hit;
-    public override void AttackCoolTime()
+    protected override void AttackCoolTime()
     {
         AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);

@@ -13,13 +13,13 @@ public class BasicUnit : MonoBehaviour
     [Header("유닛이 걸린 상태이상 변수")]
     [SerializeField] protected float StopCount;
     [SerializeField] protected float AttackSlowCount, MoveSlowCount;
-    [SerializeField] protected bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady, IsPush;
+    [SerializeField] protected bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady;
 
     [Header("넉백 관련 변수")]
     [SerializeField] protected float MaxReceivDamage;
     [SerializeField] protected float KnockBackCount;
     public float ReceivDamage;
-    public bool IsKnockBack;
+    public bool IsKnockBack, IsSuction;
 
     [Header("공격 준비 쿨타임")]
     [SerializeField] protected float AttackCoolTimeCount;
@@ -34,7 +34,7 @@ public class BasicUnit : MonoBehaviour
     protected Rigidbody2D rigid;
     #endregion
     // Start is called before the first frame update
-    public virtual void Start()
+    protected virtual void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -43,20 +43,20 @@ public class BasicUnit : MonoBehaviour
     }
 
     // Update is called once per frame
-    public virtual void Update()
+    protected virtual void Update()
     {
         if (IsKnockBack == false && IsStop == false)
             Move();
         Stops();
     }
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (IsStop == false && IsKnockBack == false)
             AttackCoolTime();
         StatManagement();
         KnockBack();
-    }
-    public virtual void Stops()
+    }   
+    protected virtual void Stops()
     {
         if (StopCount > 0)
         {
@@ -66,7 +66,7 @@ public class BasicUnit : MonoBehaviour
         else
             IsStop = false;
     }
-    public virtual void KnockBack()
+    protected virtual void KnockBack()
     {
         if (ReceivDamage == MaxReceivDamage)
         {
@@ -83,7 +83,7 @@ public class BasicUnit : MonoBehaviour
             StartCoroutine(KnockBacking());
         }
     }
-    public virtual IEnumerator FirstSpawnAnim()
+    protected virtual IEnumerator FirstSpawnAnim()
     {
         IsKnockBack = true;
         rigid.AddForce(new Vector2(80, 110));
@@ -95,7 +95,7 @@ public class BasicUnit : MonoBehaviour
         IsKnockBack = false;
         yield return null;
     }
-    public virtual IEnumerator KnockBacking()
+    protected virtual IEnumerator KnockBacking()
     {
         if (IsKnockBack == true)
         {
@@ -116,15 +116,15 @@ public class BasicUnit : MonoBehaviour
             Dead();
         yield return null;
     }
-    public virtual void StatManagement()
+    protected virtual void StatManagement()
     {
         if (Hp >= MaxHp)
             Hp = MaxHp;
         if (StopCount <= 0)
             StopCount = 0;
-    } 
+    }
 
-    public virtual void Move()
+    protected virtual void Move()
     {
         //이동 애니 실행
         if (IsAttackReady == false && IsMoveSlow == false)
@@ -132,7 +132,7 @@ public class BasicUnit : MonoBehaviour
         else if (IsAttackReady == false && IsMoveSlow == true)
             transform.position = transform.position + new Vector3(Time.deltaTime * 0.1f, 0, 0);
     }
-    public virtual void AttackCoolTime()
+    protected virtual void AttackCoolTime()
     {
         AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
 
@@ -158,7 +158,7 @@ public class BasicUnit : MonoBehaviour
         else
             IsAttackReady = false;       
     }
-    public virtual void AttackAnim()
+    protected virtual void AttackAnim()
     {
         if (IsAttackAnim == false)
         {
@@ -166,8 +166,8 @@ public class BasicUnit : MonoBehaviour
             //공격 애니 실행
         }
     }
-    public virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
-    public virtual void AttackTime()
+    protected virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
+    protected virtual void AttackTime()
     {
         if (IsAttackSlow == true)
             AttackCount += Time.deltaTime / 1.5f;
@@ -184,7 +184,7 @@ public class BasicUnit : MonoBehaviour
             AttackCoolTimeCount = 0;
         }
     }
-    public virtual void Dead()
+    protected virtual void Dead()
     {
         if(Hp <= 0)
         {

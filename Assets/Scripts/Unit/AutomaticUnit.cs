@@ -6,7 +6,7 @@ public class AutomaticUnit : BasicUnit
 {
     [Header("특수능력 확률")]
     [SerializeField] private int StopAttack = 0;
-    public override void AttackTime()
+    protected override void AttackTime()
     {
         if (IsAttackSlow == true)
             AttackCount += Time.deltaTime / 1.5f;
@@ -23,7 +23,7 @@ public class AutomaticUnit : BasicUnit
             AttackCoolTimeCount = 0;
         }
     }
-    public override void AttackCoolTime()
+    protected override void AttackCoolTime()
     {
         if (IsAttackSlow == true)
             AttackCoolTimeCount += Time.deltaTime / 1.5f;

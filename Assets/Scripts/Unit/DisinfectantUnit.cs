@@ -6,7 +6,7 @@ public class DisinfectantUnit : BasicUnit
 {
     [Header("특수능력 확률")]
     [SerializeField] private int StopAttack = 0;
-    public override void AttackTime()
+    protected override void AttackTime()
     {
         if (IsAttackSlow == true)
             AttackCount += Time.deltaTime / 1.5f;

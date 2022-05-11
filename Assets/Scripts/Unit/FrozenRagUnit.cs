@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FrozenRagUnit : BasicUnit
 {
-    public override void AttackTime()
+    protected override void AttackTime()
     {
         if (IsAttackSlow == true)
             AttackCount += Time.deltaTime / 1.5f;

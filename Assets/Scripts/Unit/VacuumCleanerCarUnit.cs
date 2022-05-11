@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CleaningCarUnit : BasicUnit
+public class VacuumCleanerCarUnit : BasicUnit
 {
     [SerializeField] private bool IsRush;
-    private RaycastHit2D[] Hit;
+    private RaycastHit2D[] Hit, SuctionHit, InstantDeathHit;
+    [SerializeField] private float SuctionCount, MaxSuctionCount, InstantDeathCount, MaxInstantDeathCount;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -20,15 +21,16 @@ public class CleaningCarUnit : BasicUnit
     // Update is called once per frame
     protected override void Update()
     {
-        if (IsKnockBack == false && IsStop == false) Move();
-        Stops();
+        if (IsKnockBack == false && IsStop == false && Hp > 0) Move();
+        if (Hp > 0) Stops();
     }
     protected override void FixedUpdate()
     {
-        if (IsStop == false && IsKnockBack == false && IsRush == false) AttackCoolTime();
-        else if (IsStop == false && IsKnockBack == false && IsRush == true) RushAttackCoolTime();
+        if (IsStop == false && IsKnockBack == false && IsRush == false && Hp > 0) AttackCoolTime();
+        else if (IsStop == false && IsKnockBack == false && IsRush == true && Hp > 0) RushAttackCoolTime();
         StatManagement();
         KnockBack();
+        Dead();
     }
     protected override void Stops()
     {
@@ -59,7 +61,7 @@ public class CleaningCarUnit : BasicUnit
     }
     protected override IEnumerator FirstSpawnAnim()
     {
-        transform.DOScale(1, 0.9f).SetEase(Ease.OutSine);
+        transform.DOScale(1, 1f).SetEase(Ease.OutSine);
         IsKnockBack = true;
         rigid.AddForce(new Vector2(80, 110));
         yield return new WaitForSeconds(0.3f);
@@ -88,14 +90,14 @@ public class CleaningCarUnit : BasicUnit
         }
         IsKnockBack = false;
         if (Hp <= 0)
-            Dead();
+            IsSuction = true;
         yield return null;
     }
     protected override void StatManagement()
     {
         Damage = (IsRush == true) ? Damage = 100 : Damage = 45;
         Speed = (IsRush == true) ? Speed = 2.5f : Speed = 0.4f;
-        Hp = (Hp >= MaxHp) ? Hp = MaxHp : Hp = (Hp + 0); 
+        Hp = (Hp >= MaxHp) ? Hp = MaxHp : Hp = (Hp + 0);
         StopCount = (StopCount <= 0) ? StopCount = 0 : StopCount = (StopCount + 0);
     }
 
@@ -114,7 +116,7 @@ public class CleaningCarUnit : BasicUnit
         for (int a = 0; a < Hit.Length; a++)
         {
             RaycastHit2D Hits = Hit[a];
-            if (Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if (Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false && Hp > 0)
             {
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
@@ -137,7 +139,7 @@ public class CleaningCarUnit : BasicUnit
                         }
                     }
                 }
-                else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
+                else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true && Hp > 0)
                 {
                     //기본 애니 실행
                 }
@@ -154,7 +156,7 @@ public class CleaningCarUnit : BasicUnit
         if (hit)
         {
             Target = hit.collider.gameObject;
-            if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if (Target.GetComponent<BasicEnemy>().IsKnockBack == false && Hp > 0)
             {
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
@@ -173,7 +175,7 @@ public class CleaningCarUnit : BasicUnit
     }
     protected override void AttackAnim()
     {
-        if (IsAttackAnim == false)
+        if (IsAttackAnim == false && Hp > 0)
         {
             IsAttackAnim = true;
             //공격 애니 실행
@@ -182,8 +184,8 @@ public class CleaningCarUnit : BasicUnit
     protected override void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
     protected override void AttackTime()
     {
-        AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;       
-        if(AttackCount >= MaxAttackCount)
+        AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
+        if (AttackCount >= MaxAttackCount && Hp > 0)
         {
             if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
@@ -196,11 +198,25 @@ public class CleaningCarUnit : BasicUnit
     }
     protected override void Dead()
     {
-        if (Hp <= 0)
+        if (IsSuction == true)
         {
-            //Instantiate(DeadEffect, transform.position, DeadEffect.transform.rotation);
-            Destroy(this.gameObject);
+            if (SuctionCount >= MaxSuctionCount || InstantDeathCount >= MaxInstantDeathCount) Destroy(this.gameObject);
+            SuctionCount += Time.deltaTime;
+            SuctionTime();
             //죽음 효과 소환
+        }
+    }
+    private void SuctionTime()
+    {
+        SuctionHit = Physics2D.RaycastAll(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
+        for (int a = 0; a < SuctionHit.Length; a++)
+        {
+            RaycastHit2D SuctionHits = SuctionHit[a];
+            if (SuctionHits.collider.GetComponent<BasicEnemy>().IsKnockBack == false && SuctionHits.collider.GetComponent<BasicEnemy>().IsBoss == false)
+            {
+                AttackAnim();
+                SuctionHits.collider.gameObject.transform.position = Vector3.MoveTowards(SuctionHits.collider.gameObject.transform.position, transform.position, Time.deltaTime);
+            }
         }
     }
 }
