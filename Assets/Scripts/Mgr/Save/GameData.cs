@@ -7,6 +7,11 @@ using UnityEngine;
 
 public class GameData 
 {
+    [Header("Stage_변수")]
+    public int UnlockStage;
+    public int SelectStage;
+    [Space (10)]
+
     public List<StageInfo> StageInfos;
 
     // 각 챕터의 잠금여부
