@@ -287,7 +287,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 131650788}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 989747949}
+        m_TargetAssemblyTypeName: SelectChapterManager, Assembly-CSharp
+        m_MethodName: SelectChapter3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &131650788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,6 +697,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c04003a8d134c2e4390b2909005b90f4, type: 3}
   - {fileID: 21300000, guid: dd3e459428ba54745b00473abb13e67e, type: 3}
   - {fileID: 21300000, guid: 0d3128198750b764fa1654ffb2f27d79, type: 3}
+  Cam: {fileID: 14889666}
+  CameraSize: 3
+  UI: {fileID: 1513104271}
+  CameraMovePos:
+  - {x: -4.2, y: -2.5, z: -10}
+  - {x: 0, y: 0, z: -10}
+  - {x: 0, y: 0, z: -10}
+  CamMoveDur: 2
+  CamMoveSize: 3
 --- !u!1 &993795173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,7 +1071,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1022054003}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 989747949}
+        m_TargetAssemblyTypeName: SelectChapterManager, Assembly-CSharp
+        m_MethodName: SelectChapter1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1022054003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,6 +1467,12 @@ MonoBehaviour:
   laserchargelevel: 1
   laserpowerlevel: 1
   UnlockStage: 1
+  SelectStage: 1
+  GameDataFileName: StageData.json
+  _gameData:
+    UnlockStage: 0
+    SelectStage: 0
+    StageInfos: []
 --- !u!4 &1539922852
 Transform:
   m_ObjectHideFlags: 0
@@ -1693,7 +1732,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2110895952}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 989747949}
+        m_TargetAssemblyTypeName: SelectChapterManager, Assembly-CSharp
+        m_MethodName: SelectChapter2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2110895952
 MonoBehaviour:
   m_ObjectHideFlags: 0

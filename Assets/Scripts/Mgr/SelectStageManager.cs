@@ -1,13 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public class SelectStageManager : MonoBehaviour
 {
-    public List<GameObject> Stages;
-
+    [Header("스테이지 선택_씬 시작 연출 변수")]
+    //0.1f ~ 1.0f
+    [SerializeField]
+    private GameObject[] SizeChangeObj;
+    //0.05f ~ 0.3f
     public GameObject CatTower;
+    [SerializeField]
+    private float ChangeDur;
+
+    [Header("스테이지 선택_청소 시작 연출 변수")]
+    [SerializeField]
+    GameObject CleaningTxtParant;
+    [SerializeField]
+    Image BlurPanel;
+    [SerializeField]
+    float BlurSize;
+    [SerializeField]
+    int MinTxtScale;
+    [SerializeField]
+    float TxtChangeDur;
+
+    [Header("스테이지 선택_에러 연출 변수")]
+    [SerializeField]
+    Text ErrorTxt;
+    [SerializeField]
+    string[] ErrorComent;
+    [SerializeField]
+    GameObject GoalObj;
+    [SerializeField]
+    float ErrorTxtMoveDur;
+
+    [Header ("스테이지 선택_변수")]
+    public List<GameObject> Stages;
 
     public Sprite[] SwipeImage;
     int layerMask = 1 << 6;
@@ -22,8 +53,11 @@ public class SelectStageManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(ChangeObjSize());
         SettingStage();
         StartCoroutine(CatTowerMove());
+        StartCoroutine(ChangeSizeCleaningTxt());
+        StartCoroutine(PrintErrorTxt(1));
         //Debug.Log($"{GameManager.In.DicStageInfo["2_2"].Chapter} && {GameManager.In.DicStageInfo["2_2"].Stage}");
     }
 
@@ -36,6 +70,8 @@ public class SelectStageManager : MonoBehaviour
         {
             MouseClick();
         }
+
+        BlurPanel.material.SetFloat("_Radius", BlurSize);
     }
 
     private void MouseClick()
@@ -159,5 +195,38 @@ public class SelectStageManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator ChangeObjSize()
+    {
+        yield return null;
+
+        foreach(GameObject Obj in SizeChangeObj)
+        {
+            Obj.transform.DOScale(1.0f, ChangeDur); 
+        }
+
+        CatTower.transform.DOScale(0.3f, ChangeDur);
+    }
+
+    IEnumerator ChangeSizeCleaningTxt()
+    {
+        yield return null;
+
+        DOTween.To(() => BlurSize, x => BlurSize = x, 1, TxtChangeDur);
+        CleaningTxtParant.transform.DOScale(MinTxtScale, TxtChangeDur);
+        Debug.Log(BlurPanel.material.GetFloat("_Radius"));
+
+        //페이드인/아웃 넣을 곳
+    }
+
+    IEnumerator PrintErrorTxt(int ErrorType)
+    {
+        yield return null;
+
+        ErrorTxt.text = ErrorComent[ErrorType];
+
+        ErrorTxt.gameObject.transform.DOMove(GoalObj.transform.position, ErrorTxtMoveDur);
+        //페이드인/아웃 넣을 곳
     }
 }
