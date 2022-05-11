@@ -19,7 +19,7 @@ public class BasicEnemy : MonoBehaviour
 
     [Header("상태 이상 관련 변수")]
     public bool IsKnockBack;
-    public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing;
+    public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing, IsSuctioning;
     [SerializeField] private bool IsAttackReady, IsAttackAnim;
     [SerializeField] private GameObject Target;
     Rigidbody2D rigid;
@@ -160,6 +160,10 @@ public class BasicEnemy : MonoBehaviour
         {
             ReceivDamage = ReceivDamage % MaxReceivDamage;
             StartCoroutine(KnockBacking());
+        }
+        else if(IsSuctioning == true && Hp == 0)
+        {
+            Dead();
         }
     }
     public virtual IEnumerator KnockBacking()

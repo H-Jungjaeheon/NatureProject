@@ -54,14 +54,13 @@ public class VacuumCleanerCarUnit : BasicUnit
         else if (ReceivDamage > MaxReceivDamage)
         {
             ReceivDamage = ReceivDamage % MaxReceivDamage;
-            Debug.Log("³Ë¹é");
             IsKnockBack = true;
             StartCoroutine(KnockBacking());
         }
     }
     protected override IEnumerator FirstSpawnAnim()
     {
-        transform.DOScale(1, 1f).SetEase(Ease.OutSine);
+        transform.DOScale(1.1f, 0.8f).SetEase(Ease.OutSine);
         IsKnockBack = true;
         rigid.AddForce(new Vector2(80, 110));
         yield return new WaitForSeconds(0.3f);
@@ -202,20 +201,37 @@ public class VacuumCleanerCarUnit : BasicUnit
         {
             if (SuctionCount >= MaxSuctionCount || InstantDeathCount >= MaxInstantDeathCount) Destroy(this.gameObject);
             SuctionCount += Time.deltaTime;
-            SuctionTime();
+            Suction();
+            InstantDeath();
             //Á×À½ È¿°ú ¼ÒÈ¯
         }
     }
-    private void SuctionTime()
+    private void Suction()
     {
-        SuctionHit = Physics2D.RaycastAll(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
+        SuctionHit = Physics2D.RaycastAll(transform.position, Vector2.right, Range * 2, LayerMask.GetMask("Enemy"));
         for (int a = 0; a < SuctionHit.Length; a++)
         {
             RaycastHit2D SuctionHits = SuctionHit[a];
             if (SuctionHits.collider.GetComponent<BasicEnemy>().IsKnockBack == false && SuctionHits.collider.GetComponent<BasicEnemy>().IsBoss == false)
             {
                 AttackAnim();
-                SuctionHits.collider.gameObject.transform.position = Vector3.MoveTowards(SuctionHits.collider.gameObject.transform.position, transform.position, Time.deltaTime);
+                SuctionHits.collider.GetComponent<BasicEnemy>().IsSuctioning = true;
+                SuctionHits.collider.gameObject.transform.position = Vector3.MoveTowards(SuctionHits.collider.gameObject.transform.position,
+                new Vector3(transform.position.x, SuctionHits.collider.gameObject.transform.position.y, SuctionHits.collider.gameObject.transform.position.z), Time.deltaTime * 2);
+            }
+        }
+    }
+    private void InstantDeath()
+    {
+        InstantDeathHit = Physics2D.RaycastAll(transform.position, Vector2.right, Range / 2, LayerMask.GetMask("Enemy"));
+        for (int a = 0; a < InstantDeathHit.Length; a++)
+        {
+            RaycastHit2D InstantDeath = InstantDeathHit[a];
+            if (InstantDeath.collider.GetComponent<BasicEnemy>().IsKnockBack == false && InstantDeath.collider.GetComponent<BasicEnemy>().IsBoss == false)
+            {
+                AttackAnim();
+                InstantDeath.collider.gameObject.GetComponent<BasicEnemy>().Hp = 0;
+                InstantDeathCount++;
             }
         }
     }
