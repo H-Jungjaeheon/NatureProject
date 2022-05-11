@@ -6,29 +6,36 @@ using UnityEngine.UI;
 public class SelectStageManager : MonoBehaviour
 {
     public List<GameObject> Stages;
+
+    public GameObject CatTower;
+
     public Sprite[] SwipeImage;
     int layerMask = 1 << 6;
+
     [SerializeField]
     string StageName;
+    [SerializeField]
+    int CurCatTowerPos;
+    [SerializeField]
+    int GoalCatTowerPos;
 
     // Start is called before the first frame update
     void Start()
     {
         SettingStage();
+        StartCoroutine(CatTowerMove());
         //Debug.Log($"{GameManager.In.DicStageInfo["2_2"].Chapter} && {GameManager.In.DicStageInfo["2_2"].Stage}");
     }
 
     // Update is called once per frame
     void Update()
     {
-        SettingStage();
+        //SettingStage();
 
         if (Input.GetMouseButtonDown(0))
         {
             MouseClick();
         }
-
-        Debug.Log(GameManager.In.DicStageInfo.ContainsKey("1_6"));
     }
 
     private void MouseClick()
@@ -42,6 +49,7 @@ public class SelectStageManager : MonoBehaviour
         {
             StageName = hit.collider.gameObject.name;
             Debug.Log(hit.collider.gameObject.name);
+            GoalSelectStage();
         }
     }
 
@@ -54,9 +62,32 @@ public class SelectStageManager : MonoBehaviour
         }
     }
 
+    #region SelectStageÇÔ¼ö
+    void CurSelectStage()
+    {
+        string[] Names = StageName.Split('_');
+        CurCatTowerPos = int.Parse(Names[1]) - 1;
+    }
+
+    void GoalSelectStage()
+    {
+        if (GameManager.In.DicStageInfo[StageName].Onplay == true)
+        {
+            string[] Names = StageName.Split('_');
+            GoalCatTowerPos = int.Parse(Names[1]) - 1;
+        }
+    }
+    #endregion
+
     void SettingStage()
     {
-        foreach(GameObject Stage in Stages)
+        StageName = Stages[0].name;
+        CurSelectStage();
+        GoalSelectStage();
+
+        //CatTower.transform.position = 
+
+        foreach (GameObject Stage in Stages)
         {
             if(GameManager.In.DicStageInfo[Stage.name].Onplay == true)
             {
@@ -98,6 +129,35 @@ public class SelectStageManager : MonoBehaviour
             //Debug.Log($"Chapter{StageInfo[0]}, Stage{StageInfo[1]}");
 
             //if(GameManager)
+        }
+    }
+
+    IEnumerator CatTowerMove()
+    {
+        yield return null;
+
+        while(true)
+        {
+            yield return null;
+
+            if(CurCatTowerPos != GoalCatTowerPos)
+            {
+                if(CurCatTowerPos < GoalCatTowerPos)
+                {
+                    CatTower.transform.position = Vector2.MoveTowards(CatTower.transform.position, Stages[CurCatTowerPos + 1].transform.position + new Vector3(0 , 1.5f, 0) , 7 * Time.deltaTime);
+
+                    if(CatTower.transform.position.x == Stages[CurCatTowerPos + 1].transform.position.x)
+                        CurCatTowerPos++;
+
+                }
+
+                else if (CurCatTowerPos > GoalCatTowerPos)
+                {
+                    CatTower.transform.position = Vector2.MoveTowards(CatTower.transform.position, Stages[CurCatTowerPos - 1].transform.position + new Vector3(0, 1.5f, 0), 7 * Time.deltaTime);
+                    if (CatTower.transform.position.x == Stages[CurCatTowerPos - 1].transform.position.x)
+                        CurCatTowerPos--;
+                }
+            }
         }
     }
 }
