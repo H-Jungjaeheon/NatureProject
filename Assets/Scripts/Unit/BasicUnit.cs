@@ -86,10 +86,10 @@ public class BasicUnit : MonoBehaviour
     protected virtual IEnumerator FirstSpawnAnim()
     {
         IsKnockBack = true;
-        rigid.AddForce(new Vector2(80, 110));
+        rigid.AddForce(new Vector2(110, 110));
         yield return new WaitForSeconds(0.3f);
         rigid.velocity = Vector2.zero;
-        rigid.AddForce(new Vector2(80, -213));
+        rigid.AddForce(new Vector2(110, -213));
         yield return new WaitForSeconds(0.5f);
         rigid.velocity = Vector2.zero;
         IsKnockBack = false;
@@ -177,8 +177,8 @@ public class BasicUnit : MonoBehaviour
         {
             if(Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
-                Target.GetComponent<BasicUnit>().Hp -= Damage;
-                Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+                Target.GetComponent<BasicEnemy>().Hp -= Damage;
+                Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
             }
             AttackCount = 0;
             AttackCoolTimeCount = 0;

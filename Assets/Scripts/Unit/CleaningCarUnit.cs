@@ -61,10 +61,10 @@ public class CleaningCarUnit : BasicUnit
     {
         transform.DOScale(1, 0.9f).SetEase(Ease.OutSine);
         IsKnockBack = true;
-        rigid.AddForce(new Vector2(80, 110));
+        rigid.AddForce(new Vector2(110, 110));
         yield return new WaitForSeconds(0.3f);
         rigid.velocity = Vector2.zero;
-        rigid.AddForce(new Vector2(80, -213));
+        rigid.AddForce(new Vector2(110, -213));
         yield return new WaitForSeconds(0.5f);
         rigid.velocity = Vector2.zero;
         IsKnockBack = false;
