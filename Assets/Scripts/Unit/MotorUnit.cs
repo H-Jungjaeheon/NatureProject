@@ -22,7 +22,7 @@ public class MotorUnit : BasicUnit
                     AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
                     if (AttackCount >= MaxAttackCount)
                     {
-                        if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+                        if (Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false)
                         {
                             Hits.collider.GetComponent<BasicEnemy>().Hp -= Damage;
                             Hits.collider.GetComponent<BasicEnemy>().ReceivDamage += Damage;

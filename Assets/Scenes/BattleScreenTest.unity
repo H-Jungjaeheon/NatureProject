@@ -8845,15 +8845,15 @@ GameObject:
   - component: {fileID: 5701861121638698769}
   - component: {fileID: 4119122586374214800}
   - component: {fileID: 2995941254216018013}
-  - component: {fileID: 5701861121638698775}
+  - component: {fileID: 5701861121638698776}
   m_Layer: 8
   m_Name: SolarHeatUnit
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &5701861121638698775
+  m_IsActive: 1
+--- !u!114 &5701861121638698776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8862,7 +8862,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5701861121638698774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2766644284a8814e8e6272df85ddad9, type: 3}
+  m_Script: {fileID: 11500000, guid: 085d6ed016dae3f45a272ef7e95c2a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: 200
@@ -8884,10 +8884,11 @@ MonoBehaviour:
   IsKnockBack: 0
   IsSuction: 0
   AttackCoolTimeCount: 0
-  MaxAttackCoolTimeCount: 0
+  MaxAttackCoolTimeCount: 4
   AttackCount: 0
-  MaxAttackCount: 5
+  MaxAttackCount: 4
   IsAttackAnim: 0
+  MaxLazerHitCount: 0
 --- !u!1001 &5764823281760820481
 PrefabInstance:
   m_ObjectHideFlags: 0
