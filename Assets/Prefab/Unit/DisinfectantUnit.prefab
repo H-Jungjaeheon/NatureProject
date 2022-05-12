@@ -98,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.3557899, y: 0.075442135}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.85, y: 1.58}
+  m_Size: {x: 1.7507424, y: 1.6495517}
   m_EdgeRadius: 0
 --- !u!50 &8558759639880839816
 Rigidbody2D:
@@ -145,18 +145,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: 200
-  ReceivDamage: 0
-  StopCount: 0
-  AttackCount: 1.5
-  MaxAttackCount: 1.5
+  Speed: 0.5
   Range: 3
   Damage: 20
   MaxHp: 200
-  MaxReceivDamage: 0
-  Speed: 0.5
-  KnockBackCount: 2
-  IsKnockBack: 0
-  IsStop: 0
-  IsAttack: 0
   Target: {fileID: 0}
+  StopCount: 0
+  AttackSlowCount: 0
+  MoveSlowCount: 0
+  IsStop: 0
+  IsAttackSlow: 0
+  IsMoveSlow: 0
+  IsAttackReady: 0
+  MaxReceivDamage: 0
+  KnockBackCount: 2
+  ReceivDamage: 0
+  IsKnockBack: 0
+  IsSuction: 0
+  AttackCoolTimeCount: 0
+  MaxAttackCoolTimeCount: 0
+  AttackCount: 1.5
+  MaxAttackCount: 1.5
+  IsAttackAnim: 0
   StopAttack: 0
