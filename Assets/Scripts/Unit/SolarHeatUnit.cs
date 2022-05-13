@@ -10,18 +10,28 @@ public class SolarHeatUnit : BasicUnit
     protected override void AttackCoolTime()
     {
         AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
+
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);
         Hit = Physics2D.RaycastAll(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
-        if (Hit[0]) IsAttackReady = true;
-        else IsAttackReady = false;
-        if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
-        {
-            AttackTime();
-        }
-        else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
-        {
-            //기본 애니 실행
-        }
+        //if (Hit)
+        //{
+        //    Target = hit.collider.gameObject;
+        //    if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+        //    {
+        //        IsAttackReady = true;
+        //        if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
+        //        {
+        //            AttackTime();
+        //            AttackAnim();
+        //        }
+        //        else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
+        //        {
+        //            //기본 애니 실행
+        //        }
+        //    }
+        //}
+        //else
+        //    IsAttackReady = false;
     }
     protected override void AttackTime()
     {
@@ -30,13 +40,10 @@ public class SolarHeatUnit : BasicUnit
         else
             AttackCount += Time.deltaTime;
         if (AttackCount >= MaxAttackCount)
-        {
-            if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
-            {
-                StartCoroutine(Attack());
-            }
-            AttackCount = 0;
-            AttackCoolTimeCount = 0;
+        {           
+           StartCoroutine(Attack());
+           AttackCount = 0;
+           AttackCoolTimeCount = 0;            
         }
     }
     private IEnumerator Attack()
@@ -50,17 +57,14 @@ public class SolarHeatUnit : BasicUnit
                 {
                     AttackAnim();
                     AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-                    if (AttackCount >= MaxAttackCount)
+                    if (AttackCount >= MaxAttackCount && Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false)
                     {
-                        if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
-                        {
                             Hits.collider.GetComponent<BasicEnemy>().Hp -= Damage;
                             Hits.collider.GetComponent<BasicEnemy>().ReceivDamage += Damage;
-                        }                     
                     }
                 }
                 else
-                    IsAttackReady = false;
+                   IsAttackReady = false;
                 AttackCount = 0;
                 AttackCoolTimeCount = 0;
             }
