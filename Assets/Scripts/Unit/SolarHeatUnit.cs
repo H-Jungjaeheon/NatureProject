@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SolarHeatUnit : BasicUnit
 {
-    private RaycastHit2D[] Hit;
+    private RaycastHit2D[] Hits;
+    private RaycastHit2D Hit;
     [SerializeField] private int MaxLazerHitCount;
     private readonly WaitForSeconds WFS = new WaitForSeconds(1f);
     protected override void AttackCoolTime()
@@ -12,33 +13,26 @@ public class SolarHeatUnit : BasicUnit
         AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
 
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);
-        Hit = Physics2D.RaycastAll(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
-        //if (Hit)
-        //{
-        //    Target = hit.collider.gameObject;
-        //    if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
-        //    {
-        //        IsAttackReady = true;
-        //        if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
-        //        {
-        //            AttackTime();
-        //            AttackAnim();
-        //        }
-        //        else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
-        //        {
-        //            //기본 애니 실행
-        //        }
-        //    }
-        //}
-        //else
-        //    IsAttackReady = false;
+        Hit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
+        Hits = Physics2D.RaycastAll(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
+        if (Hit && Hit.collider.GetComponent<BasicEnemy>().IsKnockBack == false)
+        {
+           IsAttackReady = true;
+           if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
+           {
+              AttackTime();
+              AttackAnim();
+           }
+           else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
+           {
+              //기본 애니 실행
+           }
+        }
+        else IsAttackReady = false;
     }
     protected override void AttackTime()
     {
-        if (IsAttackSlow == true)
-            AttackCount += Time.deltaTime / 1.5f;
-        else
-            AttackCount += Time.deltaTime;
+        AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
         if (AttackCount >= MaxAttackCount)
         {           
            StartCoroutine(Attack());
@@ -48,23 +42,16 @@ public class SolarHeatUnit : BasicUnit
     }
     private IEnumerator Attack()
     {
-        for(int LazerHitCount = 0; LazerHitCount <= MaxLazerHitCount; LazerHitCount++)
+        AttackAnim();
+        for (int LazerHitCount = 0; LazerHitCount <= MaxLazerHitCount; LazerHitCount++)
         {
-            for (int a = 0; a < Hit.Length; a++)
+            for (int a = 0; a < Hits.Length; a++)
             {
-                RaycastHit2D Hits = Hit[a];
-                if (Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false)
+                if (Hits[a].collider.GetComponent<BasicEnemy>().IsKnockBack == false)
                 {
-                    AttackAnim();
-                    AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-                    if (AttackCount >= MaxAttackCount && Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false)
-                    {
-                            Hits.collider.GetComponent<BasicEnemy>().Hp -= Damage;
-                            Hits.collider.GetComponent<BasicEnemy>().ReceivDamage += Damage;
-                    }
-                }
-                else
-                   IsAttackReady = false;
+                    Hits[a].collider.GetComponent<BasicEnemy>().Hp -= Damage;
+                    Hits[a].collider.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+                }               
                 AttackCount = 0;
                 AttackCoolTimeCount = 0;
             }

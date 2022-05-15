@@ -63,22 +63,19 @@ public class BasicUnit : MonoBehaviour
             StopCount -= Time.deltaTime;
             IsStop = true;
         }
-        else
-            IsStop = false;
+        else IsStop = false;
     }
     protected virtual void KnockBack()
     {
         if (ReceivDamage == MaxReceivDamage)
         {
             ReceivDamage = 0;
-            Debug.Log("넉백");
             IsKnockBack = true;
             StartCoroutine(KnockBacking());
         }
         else if (ReceivDamage > MaxReceivDamage)
         {
             ReceivDamage = ReceivDamage % MaxReceivDamage;
-            Debug.Log("넉백");
             IsKnockBack = true;
             StartCoroutine(KnockBacking());
         }
@@ -112,16 +109,13 @@ public class BasicUnit : MonoBehaviour
             rigid.velocity = Vector3.zero;
         }
         IsKnockBack = false;
-        if (Hp <= 0)
-            Dead();
+        if (Hp <= 0) Dead();
         yield return null;
     }
     protected virtual void StatManagement()
     {
-        if (Hp >= MaxHp)
-            Hp = MaxHp;
-        if (StopCount <= 0)
-            StopCount = 0;
+        if (Hp >= MaxHp) Hp = MaxHp;
+        if (StopCount <= 0) StopCount = 0;
     }
 
     protected virtual void Move()
@@ -155,8 +149,7 @@ public class BasicUnit : MonoBehaviour
                 }
             }
         }
-        else
-            IsAttackReady = false;       
+        else IsAttackReady = false;       
     }
     protected virtual void AttackAnim()
     {
@@ -169,17 +162,11 @@ public class BasicUnit : MonoBehaviour
     protected virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
     protected virtual void AttackTime()
     {
-        if (IsAttackSlow == true)
-            AttackCount += Time.deltaTime / 1.5f;
-        else
-            AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount)
+        AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
+        if (AttackCount >= MaxAttackCount && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
         {
-            if(Target.GetComponent<BasicEnemy>().IsKnockBack == false)
-            {
-                Target.GetComponent<BasicEnemy>().Hp -= Damage;
-                Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
-            }
+            Target.GetComponent<BasicEnemy>().Hp -= Damage;
+            Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
             AttackCount = 0;
             AttackCoolTimeCount = 0;
         }
