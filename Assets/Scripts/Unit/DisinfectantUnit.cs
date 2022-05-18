@@ -8,10 +8,7 @@ public class DisinfectantUnit : BasicUnit
     [SerializeField] private int StopAttack = 0;
     protected override void AttackTime()
     {
-        if (IsAttackSlow == true)
-            AttackCount += Time.deltaTime / 1.5f;
-        else
-            AttackCount += Time.deltaTime;
+        AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime; ;
         if (AttackCount >= MaxAttackCount)
         {
             StopAttack = Random.Range(0, 101);
