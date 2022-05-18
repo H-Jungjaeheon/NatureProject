@@ -21,6 +21,6 @@ public class EnemyCastle : MonoBehaviour
     {
         IsHit = false;
         //파티클 생성
-        Debug.Log("성 맞음 이펙트");
+        //Debug.Log("성 맞음 이펙트");
     }
 }

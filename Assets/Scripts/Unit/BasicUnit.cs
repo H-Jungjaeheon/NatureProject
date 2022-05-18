@@ -135,9 +135,11 @@ public class BasicUnit : MonoBehaviour
         RaycastHit2D castlehit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("EnemyCastle"));
         if (hit.collider != null || castlehit.collider != null)
         {
-            if(hit.collider != null) Target = hit.collider.gameObject;
-            if(castlehit.collider != null) ECTarget = castlehit.collider.gameObject;
-            if(Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
+            if (hit.collider != null) Target = hit.collider.gameObject;
+            else Target = null;
+            if (castlehit.collider != null) ECTarget = castlehit.collider.gameObject;
+            else ECTarget = null;
+            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
             {
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
@@ -165,21 +167,23 @@ public class BasicUnit : MonoBehaviour
     protected virtual void AttackTime()
     {
         AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount && Target.GetComponent<BasicEnemy>().IsKnockBack == false 
-            || AttackCount >= MaxAttackCount && ECTarget)
+        if (AttackCount >= MaxAttackCount && Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false
+            || AttackCount >= MaxAttackCount && ECTarget && ECTarget != null)
         {
-            if(Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if(Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
             }
-            if (ECTarget != null)
+            if (ECTarget)
             {
                 BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
             AttackCount = 0;
             AttackCoolTimeCount = 0;
+            Target = null;
+            ECTarget = null;
         }
     }
     protected virtual void Dead()
