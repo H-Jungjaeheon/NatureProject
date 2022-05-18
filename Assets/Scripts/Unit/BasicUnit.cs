@@ -173,7 +173,7 @@ public class BasicUnit : MonoBehaviour
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
             }
-            if (ECTarget)
+            if (ECTarget != null)
             {
                 BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
