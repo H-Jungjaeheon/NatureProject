@@ -94,10 +94,13 @@ public class MainManager : MonoBehaviour
         Vector2 Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Ray2D ray = new Ray2D(Pos, Vector2.zero);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 5.0f, layerMask);
+        Debug.Log("asd");
+        Debug.Log(hit.collider.name);
 
         if (hit.collider != null)
         {
+            Debug.Log("asd");
             Instantiate(Brush, hit.collider.gameObject.transform.position, Quaternion.identity);
             hit.collider.gameObject.GetComponent<Main_Trash>().OnHit();
         }

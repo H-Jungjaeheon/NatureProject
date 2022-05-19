@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1735956756278007212}
   - component: {fileID: 1735956756278007215}
   - component: {fileID: 1735956756278007210}
-  - component: {fileID: 7349651818966285981}
+  - component: {fileID: 6873342930624517070}
   m_Layer: 6
   m_Name: Main_Trash
   m_TagString: Untagged
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 500
   m_Sprite: {fileID: 21300000, guid: 038d8321493267a4db3dc83c0dd8de6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,16 +104,29 @@ MonoBehaviour:
   TrashImg:
   - {fileID: 21300000, guid: 038d8321493267a4db3dc83c0dd8de6b, type: 3}
   - {fileID: 21300000, guid: 078b78060603002468de6c4dbb7a2bf2, type: 3}
---- !u!65 &7349651818966285981
-BoxCollider:
+--- !u!61 &6873342930624517070
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735956756278007214}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.54, y: 2.87}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.35, y: 2.87, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.54, y: 2.87}
+  m_EdgeRadius: 0
