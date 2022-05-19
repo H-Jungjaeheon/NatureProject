@@ -33,7 +33,6 @@ public class BasicUnit : MonoBehaviour
     [SerializeField] protected bool IsAttackAnim;
     protected Rigidbody2D rigid;
     #endregion
-    // Start is called before the first frame update
     protected virtual void Start()
     {
         BGameManager = GameObject.Find("BattleSceneManagerObj");
@@ -43,7 +42,6 @@ public class BasicUnit : MonoBehaviour
         StartCoroutine(FirstSpawnAnim());
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
         if (IsKnockBack == false && IsStop == false)
@@ -168,7 +166,7 @@ public class BasicUnit : MonoBehaviour
     {
         AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
         if (AttackCount >= MaxAttackCount && Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false
-            || AttackCount >= MaxAttackCount && ECTarget && ECTarget != null)
+            || AttackCount >= MaxAttackCount && ECTarget != null)
         {
             if(Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
