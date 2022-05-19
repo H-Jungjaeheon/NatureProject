@@ -9087,7 +9087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5701861119785319840, guid: 961011beb486d244ba4fc1e2906e6f1c, type: 3}
       propertyPath: Damage
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5701861119785319840, guid: 961011beb486d244ba4fc1e2906e6f1c, type: 3}
       propertyPath: MaxAttackCount
