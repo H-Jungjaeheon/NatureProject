@@ -44,8 +44,8 @@ public class MotorUnit : BasicUnit
                             Target = null;
                             if (a == Hit.Length - 1)
                             {
-                                Target = null;
-                                //Hit = null;
+                                Debug.Log(a);
+                                AttackCount = 0;
                             }
                         }
                     }
@@ -60,7 +60,6 @@ public class MotorUnit : BasicUnit
                 BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
                 ECTarget = null;
-                AttackCount = 0;
             }
         }
     }
