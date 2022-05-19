@@ -1796,6 +1796,13 @@ MonoBehaviour:
   bodylevel: 1
   laserchargelevel: 1
   laserpowerlevel: 1
+  UnlockStage: 1
+  SelectStage: 1
+  GameDataFileName: StageData.json
+  _gameData:
+    UnlockStage: 0
+    SelectStage: 0
+    StageInfos: []
 --- !u!1 &1331656935
 GameObject:
   m_ObjectHideFlags: 0
