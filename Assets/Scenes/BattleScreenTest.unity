@@ -730,12 +730,12 @@ MonoBehaviour:
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 100000
+  MaxHp: 50000
   Damage: 30
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 300
+  KnockBackCount: 100000
   PushSpeed: 2
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -3819,12 +3819,12 @@ MonoBehaviour:
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 100000
+  MaxHp: 50000
   Damage: 30
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 300
+  KnockBackCount: 100000
   PushSpeed: 2
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -4069,12 +4069,12 @@ MonoBehaviour:
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 100000
+  MaxHp: 50000
   Damage: 30
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 300
+  KnockBackCount: 100000
   PushSpeed: 2
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -4711,8 +4711,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285735115}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.53, y: -0.23, z: 0}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_LocalPosition: {x: 23.53, y: -0.6, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children:
   - {fileID: 1433287070}
   m_Father: {fileID: 0}
@@ -4858,7 +4858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7062640989124344457, guid: e806dc62b54ca4847833916285b93ee5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7062640989124344462, guid: e806dc62b54ca4847833916285b93ee5, type: 3}
       propertyPath: m_Size.x
@@ -6161,12 +6161,12 @@ MonoBehaviour:
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 100000
+  MaxHp: 50000
   Damage: 30
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 300
+  KnockBackCount: 100000
   PushSpeed: 2
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -9087,11 +9087,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5701861119785319840, guid: 961011beb486d244ba4fc1e2906e6f1c, type: 3}
       propertyPath: Damage
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5701861119785319840, guid: 961011beb486d244ba4fc1e2906e6f1c, type: 3}
       propertyPath: MaxAttackCount
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5701861119785319841, guid: 961011beb486d244ba4fc1e2906e6f1c, type: 3}
       propertyPath: m_Name

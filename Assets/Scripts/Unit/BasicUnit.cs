@@ -165,8 +165,7 @@ public class BasicUnit : MonoBehaviour
     protected virtual void AttackTime()
     {
         AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount && Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false
-            || AttackCount >= MaxAttackCount && ECTarget != null)
+        if (AttackCount >= MaxAttackCount && Target || AttackCount >= MaxAttackCount && ECTarget != null)
         {
             if(Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
