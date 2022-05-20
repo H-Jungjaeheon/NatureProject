@@ -83,6 +83,9 @@ public class GameManager : SingletonMono<GameManager>
     public int SelectStage = 1;
     public Dictionary<string, StageInfo> DicStageInfo;
 
+    [Header("UnitData 변수")]
+    public List<GameUnitData> GameUnitData;
+
     [Header("게임 저장 변수")]
     public string GameDataFileName = "StageData.json";
 
