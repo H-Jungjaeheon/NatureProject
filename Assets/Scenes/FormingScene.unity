@@ -1330,7 +1330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Contents: {fileID: 439560707}
-  FormingBoxImage: {fileID: 8802853465028729707, guid: 2db92428726e68a4db9e33cc985e3b5b, type: 3}
+  FormingBoxImage: {fileID: 2535818262169350588, guid: 2db92428726e68a4db9e33cc985e3b5b, type: 3}
 --- !u!4 &927225570
 Transform:
   m_ObjectHideFlags: 0
@@ -1676,7 +1676,7 @@ MonoBehaviour:
     UnitName: "\uBE57\uC790\uB8E8 \uBE44\uB458\uAE30"
     UnitClass: Common
     UnitImage: {fileID: -3486037462355420405, guid: 91f6b01d34c564c4ca9c3cec03e48b03, type: 3}
-    UnitLevel: 0
+    UnitLevel: 1
     UnitCost: 50
     UnitPower: 0
     UnitHP: 0
@@ -1684,7 +1684,7 @@ MonoBehaviour:
     UnitName: "\uCCAD\uC18C\uAE30 \uBE44\uB458\uAE30"
     UnitClass: Common
     UnitImage: {fileID: 7400037091540151894, guid: d0fc15efc6cfcc241bca1c6624e65032, type: 3}
-    UnitLevel: 0
+    UnitLevel: 1
     UnitCost: 100
     UnitPower: 0
     UnitHP: 0
