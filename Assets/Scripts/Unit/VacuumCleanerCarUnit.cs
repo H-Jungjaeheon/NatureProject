@@ -15,6 +15,7 @@ public class VacuumCleanerCarUnit : BasicUnit
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
+        BGameManager = GameObject.Find("BattleSceneManagerObj");
         StartCoroutine(FirstSpawnAnim());
     }
 

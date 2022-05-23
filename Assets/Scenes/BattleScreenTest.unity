@@ -7824,8 +7824,8 @@ MonoBehaviour:
   IsFire: 0
   PlayerHp: 100
   MaxPlayerHp: 100
-  EnemyHp: 100
-  MaxEnemyHp: 100
+  EnemyHp: 200
+  MaxEnemyHp: 200
   Money: 0
   MaxMoney: 100
   FireCoolTime: 100
@@ -8820,13 +8820,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2348998081986101636, guid: 0896a391970ea394987e960be50b1d37, type: 3}
+      propertyPath: BGameManager
+      value: 
+      objectReference: {fileID: 1972201212}
     - target: {fileID: 2348998081986101637, guid: 0896a391970ea394987e960be50b1d37, type: 3}
       propertyPath: m_Name
       value: CleaningCarUnit
       objectReference: {fileID: 0}
     - target: {fileID: 2348998081986101637, guid: 0896a391970ea394987e960be50b1d37, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0896a391970ea394987e960be50b1d37, type: 3}
