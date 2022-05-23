@@ -131,12 +131,12 @@ public class BasicUnit : MonoBehaviour
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
         RaycastHit2D castlehit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("EnemyCastle"));
+
         if (hit.collider != null || castlehit.collider != null)
         {
-            if (hit.collider != null) Target = hit.collider.gameObject;
-            else Target = null;
-            if (castlehit.collider != null) ECTarget = castlehit.collider.gameObject;
-            else ECTarget = null;
+            Target = (hit.collider != null) ? Target = hit.collider.gameObject : Target = null;
+            ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
+            
             if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
             {
                 IsAttackReady = true;
@@ -165,14 +165,15 @@ public class BasicUnit : MonoBehaviour
     protected virtual void AttackTime()
     {
         AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount && Target || AttackCount >= MaxAttackCount && ECTarget != null)
+
+        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
         {
-            if(Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if(Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
             }
-            if (ECTarget)
+            if (ECTarget != null)
             {
                 BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;

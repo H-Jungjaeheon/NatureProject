@@ -6,18 +6,26 @@ public class FrozenRagUnit : BasicUnit
 {
     protected override void AttackTime()
     {
-        if (IsAttackSlow == true)
-            AttackCount += Time.deltaTime / 1.5f;
-        else
-            AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount)
+        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime; ;
+        
+        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
         {
-            Target.GetComponent<BasicEnemy>().MoveSlowCount = 3;
-            Target.GetComponent<BasicEnemy>().AttackSlowCount = 1;
-            Target.GetComponent<BasicEnemy>().Hp -= Damage;
-            Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+            if(Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            {
+                Target.GetComponent<BasicEnemy>().MoveSlowCount = 3;
+                Target.GetComponent<BasicEnemy>().AttackSlowCount = 1;
+                Target.GetComponent<BasicEnemy>().Hp -= Damage;
+                Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+            }
+            if(ECTarget != null)
+            {
+                BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
+                ECTarget.GetComponent<EnemyCastle>().IsHit = true;
+            }
             AttackCount = 0;
             AttackCoolTimeCount = 0;
+            Target = null;
+            ECTarget = null;
         }
     }
 }

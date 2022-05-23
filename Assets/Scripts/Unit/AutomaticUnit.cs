@@ -8,48 +8,58 @@ public class AutomaticUnit : BasicUnit
     [SerializeField] private int StopAttack = 0;
     protected override void AttackTime()
     {
-        if (IsAttackSlow == true)
-            AttackCount += Time.deltaTime / 1.5f;
-        else
-            AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount)
+        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
+
+        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
         {
             StopAttack = Random.Range(0, 101);
-            if (StopAttack <= 20)
-                Target.GetComponent<BasicEnemy>().StopCount = 3;
-            Target.GetComponent<BasicEnemy>().Hp -= Damage;
-            Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            {
+                if (StopAttack <= 20)
+                {
+                    Target.GetComponent<BasicEnemy>().StopCount = 3;
+                }
+                Target.GetComponent<BasicEnemy>().Hp -= Damage;
+                Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+            }
+            if (ECTarget != null)
+            {
+                BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
+                ECTarget.GetComponent<EnemyCastle>().IsHit = true;
+            }
             AttackCount = 0;
             AttackCoolTimeCount = 0;
+            Target = null;
+            ECTarget = null;
         }
     }
     protected override void AttackCoolTime()
     {
-        if (IsAttackSlow == true)
-            AttackCoolTimeCount += Time.deltaTime / 1.5f;
-        else
-            AttackCoolTimeCount += Time.deltaTime;
+        AttackCoolTimeCount = (IsAttackSlow) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
 
         Debug.DrawRay(transform.position - new Vector3(0,1,0), Vector2.right * Range, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0, 1, 0), Vector2.right, Range, LayerMask.GetMask("Enemy"));
-        if (hit)
+        RaycastHit2D castlehit = Physics2D.Raycast(transform.position - new Vector3(0, 1, 0), Vector2.right, Range, LayerMask.GetMask("EnemyCastle"));
+
+        if (hit.collider != null || castlehit.collider != null && castlehit)
         {
-            Target = hit.collider.gameObject;
-            if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            Target = (hit.collider != null) ? Target = hit.collider.gameObject : Target = null;
+            ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
+
+            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
             {
                 IsAttackReady = true;
-                if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
+                if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
                     AttackTime();
                     AttackAnim();
                 }
-                else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
+                else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
                 {
                     //기본 애니 실행
                 }
             }
         }
-        else
-            IsAttackReady = false;
+        else IsAttackReady = false;
     }
 }
