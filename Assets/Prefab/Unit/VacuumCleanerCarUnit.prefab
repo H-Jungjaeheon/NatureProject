@@ -146,10 +146,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 1
   Speed: 1
-  Range: 2
+  Range: 2.3
   Damage: 1
   MaxHp: 1
   Target: {fileID: 0}
+  ECTarget: {fileID: 0}
+  BGameManager: {fileID: 0}
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0

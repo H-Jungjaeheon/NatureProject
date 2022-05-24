@@ -173,16 +173,19 @@ public class BasicEnemy : MonoBehaviour
         AttackAnimStop();
         if (IsKnockBack == true)
         {
+            WaitForSeconds Wait = new WaitForSeconds(0.27f);
+            WaitForSeconds Wait2 = new WaitForSeconds(0.17f);
+
             float KnockBackUpSpeed = 170, KnockBackBackSpeed = 150;
             rigid.AddForce(Vector2.right * KnockBackBackSpeed);
             rigid.AddForce(Vector2.up * KnockBackUpSpeed);
-            yield return new WaitForSeconds(0.27f);
+            yield return Wait;
             rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2));
-            yield return new WaitForSeconds(0.27f);
+            yield return Wait;
             rigid.AddForce(Vector2.up * ((KnockBackUpSpeed) * 2f));
-            yield return new WaitForSeconds(0.17f);
+            yield return Wait2;
             rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2f));
-            yield return new WaitForSeconds(0.17f);
+            yield return Wait2;
             rigid.velocity = Vector3.zero;
         }
         IsKnockBack = false;

@@ -730,12 +730,12 @@ MonoBehaviour:
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 50000
+  MaxHp: 100000
   Damage: 30
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 100000
+  KnockBackCount: 30000
   PushSpeed: 2
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -858,7 +858,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219587015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.27, y: -1.23, z: 0}
+  m_LocalPosition: {x: 21, y: -1.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3819,12 +3819,12 @@ MonoBehaviour:
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 50000
+  MaxHp: 100000
   Damage: 30
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 100000
+  KnockBackCount: 30000
   PushSpeed: 2
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -3947,7 +3947,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1121759645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.27, y: -1.23, z: 0}
+  m_LocalPosition: {x: 21, y: -1.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4069,12 +4069,12 @@ MonoBehaviour:
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 50000
+  MaxHp: 100000
   Damage: 30
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 100000
+  KnockBackCount: 30000
   PushSpeed: 2
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -4197,7 +4197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202014476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.27, y: -1.23, z: 0}
+  m_LocalPosition: {x: 21, y: -1.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5893,7 +5893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1682070847
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6028,7 +6028,7 @@ MonoBehaviour:
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 300
+  KnockBackCount: 3000
   PushSpeed: 0
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -6161,12 +6161,12 @@ MonoBehaviour:
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 50000
+  MaxHp: 100000
   Damage: 30
   MaxReceivDamage: 0
   Speed: 0.7
   Range: 1.3
-  KnockBackCount: 100000
+  KnockBackCount: 30000
   PushSpeed: 2
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
@@ -6289,7 +6289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722294213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.27, y: -1.23, z: 0}
+  m_LocalPosition: {x: 21, y: -1.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8830,7 +8830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2348998081986101637, guid: 0896a391970ea394987e960be50b1d37, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0896a391970ea394987e960be50b1d37, type: 3}
@@ -9286,7 +9286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4347678490325469953, guid: decc43698b4472d4ba0c5a715e1c63f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4347678490325469959, guid: decc43698b4472d4ba0c5a715e1c63f5, type: 3}
       propertyPath: m_RootOrder
@@ -9294,7 +9294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4347678490325469959, guid: decc43698b4472d4ba0c5a715e1c63f5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.99
+      value: 6.8
       objectReference: {fileID: 0}
     - target: {fileID: 4347678490325469959, guid: decc43698b4472d4ba0c5a715e1c63f5, type: 3}
       propertyPath: m_LocalPosition.y
