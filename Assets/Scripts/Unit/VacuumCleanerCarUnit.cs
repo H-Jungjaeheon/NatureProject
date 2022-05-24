@@ -113,65 +113,80 @@ public class VacuumCleanerCarUnit : BasicUnit
     {
         AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
         Hit = Physics2D.RaycastAll(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
-        for (int a = 0; a < Hit.Length; a++)
+        RaycastHit2D castlehit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("EnemyCastle"));
+
+        ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
+
+        if (ECTarget != null || Hit.Length > 0 && Hit[0].collider != null)
         {
-            RaycastHit2D Hits = Hit[a];
-            if (Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false && Hp > 0)
+            IsAttackReady = true;
+            if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
             {
-                IsAttackReady = true;
-                if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
+                AttackAnim();
+                AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
+                if (AttackCount >= MaxAttackCount)
                 {
-                    AttackAnim();
-                    AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-                    if (AttackCount >= MaxAttackCount)
+                    for (int b = 0; b < Hit.Length; b++)
                     {
-                        if (Hits.collider.GetComponent<BasicEnemy>().IsKnockBack == false)
+                        Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
+
+                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
                         {
-                            Hits.collider.GetComponent<BasicEnemy>().Hp -= Damage;
-                            Hits.collider.GetComponent<BasicEnemy>().ReceivDamage += Damage;
-                            Hits.collider.GetComponent<BasicEnemy>().IsPush = true;
-                            IsRush = false;
-                        }
-                        if (a >= Hit.Length - 1)
-                        {
-                            AttackCount = 0;
-                            AttackCoolTimeCount = 0;
+                            Target.GetComponent<BasicEnemy>().Hp -= Damage;
+                            Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+                            Target.GetComponent<BasicEnemy>().IsPush = true;
+                            Target = null;
                         }
                     }
-                }
-                else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true && Hp > 0)
-                {
-                    //기본 애니 실행
+                    if (ECTarget)
+                    {
+                        BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
+                        ECTarget.GetComponent<EnemyCastle>().IsHit = true;
+                    }
+                    AttackCount = 0;
+                    Hit = null;
+                    ECTarget = null;
+                    IsRush = false;
                 }
             }
-            else
-                IsAttackReady = false;
+            else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
+            {
+                //기본 애니 실행
+            }
+        }
+        else
+        {
+            IsAttackReady = false;
         }
     }
     protected override void AttackCoolTime()
     {
         AttackCoolTimeCount = (IsAttackSlow == true) ? AttackCoolTimeCount += Time.deltaTime / 1.5f : AttackCoolTimeCount += Time.deltaTime;
         Debug.DrawRay(transform.position, Vector2.right * Range, Color.red);
+
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
-        if (hit)
+        RaycastHit2D castlehit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("EnemyCastle"));
+
+        if (hit.collider != null || castlehit.collider != null)
         {
-            Target = hit.collider.gameObject;
-            if (Target.GetComponent<BasicEnemy>().IsKnockBack == false && Hp > 0)
+            Target = (hit.collider != null) ? Target = hit.collider.gameObject : Target = null;
+            ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
+
+            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
             {
                 IsAttackReady = true;
-                if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
+                if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
                     AttackTime();
                     AttackAnim();
                 }
-                else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
+                else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
                 {
                     //기본 애니 실행
                 }
             }
         }
-        else
-            IsAttackReady = false;
+        else IsAttackReady = false;
     }
     protected override void AttackAnim()
     {
@@ -185,15 +200,23 @@ public class VacuumCleanerCarUnit : BasicUnit
     protected override void AttackTime()
     {
         AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount && Hp > 0)
+
+        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
         {
-            if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
             }
+            if (ECTarget != null)
+            {
+                BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
+                ECTarget.GetComponent<EnemyCastle>().IsHit = true;
+            }
             AttackCount = 0;
             AttackCoolTimeCount = 0;
+            Target = null;
+            ECTarget = null;
         }
     }
     protected override void Dead()
