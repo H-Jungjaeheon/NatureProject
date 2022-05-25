@@ -7,21 +7,22 @@ public class BasicEnemy : MonoBehaviour
     [Header("유닛 관련 변수")]
     public float Hp;
     public float ReceivDamage, StopCount, AttackSlowCount, MoveSlowCount;
-    [SerializeField] private float MaxHp, Damage, MaxReceivDamage, Speed, Range, KnockBackCount, PushSpeed;
+    [SerializeField] protected float MaxHp, Damage, MaxReceivDamage, Speed, Range, KnockBackCount, PushSpeed;
 
     [Header("공격 준비 쿨타임")]
-    [SerializeField] private float AttackCoolTimeCount;
-    [SerializeField] private float MaxAttackCoolTimeCount;
+    [SerializeField] protected float AttackCoolTimeCount;
+    [SerializeField] protected float MaxAttackCoolTimeCount;
 
     [Header("공격 실행 쿨타임")]
-    [SerializeField] private float AttackCount;
-    [SerializeField] private float MaxAttackCount;
+    [SerializeField] protected float AttackCount;
+    [SerializeField] protected float MaxAttackCount;
 
     [Header("상태 이상 관련 변수")]
     public bool IsKnockBack;
     public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing, IsSuctioning;
-    [SerializeField] private bool IsAttackReady, IsAttackAnim;
-    [SerializeField] private GameObject Target;
+    [SerializeField] protected bool IsAttackReady, IsAttackAnim;
+    [SerializeField] protected GameObject Target;
+    [SerializeField] protected float StartY;
     Rigidbody2D rigid;
     public bool IsBoss;
     // Start is called before the first frame update
@@ -30,6 +31,7 @@ public class BasicEnemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
+        StartY = transform.position.y;
     }
 
     // Update is called once per frame
@@ -174,7 +176,7 @@ public class BasicEnemy : MonoBehaviour
         if (IsKnockBack == true)
         {
             WaitForSeconds Wait = new WaitForSeconds(0.27f);
-            WaitForSeconds Wait2 = new WaitForSeconds(0.17f);
+            WaitForSeconds Wait1 = new WaitForSeconds(0.17f);
 
             float KnockBackUpSpeed = 170, KnockBackBackSpeed = 150;
             rigid.AddForce(Vector2.right * KnockBackBackSpeed);
@@ -183,11 +185,12 @@ public class BasicEnemy : MonoBehaviour
             rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2));
             yield return Wait;
             rigid.AddForce(Vector2.up * ((KnockBackUpSpeed) * 2f));
-            yield return Wait2;
+            yield return Wait1;
             rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2f));
-            yield return Wait2;
+            yield return Wait1;
             rigid.velocity = Vector3.zero;
         }
+        transform.position = new Vector3(transform.position.x, StartY, transform.position.z);
         IsKnockBack = false;
         if(Hp <= 0)
             Dead();

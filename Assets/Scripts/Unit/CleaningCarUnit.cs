@@ -69,6 +69,7 @@ public class CleaningCarUnit : BasicUnit
         yield return new WaitForSeconds(0.5f);
         rigid.velocity = Vector2.zero;
         IsKnockBack = false;
+        StartY = transform.position.y;
         yield return null;
     }
     protected override IEnumerator KnockBacking()
@@ -90,6 +91,7 @@ public class CleaningCarUnit : BasicUnit
             rigid.velocity = Vector3.zero;
         }
         IsKnockBack = false;
+        transform.position = new Vector3(transform.position.x, StartY, transform.position.z);
         if (Hp <= 0)
             Dead();
         yield return null;

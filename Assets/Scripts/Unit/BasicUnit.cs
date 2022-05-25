@@ -31,6 +31,7 @@ public class BasicUnit : MonoBehaviour
 
     [Header("±× ¿Ü")]
     [SerializeField] protected bool IsAttackAnim;
+    [SerializeField] protected float StartY;
     protected Rigidbody2D rigid;
     #endregion
     protected virtual void Start()
@@ -89,6 +90,7 @@ public class BasicUnit : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         rigid.velocity = Vector2.zero;
         IsKnockBack = false;
+        StartY = transform.position.y;
         yield return null;
     }
     protected virtual IEnumerator KnockBacking()
@@ -96,6 +98,7 @@ public class BasicUnit : MonoBehaviour
         WaitForSeconds Wait = new WaitForSeconds(0.27f);
         WaitForSeconds Wait2 = new WaitForSeconds(0.17f);
         float KnockBackUpSpeed = 170, KnockBackBackSpeed = 150;
+
         rigid.AddForce(Vector2.left * KnockBackBackSpeed);
         rigid.AddForce(Vector2.up * KnockBackUpSpeed);
         yield return Wait;
@@ -107,6 +110,7 @@ public class BasicUnit : MonoBehaviour
         yield return Wait2;
         rigid.velocity = Vector3.zero;
         IsKnockBack = false;
+        transform.position = new Vector3(transform.position.x, StartY, transform.position.z);
         if (Hp <= 0) Dead();
         yield return null;
     }
