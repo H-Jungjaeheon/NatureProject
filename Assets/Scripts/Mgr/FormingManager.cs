@@ -10,6 +10,8 @@ public class FormingManager : MonoBehaviour
     private GameObject Contents;
     [SerializeField]
     private GameObject FormingBoxImage;
+    [SerializeField]
+    private List<GameObject> FormingBoxs; 
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,9 @@ public class FormingManager : MonoBehaviour
 
     void SceneSetting()
     {
-        GameObject FormingCharacter = null;
+        GameObject FormingCharacterImg = null;
+        Text FormingCharacterName = null;
+        Text FormingCharacterCost = null;
 
         foreach (GameUnitData Data in GameManager.In.GameUnitData)
         {
@@ -34,13 +38,17 @@ public class FormingManager : MonoBehaviour
             FormingType.transform.parent = Contents.transform;
             FormingType.transform.localScale = Vector3.one;
 
-            FormingCharacter = FormingType.transform.GetChild(0).transform.GetChild(0).gameObject;
-            FormingCharacter.gameObject.GetComponent<RectTransform>().sizeDelta 
+            FormingCharacterImg = FormingType.transform.GetChild(0).transform.GetChild(0).gameObject;
+            FormingCharacterName = FormingType.transform.GetChild(1).gameObject.GetComponent<Text>();
+            FormingCharacterCost = FormingType.transform.GetChild(2).gameObject.GetComponent<Text>();
+
+            FormingCharacterImg.gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(Data.UnitImage.textureRect.width, Data.UnitImage.textureRect.height);
+            FormingCharacterImg.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(Data.Bottom_FormingPosX, Data.Bottom_FormingPosY, 0);
+            FormingCharacterImg.gameObject.GetComponent<Image>().sprite = Data.UnitImage;
 
-            FormingCharacter.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(Data.FormingPosX, Data.FormingPosY, 0);
-
-            FormingCharacter.gameObject.GetComponent<Image>().sprite = Data.UnitImage;
+            FormingCharacterName.text = Data.UnitName;
+            FormingCharacterCost.text = $"{Data.UnitCost.ToString()}¿ø";
 
             Debug.Log($"{Data.UnitImage.name}: ({Data.UnitImage.texture.width},{Data.UnitImage.texture.height})");
 

@@ -21,7 +21,13 @@ public class GameUnitData
     public int UnitPower;
     public int UnitHP;
 
+    [Header("업그레이드 정보")]
+    public int UpgreadPower;
+    public int UpgreadHp;
+
     [Header("선택 정보")]
-    public float FormingPosX;
-    public float FormingPosY;
+    public float Up_FormingPosX;
+    public float Up_FormingPosY;
+    public float Bottom_FormingPosX;
+    public float Bottom_FormingPosY;
 }

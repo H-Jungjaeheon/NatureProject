@@ -16,6 +16,7 @@ public class GameManager : SingletonMono<GameManager>
 
     [Header("배틀씬 기본 변수")]
     [SerializeField]
+    #region 비둘기 차량 관련
     private int bodylevel = 1;
 
     public int BodyLevel
@@ -77,6 +78,12 @@ public class GameManager : SingletonMono<GameManager>
             laserpowerlevel = value;
         }
     }
+    #endregion
+
+    #region 전투 편성
+    [Space(5)]
+    public List<GameUnitData> FormingData;
+    #endregion
 
     [Header("스테이지 선택 기본 변수")]
     public int UnlockStage = 1;
