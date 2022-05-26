@@ -10,6 +10,12 @@ public class FormingManager : MonoBehaviour
     private GameObject Contents;
     [SerializeField]
     private GameObject FormingBoxImage;
+
+    [SerializeField]
+    private List<GameObject> CharacterList;
+
+    [SerializeField]
+    private GameObject CharacTerImgBox;
     [SerializeField]
     private List<GameObject> FormingBoxs; 
 
@@ -27,6 +33,11 @@ public class FormingManager : MonoBehaviour
 
     void SceneSetting()
     {
+        LoadCharacter();
+    }
+
+    void LoadCharacter()
+    {
         GameObject FormingCharacterImg = null;
         Text FormingCharacterName = null;
         Text FormingCharacterCost = null;
@@ -42,13 +53,15 @@ public class FormingManager : MonoBehaviour
             FormingCharacterName = FormingType.transform.GetChild(1).gameObject.GetComponent<Text>();
             FormingCharacterCost = FormingType.transform.GetChild(2).gameObject.GetComponent<Text>();
 
-            FormingCharacterImg.gameObject.GetComponent<RectTransform>().sizeDelta 
+            FormingCharacterImg.gameObject.GetComponent<RectTransform>().sizeDelta
                 = new Vector2(Data.UnitImage.textureRect.width, Data.UnitImage.textureRect.height);
             FormingCharacterImg.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(Data.Bottom_FormingPosX, Data.Bottom_FormingPosY, 0);
             FormingCharacterImg.gameObject.GetComponent<Image>().sprite = Data.UnitImage;
 
             FormingCharacterName.text = Data.UnitName;
             FormingCharacterCost.text = $"{Data.UnitCost.ToString()}¿ø";
+
+            CharacterList.Add(FormingType);
 
             Debug.Log($"{Data.UnitImage.name}: ({Data.UnitImage.texture.width},{Data.UnitImage.texture.height})");
 
