@@ -82,7 +82,7 @@ public class GameManager : SingletonMono<GameManager>
 
     #region 전투 편성
     [Space(5)]
-    public List<GameUnitData> FormingData;
+    public GameUnitData[] InGameFormingData;
     #endregion
 
     [Header("스테이지 선택 기본 변수")]
