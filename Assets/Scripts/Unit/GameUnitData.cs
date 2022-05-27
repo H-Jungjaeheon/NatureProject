@@ -30,4 +30,6 @@ public class GameUnitData
     public float Up_FormingPosY;
     public float Bottom_FormingPosX;
     public float Bottom_FormingPosY;
+    public float Clone_FormingPosX;
+    public float Clone_FormingPosY;
 }
