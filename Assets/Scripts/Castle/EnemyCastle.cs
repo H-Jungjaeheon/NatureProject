@@ -5,22 +5,22 @@ using UnityEngine;
 public class EnemyCastle : MonoBehaviour
 {
     public bool IsHit;
+    [SerializeField] private int HitCount;
+    [SerializeField] private GameObject HitParticle;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (IsHit) HitEffect();
     }
+
     void HitEffect()
     {
         IsHit = false;
-        //파티클 생성
-        //Debug.Log("성 맞음 이펙트");
+        HitCount++;
+        if(HitCount >= 10)
+        {
+            Instantiate(HitParticle, transform.position + new Vector3(Random.Range(-1.53f, 1.48f), Random.Range(0.7f, -1.11f), 0), HitParticle.transform.rotation);
+            HitCount = 0;
+        }
     }
 }
