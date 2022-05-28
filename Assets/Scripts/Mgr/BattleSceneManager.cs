@@ -112,22 +112,23 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     private IEnumerator StartCastle2()
     {
-        while (IsStart == true)
+        WaitForSeconds WFS = new WaitForSeconds(0.09f);
+        while (IsStart)
         {
             if (CastleBody.transform.position.y == 0.27f)
             {
                 CastleBody.transform.position = new Vector2(CastleBody.transform.position.x, 0.23f);
-                yield return new WaitForSeconds(0.09f);
+                yield return WFS;
             }
             else if (CastleBody.transform.position.y == 0.23f)
             {
                 CastleBody.transform.position = new Vector2(CastleBody.transform.position.x, 0.27f);
-                yield return new WaitForSeconds(0.09f);
+                yield return WFS;
             }
             else
             {
                 CastleBody.transform.position = new Vector2(CastleBody.transform.position.x, 0.27f);
-                yield return new WaitForSeconds(0.09f);
+                yield return WFS;
             }
         }
         CastleBody.transform.position = new Vector2(CastleBody.transform.position.x, 0.3f);
@@ -135,7 +136,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     private IEnumerator StartCastle3()
     {
-        while (IsStart2 == true)
+        while (IsStart2)
         {
             if(DoorRt < 70)
                 DoorRt += 1;           
@@ -147,7 +148,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     private void Starts()
     {
         float CastleX = Castle.transform.position.x;
-        if (IsStart == true && IsOut == false)
+        if (IsStart && IsOut == false)
         {
             if (CastleX < -5)
                 WeelRt += Time.deltaTime * 250;
@@ -155,7 +156,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
             for (int a = 0; a < 2; a++)
                 Weel[a].transform.rotation = Quaternion.Euler(0, 0, -WeelRt);
         }
-        if (IsStart2 == true && IsOut == false)
+        if (IsStart2 && IsOut == false)
         {
             CastleDoor.transform.position = Vector3.MoveTowards(CastleDoor.transform.position, new Vector3(-1.4f, 2f, 0), Time.deltaTime * 0.5f);
         }
@@ -174,10 +175,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
                 FireCoolTime = 0;
         }
     }
-    private void EnemyFind()
-    {
-        Enemys = GameObject.FindGameObjectsWithTag("Enemy");
-    }
+    private void EnemyFind() => Enemys = GameObject.FindGameObjectsWithTag("Enemy");
     private void BattleUI()
     {
         if (IsStop == false && IsOut == false)
@@ -238,7 +236,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     private void SpawnButtonMove()
     {
-        if (IsTouch == true && IsStop == false && IsOut == false)
+        if (IsTouch && IsStop == false && IsOut == false)
         {
             Pos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             CamMoveSpeed = 0;
@@ -291,7 +289,6 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
             SSR.sprite = SolaSprite[1];
             StartCoroutine(FireTruckAnim());
             StartCoroutine(Lazer());
-            //대포 발사 능력 작동
         }
     }
     private IEnumerator Lazer()
@@ -314,25 +311,26 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     private IEnumerator FireTruckAnim()
     {
+        WaitForSeconds WFS = new WaitForSeconds(0.05f);
         Instantiate(FireEffect, new Vector2(SolaPanel.transform.position.x - 0.6f, SolaPanel.transform.position.y + 1.9f), SolaPanel.transform.rotation);
         Instantiate(FireEffect, new Vector2(SolaPanel.transform.position.x, SolaPanel.transform.position.y + 1.5f), SolaPanel.transform.rotation);
         Instantiate(FireEffect, new Vector2(SolaPanel.transform.position.x + 1f, SolaPanel.transform.position.y + 1.7f), SolaPanel.transform.rotation);
-        while (IsFire == true)
+        while (IsFire)
         {
             if (CastleBody.transform.position.x == -5f)
             {
                 CastleBody.transform.position = new Vector2(-4.98f, CastleBody.transform.position.y);
-                yield return new WaitForSeconds(0.05f);
+                yield return WFS;
             }
             else if (CastleBody.transform.position.x == -4.98f)
             {
                 CastleBody.transform.position = new Vector2(-5.02f, CastleBody.transform.position.y);
-                yield return new WaitForSeconds(0.05f);
+                yield return WFS;
             }
             else
             {
                 CastleBody.transform.position = new Vector2(-4.98f, CastleBody.transform.position.y);
-                yield return new WaitForSeconds(0.05f);
+                yield return WFS;
             }
         }
         CastleBody.transform.position = new Vector2(-5f, CastleBody.transform.position.y);
@@ -365,7 +363,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     }
     public void ExitPauseButton()
     {
-        if(IsStop== true && IsOut == false)
+        if(IsStop && IsOut == false)
         {
             IsStop = false;
             StartCoroutine(ExitPauseBG());
