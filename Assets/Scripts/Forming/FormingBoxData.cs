@@ -5,9 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class FormingBoxData : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class FormingBoxData : MonoBehaviour, IPointerDownHandler
 {
     public FormingManager formingManager;
+    public int BoxID;
     public GameUnitData BoxData;
 
 
@@ -21,13 +22,10 @@ public class FormingBoxData : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         InsertForming();
         Debug.Log(BoxData.UnitName);
     }
-    public void OnPointerUp(PointerEventData eventData)
-    {
-
-    }
 
     void InsertForming()
     {
         formingManager.SelectFormingUnit = BoxData;
+        formingManager.SelectBoxID = BoxID;
     }
 }
