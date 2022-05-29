@@ -95,8 +95,6 @@ public class MainManager : MonoBehaviour
 
         Ray2D ray = new Ray2D(Pos, Vector2.zero);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 5.0f, layerMask);
-        Debug.Log("asd");
-        Debug.Log(hit.collider.name);
 
         if (hit.collider != null)
         {
