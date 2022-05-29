@@ -150,6 +150,8 @@ MonoBehaviour:
   Damage: 40
   MaxHp: 200
   Target: {fileID: 0}
+  ECTarget: {fileID: 0}
+  BGameManager: {fileID: 0}
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
@@ -167,4 +169,6 @@ MonoBehaviour:
   AttackCount: 0
   MaxAttackCount: 4
   IsAttackAnim: 0
-  MaxLazerHitCount: 3
+  StartY: 0
+  MaxLazerHitCount: 1
+  IsAttacking: 0
