@@ -6,10 +6,11 @@ using DG.Tweening;
 
 public class SpawnButton : MonoBehaviour
 {
-    [SerializeField] GameObject[] Units;
-    [SerializeField] Button[] SpawnButtons;
-    [SerializeField] Image[] SpawnButtonsUnitsImages;
-    [SerializeField] Text[] SpawnButtonsUnitsCost;
+    [SerializeField] private GameObject[] Units;
+    [SerializeField] private Button[] SpawnButtons;
+    [SerializeField] private Image[] SpawnButtonsUnitsImages, SpawnCoolTimeImage;
+    [SerializeField] private Text[] SpawnButtonsUnitsCost;
+    [SerializeField] private float[] SpawnCoolTime;
 
     void Start()
     {
@@ -19,8 +20,42 @@ public class SpawnButton : MonoBehaviour
     void Update()
     {
         ButtonSettings();
+        CoolTimeSettings();
     }
-
+    private void CoolTimeSettings() 
+    {
+        for(int a = 0; a < 8; a++)
+        {
+            if(SpawnCoolTime[a] > 0)
+            {
+                SpawnCoolTime[a] -= Time.deltaTime;
+                if (a < 4)
+                {
+                    int temp = a + 4;
+                    SpawnCoolTimeImage[a].fillAmount = SpawnCoolTime[a] / GameManager.In.InGameFormingData[temp].UnitCoolTime;
+                }
+                else
+                {
+                    int temp = a - 4;
+                    SpawnCoolTimeImage[a].fillAmount = SpawnCoolTime[a] / GameManager.In.InGameFormingData[temp].UnitCoolTime;
+                }
+            }
+            else
+            {
+                SpawnCoolTime[a] = 0;
+                if (a < 4)
+                {
+                    int temp = a + 4;
+                    SpawnCoolTimeImage[a].fillAmount = SpawnCoolTime[a] / GameManager.In.InGameFormingData[temp].UnitCoolTime;
+                }
+                else
+                {
+                    int temp = a - 4;
+                    SpawnCoolTimeImage[a].fillAmount = SpawnCoolTime[a] / GameManager.In.InGameFormingData[temp].UnitCoolTime;
+                }
+            }
+        }
+    }
     private void StartSettings()
     {
         for (int a = 0; a <= 7; a++)
@@ -28,25 +63,28 @@ public class SpawnButton : MonoBehaviour
             if(a < 4)
             {
                 int temp = a + 4;
+                int NowButtonCount = a;
                 SpawnButtonsUnitsImages[a].sprite = GameManager.In.InGameFormingData[temp].UnitImage;
                 SpawnButtonsUnitsCost[a].text = $"{GameManager.In.InGameFormingData[temp].UnitCost} 원";
-                SpawnButtons[a].onClick.AddListener(() => Spawn(GameManager.In.InGameFormingData[temp].UnitID, temp));
+                SpawnButtons[a].onClick.AddListener(() => Spawn(GameManager.In.InGameFormingData[temp].UnitID, temp, NowButtonCount));
             }
             else
             {
                 int temp = a - 4;
+                int NowButtonCount = a;
                 SpawnButtonsUnitsImages[a].sprite = GameManager.In.InGameFormingData[temp].UnitImage;
                 SpawnButtonsUnitsCost[a].text = $"{GameManager.In.InGameFormingData[temp].UnitCost} 원";
-                SpawnButtons[a].onClick.AddListener(() => Spawn(GameManager.In.InGameFormingData[temp].UnitID, temp));
+                SpawnButtons[a].onClick.AddListener(() => Spawn(GameManager.In.InGameFormingData[temp].UnitID, temp, NowButtonCount));
             }
         }
     }
-    public void Spawn(int UnitID, int UnitData)
+    public void Spawn(int UnitID, int UnitData, int ButtonCount)//4번부터 인게임 포밍 데이터 0번
     {
-        if (BattleSceneManager.In.IsStop == false && GameManager.In.InGameFormingData[UnitData].UnitCost <= BattleSceneManager.In.Money)
+        if (BattleSceneManager.In.IsStop == false && GameManager.In.InGameFormingData[UnitData].UnitCost <= BattleSceneManager.In.Money && SpawnCoolTime[ButtonCount] <= 0)
         {
             Instantiate(Units[UnitID - 1], new Vector3(-2, 0.2f, 0), Units[UnitID - 1].transform.rotation); //-1.25
             BattleSceneManager.In.Money -= GameManager.In.InGameFormingData[UnitData].UnitCost;
+            SpawnCoolTime[ButtonCount] = GameManager.In.InGameFormingData[UnitData].UnitCoolTime;
             StartCoroutine(SpawnCastleAnim());
         }
     }

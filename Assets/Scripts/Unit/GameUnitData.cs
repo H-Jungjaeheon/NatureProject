@@ -20,6 +20,7 @@ public class GameUnitData
     public int UnitCost;
     public int UnitPower;
     public int UnitHP;
+    public float UnitCoolTime;
 
     [Header("업그레이드 정보")]
     public int UpgreadPower;
