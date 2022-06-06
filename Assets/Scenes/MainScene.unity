@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 276191353}
   - component: {fileID: 276191352}
   - component: {fileID: 276191351}
+  - component: {fileID: 276191354}
   m_Layer: 5
   m_Name: UI_Bar2
   m_TagString: Untagged
@@ -432,6 +433,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276191349}
   m_CullTransparentMesh: 1
+--- !u!114 &276191354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276191349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0791897768001549890336faebffa28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: SelectChapterScene
 --- !u!1 &295585983
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +458,7 @@ GameObject:
   - component: {fileID: 295585987}
   - component: {fileID: 295585986}
   - component: {fileID: 295585985}
+  - component: {fileID: 295585988}
   m_Layer: 5
   m_Name: UI_Bar1
   m_TagString: Untagged
@@ -549,6 +564,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295585983}
   m_CullTransparentMesh: 1
+--- !u!114 &295585988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295585983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0791897768001549890336faebffa28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: FixedTruckScene
 --- !u!1 &312251801
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +626,7 @@ GameObject:
   - component: {fileID: 314450437}
   - component: {fileID: 314450436}
   - component: {fileID: 314450435}
+  - component: {fileID: 314450438}
   m_Layer: 5
   m_Name: UI_Bar4
   m_TagString: Untagged
@@ -703,6 +732,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314450433}
   m_CullTransparentMesh: 1
+--- !u!114 &314450438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314450433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0791897768001549890336faebffa28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: LotteryScene
 --- !u!1 &409692147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,6 +1535,11 @@ MonoBehaviour:
   BeginPos1: {x: 0, y: 0}
   EndPos2: {x: 0, y: 0}
   OnSlide: 0
+  SceneChangeBtns:
+  - {fileID: 295585985}
+  - {fileID: 276191351}
+  - {fileID: 2063492660}
+  - {fileID: 314450435}
 --- !u!4 &1075969935
 Transform:
   m_ObjectHideFlags: 0
@@ -1796,8 +1843,10 @@ MonoBehaviour:
   bodylevel: 1
   laserchargelevel: 1
   laserpowerlevel: 1
+  InGameFormingData: []
   UnlockStage: 1
   SelectStage: 1
+  GameUnitData: []
   GameDataFileName: StageData.json
   _gameData:
     UnlockStage: 0
@@ -2593,6 +2642,7 @@ GameObject:
   - component: {fileID: 2063492662}
   - component: {fileID: 2063492661}
   - component: {fileID: 2063492660}
+  - component: {fileID: 2063492663}
   m_Layer: 5
   m_Name: UI_Bar3
   m_TagString: Untagged
@@ -2698,3 +2748,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063492658}
   m_CullTransparentMesh: 1
+--- !u!114 &2063492663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063492658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0791897768001549890336faebffa28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: FormingScene

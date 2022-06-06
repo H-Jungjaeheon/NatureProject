@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 
@@ -34,6 +35,7 @@ public class MainManager : MonoBehaviour
     int layerMask = 1 << 6;
     #endregion
 
+    #region UI
     [Header("UI_변수")]
     [SerializeField]
     Text EnergyTxt;
@@ -58,9 +60,16 @@ public class MainManager : MonoBehaviour
     [SerializeField]
     bool OnSlide = false;
 
+    [Header("씬이동_변수")]
+    [SerializeField]
+    private List<Button> SceneChangeBtns;
+    #endregion
+
     private void Start()
     {
         SpawnTrash();
+
+        AddChangeSceneBtn();
     }
 
     private void Update()
@@ -185,5 +194,26 @@ public class MainManager : MonoBehaviour
     private void SlideButtons()
     {
         ParantButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(ParantButtons.GetComponent<RectTransform>().anchoredPosition, MovePoint[CurButton], MoveSpeed * Time.deltaTime);
+    }
+
+    void AddChangeSceneBtn()
+    {
+        for (int i = 0; i < SceneChangeBtns.Count; i++)
+        {
+            int temp = i;
+
+            SceneChangeBtns[temp].onClick.AddListener(() =>
+            {
+                StartCoroutine(SceneChange(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName));
+                Debug.Log(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName);
+            });
+        }
+    }
+
+    IEnumerator SceneChange(string SceneName)
+    {
+        yield return null;
+
+        SceneManager.LoadScene(SceneName);
     }
 }
