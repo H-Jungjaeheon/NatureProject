@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 
@@ -70,7 +71,6 @@ public class LottoryManager : MonoBehaviour
     bool OnInfo = false;
 
     #endregion
-
     #region Shake함수
     [Header("Shake함수_변수")]
     [SerializeField]
@@ -91,9 +91,14 @@ public class LottoryManager : MonoBehaviour
     bool isShake = false;
     #endregion
 
+    [Header("씬이동_변수")]
+    [SerializeField]
+    private List<Button> SceneChangeBtns;
+
     private void Start()
     {
         SettingEggPos();
+        AddChangeSceneBtn();
     }
 
     private void Update()
@@ -430,6 +435,28 @@ public class LottoryManager : MonoBehaviour
         StartOnInfo();
 
         yield return null;                                        //코루틴 종료
+    }
+
+    void AddChangeSceneBtn()
+    {
+        for (int i = 0; i < SceneChangeBtns.Count; i++)
+        {
+            int temp = i;
+
+            SceneChangeBtns[temp].onClick.AddListener(() =>
+            {
+                StartCoroutine(SceneChange(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName));
+                Debug.Log(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName);
+            });
+        }
+    }
+
+    IEnumerator SceneChange(string SceneName)
+    {
+        yield return null;
+
+        Debug.Log("qwe");
+        SceneManager.LoadScene(SceneName);
     }
 }
 

@@ -52,10 +52,15 @@ public class FormingManager : MonoBehaviour
     [SerializeField]
     private FormingBoxChk[] formingBoxChks;
 
+    [Header("¾ÀÀÌµ¿_º¯¼ö")]
+    [SerializeField]
+    private List<Button> SceneChangeBtns;
+
     // Start is called before the first frame update
     void Start()
     {
         SceneSetting();
+        AddChangeSceneBtn();
     }
 
     // Update is called once per frame
@@ -245,5 +250,27 @@ public class FormingManager : MonoBehaviour
     {
         GameObject Unit = new GameObject();
         Unit.transform.parent = Contents.transform;
+    }
+
+    void AddChangeSceneBtn()
+    {
+        for (int i = 0; i < SceneChangeBtns.Count; i++)
+        {
+            int temp = i;
+
+            SceneChangeBtns[temp].onClick.AddListener(() =>
+            {
+                StartCoroutine(SceneChange(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName));
+                Debug.Log(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName);
+            });
+        }
+    }
+
+    IEnumerator SceneChange(string SceneName)
+    {
+        yield return null;
+
+        Debug.Log("qwe");
+        SceneManager.LoadScene(SceneName);
     }
 }

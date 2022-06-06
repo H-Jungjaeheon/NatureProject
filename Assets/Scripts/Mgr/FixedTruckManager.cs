@@ -1,28 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 
 public class FixedTruckManager : MonoBehaviour
 {
     #region MainManager..
-    [Header("Gizmo - 소환 영역 표시")]
-    [SerializeField]
-    Vector2 SpawnPos;
-
-    [SerializeField]
-    float SizeX;
-    [SerializeField]
-    float SizeY;
-
-    [Header("실제영역계산(실제스폰영역 확인)")] // 에디터에서 건드리지 않아도 됌
-    [SerializeField]
-    GameObject Boundary;
-
-    [SerializeField]
-    float SpawnPosX, SpawnPosY;
-
     [Header("UI_변수")]
     [SerializeField]
     Text EnergyTxt;
@@ -96,9 +81,14 @@ public class FixedTruckManager : MonoBehaviour
 
     #endregion
 
+    [Header("씬이동_변수")]
+    [SerializeField]
+    private List<Button> SceneChangeBtns;
+
     private void Start()
     {
         StartSetting();
+        AddChangeSceneBtn();
     }
 
     private void Update()
@@ -108,21 +98,6 @@ public class FixedTruckManager : MonoBehaviour
         SlideButtons();
         ActiveButton();
     }
-
-    //#region 쓰레기 치우기
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireCube(SpawnPos, new Vector2(SizeX, SizeY));
-
-    //    Boundary.transform.position = SpawnPos;
-    //    Boundary.transform.localScale = new Vector2(SizeX, SizeY);
-
-    //    SpawnPosX = Boundary.gameObject.GetComponent<BoxCollider2D>().bounds.extents.x;
-    //    SpawnPosY = Boundary.gameObject.GetComponent<BoxCollider2D>().bounds.extents.y;
-    //}
-
-    //#endregion
 
     private void StartSetting()
     {
@@ -293,4 +268,25 @@ public class FixedTruckManager : MonoBehaviour
         }
     }
     #endregion
+
+    void AddChangeSceneBtn()
+    {
+        for (int i = 0; i < SceneChangeBtns.Count; i++)
+        {
+            int temp = i;
+
+            SceneChangeBtns[temp].onClick.AddListener(() =>
+            {
+                StartCoroutine(SceneChange(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName));
+                Debug.Log(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName);
+            });
+        }
+    }
+
+    IEnumerator SceneChange(string SceneName)
+    {
+        yield return null;
+
+        SceneManager.LoadScene(SceneName);
+    }
 }
