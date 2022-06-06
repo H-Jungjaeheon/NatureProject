@@ -32,10 +32,18 @@ public class BasicUnit : MonoBehaviour
     [Header("±× ¿Ü")]
     [SerializeField] protected bool IsAttackAnim;
     [SerializeField] protected float StartY;
+    [SerializeField] protected int UnitID, LevelPerHp, LevelPerDamage;
     protected Rigidbody2D rigid;
+    public Vector3 SpawnVector;
     #endregion
     protected virtual void Start()
     {
+        if(GameManager.In.GameUnitData[UnitID - 1].UnitLevel > 1)
+        {
+            Hp += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerHp);
+            MaxHp += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerHp);
+            Damage += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerDamage);
+        }
         BGameManager = GameObject.Find("BattleSceneManagerObj");
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;

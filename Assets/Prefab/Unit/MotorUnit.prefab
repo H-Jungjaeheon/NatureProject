@@ -169,3 +169,8 @@ MonoBehaviour:
   AttackCount: 0
   MaxAttackCount: 0.2
   IsAttackAnim: 0
+  StartY: 0
+  UnitID: 8
+  LevelPerHp: 5
+  LevelPerDamage: 5
+  SpawnVector: {x: -2, y: -0.05, z: 0}

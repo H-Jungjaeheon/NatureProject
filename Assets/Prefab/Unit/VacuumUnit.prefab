@@ -150,6 +150,8 @@ MonoBehaviour:
   Damage: 15
   MaxHp: 150
   Target: {fileID: 0}
+  ECTarget: {fileID: 0}
+  BGameManager: {fileID: 0}
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
@@ -167,3 +169,8 @@ MonoBehaviour:
   AttackCount: 0.5
   MaxAttackCount: 0.5
   IsAttackAnim: 0
+  StartY: 0
+  UnitID: 2
+  LevelPerHp: 5
+  LevelPerDamage: 5
+  SpawnVector: {x: -2, y: 0.18, z: 0}

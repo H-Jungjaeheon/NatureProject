@@ -25,6 +25,8 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] protected float StartY;
     Rigidbody2D rigid;
     public bool IsBoss;
+    
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -46,8 +48,8 @@ public class BasicEnemy : MonoBehaviour
         if (IsStop == false && IsKnockBack == false) AttackCoolTime();
         StatManagement();
         KnockBack();
-        if(IsPush == true) StartCoroutine(Pushing());
-        if (IsPushing == true)
+        if(IsPush == true && IsKnockBack == false) StartCoroutine(Pushing());
+        if (IsPushing == true && IsKnockBack == false)
         {
             Pushings();
             PushSpeed -= Time.deltaTime;
@@ -145,6 +147,7 @@ public class BasicEnemy : MonoBehaviour
     }
     public virtual void Dead()
     {
+        IsPush = false;
         if (Hp <= 0)
         {
             Destroy(this.gameObject);
@@ -170,6 +173,7 @@ public class BasicEnemy : MonoBehaviour
     }
     public virtual IEnumerator KnockBacking()
     {
+        IsPush = false;
         AttackCount = 0;
         IsKnockBack = true;
         AttackAnimStop();

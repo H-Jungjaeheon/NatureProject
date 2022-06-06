@@ -82,7 +82,7 @@ public class SpawnButton : MonoBehaviour
     {
         if (BattleSceneManager.In.IsStop == false && GameManager.In.InGameFormingData[UnitData].UnitCost <= BattleSceneManager.In.Money && SpawnCoolTime[ButtonCount] <= 0)
         {
-            Instantiate(Units[UnitID - 1], new Vector3(-2, 0.2f, 0), Units[UnitID - 1].transform.rotation); //-1.25
+            Instantiate(Units[UnitID - 1], Units[UnitID - 1].GetComponent<BasicUnit>().SpawnVector, Units[UnitID - 1].transform.rotation); //new Vector3(-2, 0.2f, 0)
             BattleSceneManager.In.Money -= GameManager.In.InGameFormingData[UnitData].UnitCost;
             SpawnCoolTime[ButtonCount] = GameManager.In.InGameFormingData[UnitData].UnitCoolTime;
             StartCoroutine(SpawnCastleAnim());

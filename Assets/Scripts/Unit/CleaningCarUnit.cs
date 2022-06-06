@@ -10,6 +10,12 @@ public class CleaningCarUnit : BasicUnit
     // Start is called before the first frame update
     protected override void Start()
     {
+        if (GameManager.In.GameUnitData[UnitID - 1].UnitLevel > 1)
+        {
+            Hp += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerHp);
+            MaxHp += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerHp);
+            Damage += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerDamage);
+        }
         IsRush = true;
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;

@@ -170,5 +170,9 @@ MonoBehaviour:
   MaxAttackCount: 4
   IsAttackAnim: 0
   StartY: 0
+  UnitID: 10
+  LevelPerHp: 5
+  LevelPerDamage: 5
+  SpawnVector: {x: -2, y: 0.2, z: 0}
   MaxLazerHitCount: 1
   IsAttacking: 0
