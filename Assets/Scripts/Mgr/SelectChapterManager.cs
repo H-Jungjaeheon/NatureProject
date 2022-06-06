@@ -29,10 +29,15 @@ public class SelectChapterManager : MonoBehaviour
     [SerializeField]
     private float CamMoveSize;
 
+    [Header("¾ÀÀÌµ¿_º¯¼ö")]
+    [SerializeField]
+    private List<Button> SceneChangeBtns;
+
     // Update is called once per frame
     void Update()
     {
         ActiveButton();
+        AddChangeSceneBtn();
     }
 
     private void ActiveButton()
@@ -82,5 +87,27 @@ public class SelectChapterManager : MonoBehaviour
         yield return new WaitForSeconds(CamMoveDur);
 
         SceneManager.LoadScene($"Stage{Chapter + 1}Scene");
+    }
+
+    void AddChangeSceneBtn()
+    {
+        for (int i = 0; i < SceneChangeBtns.Count; i++)
+        {
+            int temp = i;
+
+            SceneChangeBtns[temp].onClick.AddListener(() =>
+            {
+                StartCoroutine(SceneChange(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName));
+                Debug.Log(SceneChangeBtns[temp].GetComponent<SceneChangeBtn>().SceneName);
+            });
+        }
+    }
+
+    IEnumerator SceneChange(string SceneName)
+    {
+        yield return null;
+
+        Debug.Log("qwe");
+        SceneManager.LoadScene(SceneName);
     }
 }

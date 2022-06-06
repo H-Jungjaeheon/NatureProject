@@ -706,6 +706,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: -10}
   CamMoveDur: 2
   CamMoveSize: 3
+  SceneChangeBtns:
+  - {fileID: 1208432912}
 --- !u!1 &993795173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,6 +1172,7 @@ GameObject:
   - component: {fileID: 1208432914}
   - component: {fileID: 1208432913}
   - component: {fileID: 1208432912}
+  - component: {fileID: 1208432915}
   m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
@@ -1290,6 +1293,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1208432910}
   m_CullTransparentMesh: 1
+--- !u!114 &1208432915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208432910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0791897768001549890336faebffa28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: MainScene
 --- !u!1 &1254701009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,8 +1482,10 @@ MonoBehaviour:
   bodylevel: 1
   laserchargelevel: 1
   laserpowerlevel: 1
+  InGameFormingData: []
   UnlockStage: 1
   SelectStage: 1
+  GameUnitData: []
   GameDataFileName: StageData.json
   _gameData:
     UnlockStage: 0
