@@ -171,6 +171,6 @@ MonoBehaviour:
   IsAttackAnim: 0
   StartY: 0
   UnitID: 5
-  LevelPerHp: 5
+  LevelPerHp: 20
   LevelPerDamage: 5
   SpawnVector: {x: -2, y: 0.22, z: 0}
