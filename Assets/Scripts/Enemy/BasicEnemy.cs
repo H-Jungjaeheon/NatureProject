@@ -21,7 +21,7 @@ public class BasicEnemy : MonoBehaviour
     public bool IsKnockBack;
     public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing, IsSuctioning;
     [SerializeField] protected bool IsAttackReady, IsAttackAnim;
-    [SerializeField] protected GameObject Target;
+    [SerializeField] protected GameObject Target, PlayerCastle, EnemyCastle;
     [SerializeField] protected float StartY;
     Rigidbody2D rigid;
     public bool IsBoss;
@@ -32,8 +32,9 @@ public class BasicEnemy : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+        EnemyCastle = GameObject.Find("EnemyCastle");
         MaxReceivDamage = MaxHp / KnockBackCount;
-        StartY = transform.position.y;
+        StartCoroutine(FirstSpawnAnim());
     }
 
     // Update is called once per frame
@@ -43,11 +44,25 @@ public class BasicEnemy : MonoBehaviour
             Move();
         Debuffs();
     }
+    protected virtual IEnumerator FirstSpawnAnim()
+    {
+        IsKnockBack = true;
+        rigid.AddForce(new Vector2(-110, 110));
+        yield return new WaitForSeconds(0.3f);
+        rigid.velocity = Vector2.zero;
+        rigid.AddForce(new Vector2(-110, -213));
+        yield return new WaitForSeconds(0.5f);
+        rigid.velocity = Vector2.zero;
+        IsKnockBack = false;
+        StartY = transform.position.y;
+        yield return null;
+    }
     public virtual void FixedUpdate()
     {
         if (IsStop == false && IsKnockBack == false) AttackCoolTime();
         StatManagement();
         KnockBack();
+        PositionLimit();
         if(IsPush == true && IsKnockBack == false) StartCoroutine(Pushing());
         if (IsPushing == true && IsKnockBack == false)
         {
@@ -56,6 +71,13 @@ public class BasicEnemy : MonoBehaviour
         }
     }
     protected virtual void Pushings() => rigid.AddForce(new Vector2(PushSpeed, 0));
+    protected virtual void PositionLimit()
+    {
+        if(transform.position.x > EnemyCastle.transform.position.x + 1.5f)
+        {
+            transform.position = new Vector3(EnemyCastle.transform.position.x + 1.5f, transform.position.y, transform.position.z);
+        }
+    }
     protected virtual IEnumerator Pushing()
     {
         IsPush = false;
