@@ -8,7 +8,7 @@ public class BasicUnit : MonoBehaviour
     [Header("유닛 관련 변수")]
     public float Hp;
     [SerializeField] protected float Speed, Range, Damage, MaxHp; //캐릭터 이동속도, 적 인식 사거리, 공격 데미지, 최대체력
-    [SerializeField] protected GameObject Target, ECTarget, BGameManager; //적 타켓, 적 성 타겟
+    [SerializeField] protected GameObject Target, ECTarget, BGameManager, Castle; //적 타켓, 적 성 타겟
 
     [Header("유닛이 걸린 상태이상 변수")]
     [SerializeField] protected float StopCount; //상태이상 시간 : 정지
@@ -38,13 +38,14 @@ public class BasicUnit : MonoBehaviour
     #endregion
     protected virtual void Start()
     {
-        if(GameManager.In.GameUnitData[UnitID - 1].UnitLevel > 1)
+        if (GameManager.In.GameUnitData[UnitID - 1].UnitLevel > 1)
         {
             Hp += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerHp);
             MaxHp += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerHp);
             Damage += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerDamage);
         }
         BGameManager = GameObject.Find("BattleSceneManagerObj");
+        Castle = GameObject.Find("PlayerCastle");
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
@@ -63,7 +64,15 @@ public class BasicUnit : MonoBehaviour
             AttackCoolTime();
         StatManagement();
         KnockBack();
-    }   
+        MoveLimit();
+    }
+    protected virtual void MoveLimit()
+    {
+        if (transform.position.x < Castle.transform.position.x - 3)
+        {
+            transform.position = new Vector3(Castle.transform.position.x - 3, transform.position.y, transform.position.z);
+        }
+    }
     protected virtual void Stops()
     {
         if (StopCount > 0)
@@ -132,7 +141,7 @@ public class BasicUnit : MonoBehaviour
     {
         //이동 애니 실행
         if (IsAttackReady == false && IsMoveSlow == false)
-            transform.position = transform.position + new Vector3(Time.deltaTime * Speed,0,0);
+            transform.position = transform.position + new Vector3(Time.deltaTime * Speed, 0, 0);
         else if (IsAttackReady == false && IsMoveSlow)
             transform.position = transform.position + new Vector3(Time.deltaTime * 0.1f, 0, 0);
     }
@@ -148,7 +157,7 @@ public class BasicUnit : MonoBehaviour
         {
             Target = (hit.collider != null) ? Target = hit.collider.gameObject : Target = null;
             ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
-            
+
             if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
             {
                 IsAttackReady = true;
@@ -163,7 +172,7 @@ public class BasicUnit : MonoBehaviour
                 }
             }
         }
-        else IsAttackReady = false;       
+        else IsAttackReady = false;
     }
     protected virtual void AttackAnim()
     {
@@ -180,7 +189,7 @@ public class BasicUnit : MonoBehaviour
 
         if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
         {
-            if(Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
@@ -198,7 +207,7 @@ public class BasicUnit : MonoBehaviour
     }
     protected virtual void Dead()
     {
-        if(Hp <= 0)
+        if (Hp <= 0)
         {
             //Instantiate(DeadEffect, transform.position, DeadEffect.transform.rotation);
             Destroy(this.gameObject);
