@@ -22,7 +22,6 @@ public class BasicEnemy : MonoBehaviour
     public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing, IsSuctioning;
     [SerializeField] protected bool IsAttackReady, IsAttackAnim;
     [SerializeField] protected GameObject Target, PlayerCastle, EnemyCastle, BGameManager;
-    [SerializeField] protected GameObject[] BossKnockBackEnemy;
     [SerializeField] protected float StartY;
     Rigidbody2D rigid;
     public bool IsBoss;
@@ -62,14 +61,12 @@ public class BasicEnemy : MonoBehaviour
     }
     protected virtual void BossKnockBackStart()
     {
-        if(IsBoss == true)
+        if(IsBoss == true && BattleSceneManager.In.BossKnockBackEnemy != null)
         {
-            if(BossKnockBackEnemy != null)
+            print("³Ë¹é");
+            for (int a = 0; a < BattleSceneManager.In.BossKnockBackEnemy.Length - 1; a++)
             {
-                for(int a = 0; a < BossKnockBackEnemy.Length - 1; a++)
-                {
-                    BossKnockBackEnemy[a].GetComponent<BasicUnit>().IsBossKnockBack = true;
-                }
+                BattleSceneManager.In.BossKnockBackEnemy[a].GetComponent<BasicUnit>().IsBossKnockBack = true;
             }
         }
     }
@@ -85,7 +82,7 @@ public class BasicEnemy : MonoBehaviour
             Pushings();
             PushSpeed -= Time.deltaTime;
         }
-        BossKnockBackEnemy = GameObject.FindGameObjectsWithTag("Unit");
+        
     }
     protected virtual void Pushings() => rigid.AddForce(new Vector2(PushSpeed, 0));
     protected virtual void PositionLimit()

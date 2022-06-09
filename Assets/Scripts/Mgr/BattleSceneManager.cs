@@ -38,6 +38,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     [SerializeField] private Camera MainCam;
     [SerializeField] private GameObject SolaPanel, FireEffect;
     [SerializeField] private GameObject[] Weel, Enemys;
+    public GameObject[] BossKnockBackEnemy;
     [SerializeField] private Sprite[] SolaSprite;
     [SerializeField] private SpriteRenderer SSR;
     public GameObject ExitObj, SoundObj, Castle, CastleBody, CastleDoor, NullFireButton, PauseObj;
@@ -58,6 +59,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
         SpawnButtonMove();
         Starts();
         EnemyFind();
+        BossKnockBackEnemyFind();
         CamMoveLimit();
         CamMove();
     }
@@ -175,6 +177,7 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
                 FireCoolTime = 0;
         }
     }
+    private void BossKnockBackEnemyFind() => BossKnockBackEnemy = GameObject.FindGameObjectsWithTag("Unit");
     private void EnemyFind() => Enemys = GameObject.FindGameObjectsWithTag("Enemy");
     private void BattleUI()
     {
