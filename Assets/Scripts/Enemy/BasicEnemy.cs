@@ -22,6 +22,7 @@ public class BasicEnemy : MonoBehaviour
     public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing, IsSuctioning;
     [SerializeField] protected bool IsAttackReady, IsAttackAnim;
     [SerializeField] protected GameObject Target, PlayerCastle, EnemyCastle, BGameManager;
+    [SerializeField] protected GameObject[] BossKnockBackEnemy;
     [SerializeField] protected float StartY;
     Rigidbody2D rigid;
     public bool IsBoss;
@@ -35,6 +36,7 @@ public class BasicEnemy : MonoBehaviour
         EnemyCastle = GameObject.Find("EnemyCastle");
         BGameManager = GameObject.Find("BattleSceneManagerObj");
         MaxReceivDamage = MaxHp / KnockBackCount;
+        BossKnockBackStart();
         StartCoroutine(FirstSpawnAnim());
     }
 
@@ -58,7 +60,20 @@ public class BasicEnemy : MonoBehaviour
         StartY = transform.position.y;
         yield return null;
     }
-    public virtual void FixedUpdate()
+    protected virtual void BossKnockBackStart()
+    {
+        if(IsBoss == true)
+        {
+            if(BossKnockBackEnemy != null)
+            {
+                for(int a = 0; a < BossKnockBackEnemy.Length - 1; a++)
+                {
+                    BossKnockBackEnemy[a].GetComponent<BasicUnit>().IsBossKnockBack = true;
+                }
+            }
+        }
+    }
+    protected virtual void FixedUpdate()
     {
         if (IsStop == false && IsKnockBack == false) AttackCoolTime();
         StatManagement();
@@ -70,6 +85,7 @@ public class BasicEnemy : MonoBehaviour
             Pushings();
             PushSpeed -= Time.deltaTime;
         }
+        BossKnockBackEnemy = GameObject.FindGameObjectsWithTag("Unit");
     }
     protected virtual void Pushings() => rigid.AddForce(new Vector2(PushSpeed, 0));
     protected virtual void PositionLimit()
@@ -93,7 +109,7 @@ public class BasicEnemy : MonoBehaviour
         IsPushing = false;
         yield return null;
     }
-    public virtual void Debuffs()
+    protected virtual void Debuffs()
     {
         if (StopCount > 0)
         {
@@ -116,12 +132,12 @@ public class BasicEnemy : MonoBehaviour
         }
         else IsAttackSlow = false;
     }
-    public virtual void StatManagement()
+    protected virtual void StatManagement()
     {
         if (Hp >= MaxHp) Hp = MaxHp;
         if (StopCount <= 0) StopCount = 0;
     }
-    public virtual void AttackCoolTime()
+    protected virtual void AttackCoolTime()
     {
         if(IsAttackSlow == true) AttackCoolTimeCount += Time.deltaTime / 1.5f;
         else AttackCoolTimeCount += Time.deltaTime;
@@ -149,7 +165,7 @@ public class BasicEnemy : MonoBehaviour
         }
         else IsAttackReady = false;
     }
-    public virtual void AttackAnim()
+    protected virtual void AttackAnim()
     {
         if(IsAttackAnim == false)
         {
@@ -157,8 +173,8 @@ public class BasicEnemy : MonoBehaviour
             //공격 애니 실행
         }
     }
-    public virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
-    public virtual void AttackTime()
+    protected virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
+    protected virtual void AttackTime()
     {
         AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
         if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && PlayerCastle != null)
@@ -177,13 +193,13 @@ public class BasicEnemy : MonoBehaviour
             AttackCoolTimeCount = 0;
         }
     }
-    public virtual void Move()
+    protected virtual void Move()
     {
         //이동 애니 실행
         if (IsAttackReady == false && IsMoveSlow == false) transform.position = transform.position - new Vector3(Time.deltaTime * Speed, 0, 0);
         else if(IsAttackReady == false && IsMoveSlow == true) transform.position = transform.position - new Vector3(Time.deltaTime * 0.1f, 0, 0);
     }
-    public virtual void Dead()
+    protected virtual void Dead()
     {
         IsPush = false;
         if (Hp <= 0)
@@ -192,7 +208,7 @@ public class BasicEnemy : MonoBehaviour
             //죽음 효과 소환
         }
     }
-    public virtual void KnockBack()
+    protected virtual void KnockBack()
     {
         if (ReceivDamage == MaxReceivDamage)
         {
@@ -209,7 +225,7 @@ public class BasicEnemy : MonoBehaviour
             Dead();
         }
     }
-    public virtual IEnumerator KnockBacking()
+    protected virtual IEnumerator KnockBacking()
     {
         IsPush = false;
         AttackCount = 0;

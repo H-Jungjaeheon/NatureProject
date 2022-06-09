@@ -19,7 +19,7 @@ public class BasicUnit : MonoBehaviour
     [SerializeField] protected float MaxReceivDamage; //최대 넉백 데미지
     [SerializeField] protected float KnockBackCount; //넉백 횟수
     public float ReceivDamage; //현재 넉백 데미지
-    public bool IsKnockBack, IsSuction; //넉백, 빨아들임 판별
+    public bool IsKnockBack, IsSuction, IsBossKnockBack; //넉백, 빨아들임, 보스 등장 넉백 판별
 
     [Header("공격 준비 쿨타임")]
     [SerializeField] protected float AttackCoolTimeCount;
@@ -65,6 +65,16 @@ public class BasicUnit : MonoBehaviour
         StatManagement();
         KnockBack();
         MoveLimit();
+        BossKnockBack();
+    }
+    protected virtual void BossKnockBack()
+    {
+        if(IsBossKnockBack == true)
+        {
+            IsBossKnockBack = false;
+            IsKnockBack = true;
+            StartCoroutine(BossKnockBacking());
+        }
     }
     protected virtual void MoveLimit()
     {
@@ -115,6 +125,27 @@ public class BasicUnit : MonoBehaviour
         WaitForSeconds Wait = new WaitForSeconds(0.27f);
         WaitForSeconds Wait2 = new WaitForSeconds(0.17f);
         float KnockBackUpSpeed = 170, KnockBackBackSpeed = 150;
+
+        rigid.AddForce(Vector2.left * KnockBackBackSpeed);
+        rigid.AddForce(Vector2.up * KnockBackUpSpeed);
+        yield return Wait;
+        rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2));
+        yield return Wait;
+        rigid.AddForce(Vector2.up * ((KnockBackUpSpeed) * 2f));
+        yield return Wait2;
+        rigid.AddForce(Vector2.down * ((KnockBackUpSpeed) * 2f));
+        yield return Wait2;
+        rigid.velocity = Vector3.zero;
+        IsKnockBack = false;
+        transform.position = new Vector3(transform.position.x, StartY, transform.position.z);
+        if (Hp <= 0) Dead();
+        yield return null;
+    }
+    protected virtual IEnumerator BossKnockBacking()
+    {
+        WaitForSeconds Wait = new WaitForSeconds(0.47f);
+        WaitForSeconds Wait2 = new WaitForSeconds(0.37f);
+        float KnockBackUpSpeed = 230, KnockBackBackSpeed = 180;
 
         rigid.AddForce(Vector2.left * KnockBackBackSpeed);
         rigid.AddForce(Vector2.up * KnockBackUpSpeed);
