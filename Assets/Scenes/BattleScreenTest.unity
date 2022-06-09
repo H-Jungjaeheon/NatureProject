@@ -831,9 +831,8 @@ MonoBehaviour:
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
   BGameManager: {fileID: 0}
-  BossKnockBackEnemy: []
   StartY: 0
-  IsBoss: 0
+  IsBoss: 1
 --- !u!61 &219587017
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4935,9 +4934,8 @@ MonoBehaviour:
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
   BGameManager: {fileID: 0}
-  BossKnockBackEnemy: []
   StartY: 0
-  IsBoss: 0
+  IsBoss: 1
 --- !u!61 &1121759647
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5190,9 +5188,8 @@ MonoBehaviour:
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
   BGameManager: {fileID: 0}
-  BossKnockBackEnemy: []
   StartY: 0
-  IsBoss: 0
+  IsBoss: 1
 --- !u!61 &1202014478
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7657,7 +7654,6 @@ MonoBehaviour:
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
   BGameManager: {fileID: 0}
-  BossKnockBackEnemy: []
   StartY: 0
   IsBoss: 1
 --- !u!1 &1702767860
@@ -7800,9 +7796,8 @@ MonoBehaviour:
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
   BGameManager: {fileID: 0}
-  BossKnockBackEnemy: []
   StartY: 0
-  IsBoss: 0
+  IsBoss: 1
 --- !u!61 &1722294215
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9543,6 +9538,7 @@ MonoBehaviour:
   - {fileID: 1063693356}
   - {fileID: 662570156}
   Enemys: []
+  BossKnockBackEnemy: []
   SolaSprite:
   - {fileID: 21300000, guid: f36afc004067fbb4cb41cd0ea728a241, type: 3}
   - {fileID: 21300000, guid: 19615b24b55d86b4d9b84f9feb65468f, type: 3}

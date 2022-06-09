@@ -36,6 +36,7 @@ public class CleaningCarUnit : BasicUnit
         else if (IsStop == false && IsKnockBack == false && IsRush == true) RushAttackCoolTime();
         StatManagement();
         KnockBack();
+        BossKnockBack();
     }
     protected override void Stops()
     {

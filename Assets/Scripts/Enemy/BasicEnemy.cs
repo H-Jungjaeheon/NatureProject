@@ -64,7 +64,7 @@ public class BasicEnemy : MonoBehaviour
         if(IsBoss == true && BattleSceneManager.In.BossKnockBackEnemy != null)
         {
             print("³Ë¹é");
-            for (int a = 0; a < BattleSceneManager.In.BossKnockBackEnemy.Length - 1; a++)
+            for (int a = 0; a < BattleSceneManager.In.BossKnockBackEnemy.Length; a++)
             {
                 BattleSceneManager.In.BossKnockBackEnemy[a].GetComponent<BasicUnit>().IsBossKnockBack = true;
             }

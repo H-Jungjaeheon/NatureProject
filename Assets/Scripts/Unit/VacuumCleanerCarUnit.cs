@@ -38,6 +38,7 @@ public class VacuumCleanerCarUnit : BasicUnit
         StatManagement();
         KnockBack();
         Dead();
+        BossKnockBack();
     }
     protected override void Stops()
     {
