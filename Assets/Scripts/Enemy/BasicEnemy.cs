@@ -21,7 +21,7 @@ public class BasicEnemy : MonoBehaviour
     public bool IsKnockBack;
     public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing, IsSuctioning;
     [SerializeField] protected bool IsAttackReady, IsAttackAnim;
-    [SerializeField] protected GameObject Target, PlayerCastle, EnemyCastle;
+    [SerializeField] protected GameObject Target, PlayerCastle, EnemyCastle, BGameManager;
     [SerializeField] protected float StartY;
     Rigidbody2D rigid;
     public bool IsBoss;
@@ -33,6 +33,7 @@ public class BasicEnemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         EnemyCastle = GameObject.Find("EnemyCastle");
+        BGameManager = GameObject.Find("BattleSceneManagerObj");
         MaxReceivDamage = MaxHp / KnockBackCount;
         StartCoroutine(FirstSpawnAnim());
     }
@@ -73,9 +74,13 @@ public class BasicEnemy : MonoBehaviour
     protected virtual void Pushings() => rigid.AddForce(new Vector2(PushSpeed, 0));
     protected virtual void PositionLimit()
     {
-        if(transform.position.x > EnemyCastle.transform.position.x + 1.5f)
+        if(transform.position.x > EnemyCastle.transform.position.x + 1.5f && IsBoss == false)
         {
             transform.position = new Vector3(EnemyCastle.transform.position.x + 1.5f, transform.position.y, transform.position.z);
+        }
+        else if(transform.position.x > EnemyCastle.transform.position.x - 2.7f && IsBoss)
+        {
+            transform.position = new Vector3(EnemyCastle.transform.position.x - 2.7f, transform.position.y, transform.position.z);
         }
     }
     protected virtual IEnumerator Pushing()
@@ -122,18 +127,21 @@ public class BasicEnemy : MonoBehaviour
         else AttackCoolTimeCount += Time.deltaTime;
         Debug.DrawRay(transform.position, Vector2.left * Range, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, Range, LayerMask.GetMask("Unit"));
-        if (hit)
+        RaycastHit2D Castlehit = Physics2D.Raycast(transform.position, Vector2.left, Range, LayerMask.GetMask("PlayerCastle"));
+        if (hit.collider != null || Castlehit.collider != null)
         {
-            Target = hit.collider.gameObject;
-            if (Target.GetComponent<BasicUnit>().IsKnockBack == false && Target.GetComponent<BasicUnit>().IsSuction == false)
+            Target = (hit.collider != null) ? hit.collider.gameObject : null;
+            PlayerCastle = (Castlehit.collider != null) ? Castlehit.collider.gameObject : null;
+
+            if (Target != null && Target.GetComponent<BasicUnit>().IsKnockBack == false && Target.GetComponent<BasicUnit>().IsSuction == false || PlayerCastle != null)
             {
                 IsAttackReady = true;
-                if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
+                if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
                     AttackTime();
                     AttackAnim();
                 }
-                else if(AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
+                else if(AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
                 {
                     //기본 애니 실행
                 }
@@ -152,11 +160,19 @@ public class BasicEnemy : MonoBehaviour
     public virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
     public virtual void AttackTime()
     {
-        AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount)
+        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
+        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && PlayerCastle != null)
         {
-            Target.GetComponent<BasicUnit>().Hp -= Damage;
-            Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+            if (Target != null && Target.GetComponent<BasicUnit>().IsKnockBack == false)
+            {
+                Target.GetComponent<BasicUnit>().Hp -= Damage;
+                Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+            }
+            if (PlayerCastle != null)
+            {
+                BGameManager.GetComponent<BattleSceneManager>().PlayerHp -= Damage;
+                //PlayerCastle.GetComponent<PlayerCastle>().IsHit = true;
+            }
             AttackCount = 0;
             AttackCoolTimeCount = 0;
         }
@@ -199,7 +215,7 @@ public class BasicEnemy : MonoBehaviour
         AttackCount = 0;
         IsKnockBack = true;
         AttackAnimStop();
-        if (IsKnockBack == true)
+        if (IsKnockBack)
         {
             WaitForSeconds Wait = new WaitForSeconds(0.27f);
             WaitForSeconds Wait1 = new WaitForSeconds(0.17f);

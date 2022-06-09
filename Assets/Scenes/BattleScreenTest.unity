@@ -830,6 +830,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
+  BGameManager: {fileID: 0}
   StartY: 0
   IsBoss: 0
 --- !u!61 &219587017
@@ -1273,7 +1274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 286619493}
   - component: {fileID: 286619494}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CastleDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1355,7 +1356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 287453176}
   - component: {fileID: 287453177}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CastleSolarPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1908,7 +1909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 490013742}
   - component: {fileID: 490013743}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CastleBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2260,7 +2261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 662570157}
   - component: {fileID: 662570158}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CastleWheelB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3207,8 +3208,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 330, y: 0}
-  m_SizeDelta: {x: 120, y: 110}
+  m_AnchoredPosition: {x: 250, y: 0}
+  m_SizeDelta: {x: 110, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &812479841
 MonoBehaviour:
@@ -3475,7 +3476,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e52ccc25c988b734282076765f9cad6e, type: 3}
-    m_FontSize: 95
+    m_FontSize: 90
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -4441,7 +4442,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1050, y: 90}
+  m_SizeDelta: {x: 1150, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1057796956
 MonoBehaviour:
@@ -4491,7 +4492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1063693357}
   - component: {fileID: 1063693358}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CastleWheelI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4932,6 +4933,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
+  BGameManager: {fileID: 0}
   StartY: 0
   IsBoss: 0
 --- !u!61 &1121759647
@@ -5080,7 +5082,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1178651078
@@ -5185,6 +5187,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
+  BGameManager: {fileID: 0}
   StartY: 0
   IsBoss: 0
 --- !u!61 &1202014478
@@ -5741,7 +5744,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1050, y: 90}
+  m_SizeDelta: {x: 1150, y: 70}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1235298454
 MonoBehaviour:
@@ -6892,9 +6895,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1510062209}
-  m_Layer: 0
+  - component: {fileID: 1510062211}
+  - component: {fileID: 1510062210}
+  m_Layer: 10
   m_Name: PlayerCastle
-  m_TagString: Untagged
+  m_TagString: PlayerCastle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6916,6 +6921,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1510062210
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510062208}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
+--- !u!61 &1510062211
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510062208}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.18445778, y: 0.16504002}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.805683, y: 5.409195}
+  m_EdgeRadius: 0
 --- !u!1 &1591268594
 GameObject:
   m_ObjectHideFlags: 0
@@ -7180,7 +7232,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1050, y: 90}
+  m_SizeDelta: {x: 1150, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1616064051
 MonoBehaviour:
@@ -7389,7 +7441,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1050, y: 90}
+  m_SizeDelta: {x: 1150, y: 70}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1652108389
 MonoBehaviour:
@@ -7508,7 +7560,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682070846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 0.2, z: 0}
+  m_LocalPosition: {x: 23.41, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7601,6 +7653,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
+  BGameManager: {fileID: 0}
   StartY: 0
   IsBoss: 0
 --- !u!1 &1702767860
@@ -7742,6 +7795,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
+  BGameManager: {fileID: 0}
   StartY: 0
   IsBoss: 0
 --- !u!61 &1722294215
@@ -8635,7 +8689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -170}
+  m_AnchoredPosition: {x: 0, y: -135}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1824385625
@@ -8828,8 +8882,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -330, y: 0}
-  m_SizeDelta: {x: 120, y: 110}
+  m_AnchoredPosition: {x: -250, y: 0}
+  m_SizeDelta: {x: 110, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1891261285
 MonoBehaviour:
@@ -10707,7 +10761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5251156149695615309, guid: 96e85f7bca3773d4790174ff4343ebf6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.17
+      value: 2.62
       objectReference: {fileID: 0}
     - target: {fileID: 5251156149695615309, guid: 96e85f7bca3773d4790174ff4343ebf6, type: 3}
       propertyPath: m_LocalPosition.y

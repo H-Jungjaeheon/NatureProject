@@ -155,8 +155,8 @@ public class BasicUnit : MonoBehaviour
 
         if (hit.collider != null || castlehit.collider != null)
         {
-            Target = (hit.collider != null) ? Target = hit.collider.gameObject : Target = null;
-            ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
+            Target = (hit.collider != null) ? Target = hit.collider.gameObject : null;
+            ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : null;
 
             if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
             {
