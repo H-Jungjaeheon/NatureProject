@@ -23,12 +23,11 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] protected bool IsAttackReady, IsAttackAnim;
     [SerializeField] protected GameObject Target, PlayerCastle, EnemyCastle, BGameManager;
     [SerializeField] protected float StartY;
-    Rigidbody2D rigid;
+    protected Rigidbody2D rigid;
     public bool IsBoss;
-    
 
     // Start is called before the first frame update
-    public virtual void Start()
+    protected virtual void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -40,7 +39,7 @@ public class BasicEnemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    public virtual void Update()
+    protected virtual void Update()
     {
         if(IsKnockBack == false && IsStop == false)
             Move();
@@ -188,6 +187,8 @@ public class BasicEnemy : MonoBehaviour
             }
             AttackCount = 0;
             AttackCoolTimeCount = 0;
+            Target = null;
+            PlayerCastle = null;
         }
     }
     protected virtual void Move()
