@@ -20,7 +20,7 @@ public class BasicEnemy : MonoBehaviour
     [Header("»óÅÂ ÀÌ»ó °ü·Ã º¯¼ö")]
     public bool IsKnockBack;
     public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing, IsSuctioning;
-    [SerializeField] protected bool IsAttackReady, IsAttackAnim;
+    [SerializeField] protected bool IsAttackReady, IsAttackAnim, IsStartAnim;
     [SerializeField] protected GameObject Target, PlayerCastle, EnemyCastle, BGameManager;
     [SerializeField] protected float StartY;
     protected Rigidbody2D rigid;
@@ -34,6 +34,7 @@ public class BasicEnemy : MonoBehaviour
         EnemyCastle = GameObject.Find("EnemyCastle");
         BGameManager = GameObject.Find("BattleSceneManagerObj");
         MaxReceivDamage = MaxHp / KnockBackCount;
+        IsStartAnim = true;
         BossKnockBackStart();
         StartCoroutine(FirstSpawnAnim());
     }
@@ -48,13 +49,14 @@ public class BasicEnemy : MonoBehaviour
     protected virtual IEnumerator FirstSpawnAnim()
     {
         IsKnockBack = true;
-        rigid.AddForce(new Vector2(-110, 110));
+        rigid.AddForce(new Vector2(-140, 110));
         yield return new WaitForSeconds(0.3f);
         rigid.velocity = Vector2.zero;
-        rigid.AddForce(new Vector2(-110, -213));
+        rigid.AddForce(new Vector2(-140, -213));
         yield return new WaitForSeconds(0.5f);
         rigid.velocity = Vector2.zero;
         IsKnockBack = false;
+        IsStartAnim = false;
         StartY = transform.position.y;
         yield return null;
     }
@@ -83,14 +85,27 @@ public class BasicEnemy : MonoBehaviour
         }
         
     }
-    protected virtual void Pushings() => rigid.AddForce(new Vector2(PushSpeed, 0));
+    protected virtual void Pushings()
+    {
+        if (transform.position.x > EnemyCastle.transform.position.x - 2.75f && IsBoss)
+        {
+            rigid.velocity = Vector3.zero;
+            transform.position = new Vector3(EnemyCastle.transform.position.x - 2.7f, transform.position.y, transform.position.z);
+            print("¾Ó ½ÇÇà¶ì1");
+        }
+        else
+        {
+            rigid.AddForce(new Vector2(PushSpeed, 0));
+            print("¾Ó ½ÇÇà¶ì2");
+        }
+    }
     protected virtual void PositionLimit()
     {
         if(transform.position.x > EnemyCastle.transform.position.x + 1.5f && IsBoss == false)
         {
             transform.position = new Vector3(EnemyCastle.transform.position.x + 1.5f, transform.position.y, transform.position.z);
         }
-        else if(transform.position.x > EnemyCastle.transform.position.x - 2.7f && IsBoss)
+        else if(transform.position.x > EnemyCastle.transform.position.x - 2.7f && IsBoss && IsStartAnim == false)
         {
             transform.position = new Vector3(EnemyCastle.transform.position.x - 2.7f, transform.position.y, transform.position.z);
         }
