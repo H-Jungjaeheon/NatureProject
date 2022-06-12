@@ -18,7 +18,7 @@ public class MotorUnit : BasicUnit
             if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
             {
                 AttackAnim();
-                AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
+                AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
                 if (AttackCount >= MaxAttackCount)
                 {
                     for (int b = 0; b < Hit.Length; b++)
@@ -42,7 +42,7 @@ public class MotorUnit : BasicUnit
                     ECTarget = null;
                 }
             }
-            else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
+            else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
             {
                 //기본 애니 실행
             }

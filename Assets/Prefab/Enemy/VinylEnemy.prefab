@@ -144,12 +144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb08de84eefd63e46a4486fcd9061be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 400
+  Hp: 500
   ReceivDamage: 0
   StopCount: 0
   AttackSlowCount: 0
   MoveSlowCount: 0
-  MaxHp: 400
+  MaxHp: 500
   Damage: 15
   MaxReceivDamage: 0
   Speed: 2
@@ -169,6 +169,7 @@ MonoBehaviour:
   IsSuctioning: 0
   IsAttackReady: 0
   IsAttackAnim: 0
+  IsStartAnim: 0
   Target: {fileID: 0}
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}

@@ -87,7 +87,7 @@ public class BasicEnemy : MonoBehaviour
     }
     protected virtual void Pushings()
     {
-        if (transform.position.x > EnemyCastle.transform.position.x - 2.75f && IsBoss)
+        if (transform.position.x > EnemyCastle.transform.position.x - 2.71f && IsBoss)
         {
             rigid.velocity = Vector3.zero;
             transform.position = new Vector3(EnemyCastle.transform.position.x - 2.7f, transform.position.y, transform.position.z);
@@ -96,7 +96,6 @@ public class BasicEnemy : MonoBehaviour
         else
         {
             rigid.AddForce(new Vector2(PushSpeed, 0));
-            print("¾Ó ½ÇÇà¶ì2");
         }
     }
     protected virtual void PositionLimit()
