@@ -28,16 +28,17 @@ public class VacuumCleanerCarUnit : BasicUnit
     // Update is called once per frame
     protected override void Update()
     {
-        if (IsKnockBack == false && IsStop == false && Hp > 0) Move();
+        if (IsKnockBack == false && IsStop == false && Hp > 0 && IsCling == false) Move();
         if (Hp > 0) Stops();
     }
     protected override void FixedUpdate()
     {
-        if (IsStop == false && IsKnockBack == false && IsRush == false && Hp > 0) AttackCoolTime();
-        else if (IsStop == false && IsKnockBack == false && IsRush == true && Hp > 0) RushAttackCoolTime();
+        if (IsStop == false && IsKnockBack == false && IsRush == false && IsCling == false) AttackCoolTime();
+        else if (IsStop == false && IsKnockBack == false && IsRush == true && IsCling == false) RushAttackCoolTime();
         StatManagement();
         KnockBack();
         Dead();
+        Clings();
         BossKnockBack();
     }
     protected override void Stops()
@@ -139,7 +140,7 @@ public class VacuumCleanerCarUnit : BasicUnit
                     {
                         Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
 
-                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
                         {
                             Target.GetComponent<BasicEnemy>().Hp -= Damage;
                             Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
@@ -181,7 +182,7 @@ public class VacuumCleanerCarUnit : BasicUnit
             Target = (hit.collider != null) ? Target = hit.collider.gameObject : Target = null;
             ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
 
-            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
+            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false || ECTarget)
             {
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
@@ -194,6 +195,7 @@ public class VacuumCleanerCarUnit : BasicUnit
                     //기본 애니 실행
                 }
             }
+            else IsAttackReady = false;
         }
         else IsAttackReady = false;
     }
@@ -212,7 +214,7 @@ public class VacuumCleanerCarUnit : BasicUnit
 
         if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
         {
-            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
             {
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
@@ -245,7 +247,7 @@ public class VacuumCleanerCarUnit : BasicUnit
         for (int a = 0; a < SuctionHit.Length; a++)
         {
             RaycastHit2D SuctionHits = SuctionHit[a];
-            if (SuctionHits.collider.GetComponent<BasicEnemy>().IsKnockBack == false && SuctionHits.collider.GetComponent<BasicEnemy>().IsBoss == false)
+            if (SuctionHits.collider.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false && SuctionHits.collider.GetComponent<BasicEnemy>().IsBoss == false)
             {
                 AttackAnim();
                 SuctionHits.collider.GetComponent<BasicEnemy>().IsSuctioning = true;
@@ -260,7 +262,7 @@ public class VacuumCleanerCarUnit : BasicUnit
         for (int a = 0; a < InstantDeathHit.Length; a++)
         {
             RaycastHit2D InstantDeath = InstantDeathHit[a];
-            if (InstantDeath.collider.GetComponent<BasicEnemy>().IsKnockBack == false && InstantDeath.collider.GetComponent<BasicEnemy>().IsBoss == false)
+            if (InstantDeath.collider.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false && InstantDeath.collider.GetComponent<BasicEnemy>().IsBoss == false)
             {
                 AttackAnim();
                 InstantDeath.collider.gameObject.GetComponent<BasicEnemy>().Hp = 0;

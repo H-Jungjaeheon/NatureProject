@@ -20,7 +20,7 @@ public class SolarHeatUnit : BasicUnit
 
         ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
 
-        if (Hit.collider != null && Hit.collider.GetComponent<BasicEnemy>().IsKnockBack == false && Hits.Length > 0 || ECTarget != null)
+        if (Hit.collider != null && Hit.collider.GetComponent<BasicEnemy>().IsKnockBack == false && Hits.Length > 0 && Hit.collider.GetComponent<BasicEnemy>().IsPushing == false || ECTarget != null)
         {
             IsAttackReady = true;
             if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
@@ -56,7 +56,7 @@ public class SolarHeatUnit : BasicUnit
             for (int a = 0; a < Hits.Length; a++)
             {
                 Target = Hits[a].collider.gameObject;
-                if (Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+                if (Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
                 {
                     Target.GetComponent<BasicEnemy>().Hp -= Damage;
                     Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;

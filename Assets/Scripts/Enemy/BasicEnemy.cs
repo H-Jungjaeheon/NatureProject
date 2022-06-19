@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text;
 
 public class BasicEnemy : MonoBehaviour
 {
@@ -64,7 +65,6 @@ public class BasicEnemy : MonoBehaviour
     {
         if(IsBoss == true && BattleSceneManager.In.BossKnockBackEnemy != null)
         {
-            print("³Ë¹é");
             for (int a = 0; a < BattleSceneManager.In.BossKnockBackEnemy.Length; a++)
             {
                 BattleSceneManager.In.BossKnockBackEnemy[a].GetComponent<BasicUnit>().IsBossKnockBack = true;
@@ -83,15 +83,13 @@ public class BasicEnemy : MonoBehaviour
             Pushings();
             PushSpeed -= Time.deltaTime;
         }
-        
     }
     protected virtual void Pushings()
     {
         if (transform.position.x > EnemyCastle.transform.position.x - 2.71f && IsBoss)
         {
             rigid.velocity = Vector3.zero;
-            transform.position = new Vector3(EnemyCastle.transform.position.x - 2.7f, transform.position.y, transform.position.z);
-            print("¾Ó ½ÇÇà¶ì1");
+            transform.position = new Vector3(EnemyCastle.transform.position.x - 2.7f, StartY, transform.position.z);
         }
         else
         {
@@ -144,8 +142,8 @@ public class BasicEnemy : MonoBehaviour
     }
     protected virtual void StatManagement()
     {
-        if (Hp >= MaxHp) Hp = MaxHp;
-        if (StopCount <= 0) StopCount = 0;
+        Hp = (Hp >= MaxHp) ? Hp = MaxHp : Hp = (Hp + 0);
+        StopCount = (StopCount <= 0) ? StopCount = 0 : StopCount = (StopCount + 0);
     }
     protected virtual void AttackCoolTime()
     {
@@ -232,7 +230,7 @@ public class BasicEnemy : MonoBehaviour
             ReceivDamage = ReceivDamage % MaxReceivDamage;
             StartCoroutine(KnockBacking());
         }
-        else if(IsSuctioning == true && Hp == 0)
+        else if (IsSuctioning == true && Hp <= 0)
         {
             Dead();
         }

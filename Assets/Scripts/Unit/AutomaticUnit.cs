@@ -59,6 +59,7 @@ public class AutomaticUnit : BasicUnit
                     //기본 애니 실행
                 }
             }
+            else IsAttackReady = false;
         }
         else IsAttackReady = false;
     }

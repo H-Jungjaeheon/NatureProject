@@ -21,22 +21,31 @@ public class CleaningCarUnit : BasicUnit
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
         BGameManager = GameObject.Find("BattleSceneManagerObj");
+        Castle = GameObject.Find("PlayerCastle");
         StartCoroutine(FirstSpawnAnim());
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        if (IsKnockBack == false && IsStop == false) Move();
+        if (IsKnockBack == false && IsStop == false && IsCling == false) Move();
         Stops();
     }
     protected override void FixedUpdate()
     {
-        if (IsStop == false && IsKnockBack == false && IsRush == false) AttackCoolTime();
-        else if (IsStop == false && IsKnockBack == false && IsRush == true) RushAttackCoolTime();
+        if (IsStop == false && IsKnockBack == false && IsRush == false && IsCling == false) AttackCoolTime();
+        else if (IsStop == false && IsKnockBack == false && IsRush == true && IsCling == false) RushAttackCoolTime();
         StatManagement();
         KnockBack();
         BossKnockBack();
+        MoveLimit();
+        Clings();
+        if (IsPush == true && IsKnockBack == false) StartCoroutine(Pushing());
+        if (IsPushing == true && IsKnockBack == false)
+        {
+            Pushings();
+            PushSpeed -= Time.deltaTime;
+        }
     }
     protected override void Stops()
     {
@@ -140,7 +149,7 @@ public class CleaningCarUnit : BasicUnit
                     {
                         Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
 
-                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
                         {
                             Target.GetComponent<BasicEnemy>().Hp -= Damage;
                             Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
@@ -182,7 +191,7 @@ public class CleaningCarUnit : BasicUnit
             Target = (hit.collider != null) ? Target = hit.collider.gameObject : Target = null;
             ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
 
-            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
+            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false || ECTarget)
             {
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
@@ -195,6 +204,7 @@ public class CleaningCarUnit : BasicUnit
                     //기본 애니 실행
                 }
             }
+            else IsAttackReady = false;
         }
         else IsAttackReady = false;
     }
@@ -213,7 +223,7 @@ public class CleaningCarUnit : BasicUnit
 
         if(AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
         {
-            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
             {
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;

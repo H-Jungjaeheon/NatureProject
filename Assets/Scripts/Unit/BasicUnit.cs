@@ -8,13 +8,13 @@ public class BasicUnit : MonoBehaviour
     [Header("유닛 관련 변수")]
     public float Hp;
     [SerializeField] protected float Speed, Range, Damage, MaxHp; //캐릭터 이동속도, 적 인식 사거리, 공격 데미지, 최대체력
-    [SerializeField] protected GameObject Target, ECTarget, BGameManager, Castle; //적 타켓, 적 성 타겟
+    [SerializeField] protected GameObject Target, ECTarget, BGameManager, Castle, ClingMaskEnemy; //적 타켓, 적 성 타겟
 
     [Header("유닛이 걸린 상태이상 변수")]
     [SerializeField] protected float StopCount; //상태이상 시간 : 정지
-    [SerializeField] protected float AttackSlowCount, MoveSlowCount; //상태이상 시간 : 공격속도 감소, 이동속도 감소
+    [SerializeField] protected float AttackSlowCount, MoveSlowCount, PushSpeed, ClingTime; //상태이상 시간 : 공격속도 감소, 이동속도 감소, 밀림 속도, 마스크 씌워짐 지속시간
     [SerializeField] protected bool IsStop, IsAttackSlow, IsMoveSlow, IsAttackReady; //정지 상태, 공격속도 감소, 이동속도 감소, 공격 가능 판별
-
+    public bool IsPush, IsPushing, IsCling; //밀치기, 밀쳐지는중, 마스크 씌워짐
     [Header("넉백 관련 변수")]
     [SerializeField] protected float MaxReceivDamage; //최대 넉백 데미지
     [SerializeField] protected float KnockBackCount; //넉백 횟수
@@ -56,18 +56,61 @@ public class BasicUnit : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (IsKnockBack == false && IsStop == false)
+        if (IsKnockBack == false && IsStop == false && IsCling == false)
             Move();
         Stops();
     }
     protected virtual void FixedUpdate()
     {
-        if (IsStop == false && IsKnockBack == false)
+        if (IsStop == false && IsKnockBack == false && IsCling == false)
             AttackCoolTime();
         StatManagement();
         KnockBack();
         MoveLimit();
         BossKnockBack();
+        Clings();
+        if (IsPush && IsKnockBack == false) StartCoroutine(Pushing());
+        if (IsPushing && IsKnockBack == false)
+        {
+            Pushings();
+            PushSpeed -= Time.deltaTime;
+        }
+    }
+    protected virtual void Clings()
+    {
+        if (IsCling)
+        {
+            ClingMaskEnemy.SetActive(true);
+            ClingTime += Time.deltaTime;
+            if(ClingTime >= 5)
+            {
+                ClingMaskEnemy.SetActive(false);
+                IsCling = false;
+                ClingTime = 0;
+            }
+        }
+    }
+    protected virtual void Pushings()
+    {
+        if (transform.position.x < Castle.transform.position.x - 3)
+        {
+            rigid.velocity = Vector3.zero;
+            transform.position = new Vector3(Castle.transform.position.x - 3, StartY, transform.position.z);
+        }
+        else
+        {
+            rigid.AddForce(new Vector2(-PushSpeed, 0));
+        }
+    }
+    protected virtual IEnumerator Pushing()
+    {
+        IsPush = false;
+        IsPushing = true;
+        PushSpeed = 25;
+        yield return new WaitForSeconds(0.4f);
+        rigid.velocity = Vector2.zero;
+        IsPushing = false;
+        yield return null;
     }
     protected virtual void BossKnockBack()
     {
@@ -192,7 +235,7 @@ public class BasicUnit : MonoBehaviour
             Target = (hit.collider != null) ? Target = hit.collider.gameObject : null;
             ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : null;
 
-            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false || ECTarget)
+            if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false || ECTarget)
             {
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
@@ -205,6 +248,7 @@ public class BasicUnit : MonoBehaviour
                     //기본 애니 실행
                 }
             }
+            else IsAttackReady = false;
         }
         else IsAttackReady = false;
     }
@@ -223,7 +267,7 @@ public class BasicUnit : MonoBehaviour
 
         if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
         {
-            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+            if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
             {
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;

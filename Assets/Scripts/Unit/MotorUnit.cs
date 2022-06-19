@@ -25,7 +25,7 @@ public class MotorUnit : BasicUnit
                     {
                         Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
 
-                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
+                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
                         {
                             Target.GetComponent<BasicEnemy>().Hp -= Damage;
                             Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
