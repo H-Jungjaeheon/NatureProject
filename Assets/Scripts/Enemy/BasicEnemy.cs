@@ -5,10 +5,11 @@ using System.Text;
 
 public class BasicEnemy : MonoBehaviour
 {
-    [Header("유닛 관련 변수")]
+    [Header("유닛 관련 기본 변수")]
     public float Hp;
     public float ReceivDamage, StopCount, AttackSlowCount, MoveSlowCount;
     [SerializeField] protected float MaxHp, Damage, MaxReceivDamage, Speed, Range, KnockBackCount, PushSpeed;
+    [SerializeField] protected Vector3 AttackRangeVector;
 
     [Header("공격 준비 쿨타임")]
     [SerializeField] protected float AttackCoolTimeCount;
@@ -27,6 +28,14 @@ public class BasicEnemy : MonoBehaviour
     protected Rigidbody2D rigid;
     public bool IsBoss;
 
+    [Space(10)]
+    [Header("특수능력 모음")]
+    [SerializeField] protected bool IsDeadSpawn;
+    [Header("특수능력 오브젝트")]
+    [SerializeField] protected GameObject SpawnMobs;
+    [SerializeField] protected int SpawnCount;
+    [SerializeField] protected Vector3 SpawnVector;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -35,9 +44,11 @@ public class BasicEnemy : MonoBehaviour
         EnemyCastle = GameObject.Find("EnemyCastle");
         BGameManager = GameObject.Find("BattleSceneManagerObj");
         MaxReceivDamage = MaxHp / KnockBackCount;
-        IsStartAnim = true;
         BossKnockBackStart();
-        StartCoroutine(FirstSpawnAnim());
+        if (IsStartAnim)
+        {
+            StartCoroutine(FirstSpawnAnim());
+        }
     }
 
     // Update is called once per frame
@@ -149,9 +160,9 @@ public class BasicEnemy : MonoBehaviour
     {
         if(IsAttackSlow == true) AttackCoolTimeCount += Time.deltaTime / 1.5f;
         else AttackCoolTimeCount += Time.deltaTime;
-        Debug.DrawRay(transform.position, Vector2.left * Range, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, Range, LayerMask.GetMask("Unit"));
-        RaycastHit2D Castlehit = Physics2D.Raycast(transform.position, Vector2.left, Range, LayerMask.GetMask("PlayerCastle"));
+        Debug.DrawRay(transform.position + AttackRangeVector, Vector2.left * Range, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + AttackRangeVector, Vector2.left, Range, LayerMask.GetMask("Unit"));
+        RaycastHit2D Castlehit = Physics2D.Raycast(transform.position + AttackRangeVector, Vector2.left, Range, LayerMask.GetMask("PlayerCastle"));
         if (hit.collider != null || Castlehit.collider != null)
         {
             Target = (hit.collider != null) ? hit.collider.gameObject : null;
@@ -214,6 +225,13 @@ public class BasicEnemy : MonoBehaviour
         IsPush = false;
         if (Hp <= 0)
         {
+            if (IsDeadSpawn)
+            {
+                for(int SpawnIndex = 0; SpawnIndex < SpawnCount; SpawnIndex++)
+                {
+                    Instantiate(SpawnMobs, new Vector3(transform.position.x + SpawnCount / 2 / 10 - SpawnIndex / 10, transform.position.y, 0) + SpawnVector, SpawnMobs.transform.rotation);
+                }
+            }
             Destroy(this.gameObject);
             //죽음 효과 소환
         }

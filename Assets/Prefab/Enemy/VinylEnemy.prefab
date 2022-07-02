@@ -169,10 +169,13 @@ MonoBehaviour:
   IsSuctioning: 0
   IsAttackReady: 0
   IsAttackAnim: 0
-  IsStartAnim: 0
+  IsStartAnim: 1
   Target: {fileID: 0}
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
   BGameManager: {fileID: 0}
   StartY: 0
   IsBoss: 0
+  IsDeadSpawn: 0
+  SpawnMobs: {fileID: 0}
+  SpawnCount: 0

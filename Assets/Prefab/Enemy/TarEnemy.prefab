@@ -169,12 +169,15 @@ MonoBehaviour:
   IsSuctioning: 0
   IsAttackReady: 0
   IsAttackAnim: 0
-  IsStartAnim: 0
+  IsStartAnim: 1
   Target: {fileID: 0}
   PlayerCastle: {fileID: 0}
   EnemyCastle: {fileID: 0}
   BGameManager: {fileID: 0}
   StartY: 0
   IsBoss: 1
+  IsDeadSpawn: 0
+  SpawnMobs: {fileID: 0}
+  SpawnCount: 0
   Bullet: {fileID: 4767118339767025120, guid: 1ee334ebc47fd0140838a98941095013, type: 3}
   BulletSpawnVector: {x: -1, y: -0.5, z: 0}
