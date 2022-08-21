@@ -1843,10 +1843,350 @@ MonoBehaviour:
   bodylevel: 1
   laserchargelevel: 1
   laserpowerlevel: 1
-  InGameFormingData: []
+  InGameFormingData:
+  - UnitID: 0
+    UnitName: 
+    UnitClass: 0
+    UnitImage: {fileID: 0}
+    UnitLevel: 0
+    UnitCost: 0
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 0
+    UnitName: 
+    UnitClass: 0
+    UnitImage: {fileID: 0}
+    UnitLevel: 0
+    UnitCost: 0
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 0
+    UnitName: 
+    UnitClass: 0
+    UnitImage: {fileID: 0}
+    UnitLevel: 0
+    UnitCost: 0
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 0
+    UnitName: 
+    UnitClass: 0
+    UnitImage: {fileID: 0}
+    UnitLevel: 0
+    UnitCost: 0
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 0
+    UnitName: 
+    UnitClass: 0
+    UnitImage: {fileID: 0}
+    UnitLevel: 0
+    UnitCost: 0
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 0
+    UnitName: 
+    UnitClass: 0
+    UnitImage: {fileID: 0}
+    UnitLevel: 0
+    UnitCost: 0
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 0
+    UnitName: 
+    UnitClass: 0
+    UnitImage: {fileID: 0}
+    UnitLevel: 0
+    UnitCost: 0
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 0
+    UnitName: 
+    UnitClass: 0
+    UnitImage: {fileID: 0}
+    UnitLevel: 0
+    UnitCost: 0
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
   UnlockStage: 1
   SelectStage: 1
-  GameUnitData: []
+  GameUnitData:
+  - UnitID: 1
+    UnitName: "\uBE57\uC790\uB8E8 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: -3486037462355420405, guid: 91f6b01d34c564c4ca9c3cec03e48b03, type: 3}
+    UnitLevel: 1
+    UnitCost: 50
+    UnitPower: 10
+    UnitHP: 100
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 2
+    UnitName: "\uCCAD\uC18C\uAE30 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: 7400037091540151894, guid: d0fc15efc6cfcc241bca1c6624e65032, type: 3}
+    UnitLevel: 1
+    UnitCost: 100
+    UnitPower: 15
+    UnitHP: 150
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 3
+    UnitName: "\uC2A4\uCF00\uC774\uD2B8 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: 7177159502492280853, guid: 43eed73031b3bf240a53c43f3303ba09, type: 3}
+    UnitLevel: 0
+    UnitCost: 200
+    UnitPower: 8
+    UnitHP: 200
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 4
+    UnitName: "\uC18C\uB3C5\uC81C \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: 8805397382022258231, guid: 30831516c33fa594f85d9ed52ea84cb6, type: 3}
+    UnitLevel: 0
+    UnitCost: 300
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 20
+    UpgreadHp: 200
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 5
+    UnitName: "\uB85C\uBD07 \uCCAD\uC18C\uAE30 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: 966356556516712160, guid: 257c43ba0f408364ba4be7c5976e662f, type: 3}
+    UnitLevel: 0
+    UnitCost: 300
+    UnitPower: 20
+    UnitHP: 300
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 6
+    UnitName: "\uBB3C\uB300\uD3EC \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: 1244666173918398110, guid: a5f039a4f4ca12f44aaacf50fb74fec5, type: 3}
+    UnitLevel: 0
+    UnitCost: 400
+    UnitPower: 40
+    UnitHP: 350
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: -30
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: -0.1
+  - UnitID: 7
+    UnitName: "\uBB3C\uAC78\uB808 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: -6762429275514356685, guid: 0d5e1b4c01533f847b1f8dd0685ca424, type: 3}
+    UnitLevel: 0
+    UnitCost: 420
+    UnitPower: 30
+    UnitHP: 500
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 8
+    UnitName: "\uC804\uB3D9 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: -6098647350632367117, guid: 79ba37e810de3cb43930c6f8e79c653d, type: 3}
+    UnitLevel: 0
+    UnitCost: 600
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 3
+    UpgreadHp: 450
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 9
+    UnitName: "\uC4F0\uB808\uBC1B\uAE30 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: 5136141074134463331, guid: 3a42e67e00b1bfd459a3db7b3e6681ea, type: 3}
+    UnitLevel: 0
+    UnitCost: 800
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 50
+    UpgreadHp: 700
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 10
+    UnitName: "\uD0DC\uC591\uC5F4 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: 1770744750006494483, guid: 7a877ddcf7d87674e83c8312789e89c6, type: 3}
+    UnitLevel: 0
+    UnitCost: 1000
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 40
+    UpgreadHp: 200
+    Up_FormingPosX: 0
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 0
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: 0
+    Clone_FormingPosY: 0
+  - UnitID: 11
+    UnitName: "\uCCAD\uC18C\uCC28 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: -1682304590710666358, guid: cc764b39f1e01e14cb30fcc87f0b400e, type: 3}
+    UnitLevel: 0
+    UnitCost: 1100
+    UnitPower: 0
+    UnitHP: 0
+    UnitCoolTime: 0
+    UpgreadPower: 45
+    UpgreadHp: 1000
+    Up_FormingPosX: 75
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: 100
+    Bottom_FormingPosY: 10
+    Clone_FormingPosX: 1
+    Clone_FormingPosY: 0.05
+  - UnitID: 12
+    UnitName: "\uC9C4\uACF5 \uCCAD\uC18C\uAE30\uCC28 \uBE44\uB458\uAE30"
+    UnitClass: 0
+    UnitImage: {fileID: -4834755081798617352, guid: 3ef824d8bb5a721459563f2f06c0db6e, type: 3}
+    UnitLevel: 0
+    UnitCost: 1200
+    UnitPower: 70
+    UnitHP: 2000
+    UnitCoolTime: 0
+    UpgreadPower: 0
+    UpgreadHp: 0
+    Up_FormingPosX: -40
+    Up_FormingPosY: 0
+    Bottom_FormingPosX: -50
+    Bottom_FormingPosY: 0
+    Clone_FormingPosX: -0.25
+    Clone_FormingPosY: 0
   GameDataFileName: StageData.json
   _gameData:
     UnlockStage: 0
