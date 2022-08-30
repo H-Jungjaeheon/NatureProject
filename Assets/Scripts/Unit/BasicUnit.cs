@@ -119,7 +119,6 @@ public class BasicUnit : MonoBehaviour
     {
         if (IsBossKnockBack && IsStartAnim == false)
         {
-            print("실행");
             IsBossKnockBack = false;
             IsKnockBack = true;
             StartCoroutine(BossKnockBacking());
@@ -219,11 +218,15 @@ public class BasicUnit : MonoBehaviour
 
     protected virtual void Move()
     {
-        //이동 애니 실행
-        if (IsAttackReady == false && IsMoveSlow == false)
+        if (IsAttackReady || IsAttackAnim) return;
+        if (IsMoveSlow == false)
+        {
             transform.position = transform.position + new Vector3(Time.deltaTime * Speed, 0, 0);
-        else if (IsAttackReady == false && IsMoveSlow)
+        }
+        else
+        {
             transform.position = transform.position + new Vector3(Time.deltaTime * 0.1f, 0, 0);
+        }
     }
     protected virtual void AttackCoolTime()
     {
@@ -260,11 +263,16 @@ public class BasicUnit : MonoBehaviour
         if (IsAttackAnim == true) yield break;
         IsAttackAnim = true;
         animator.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(2);
-        animator.SetBool("isAttacking", false);
-        AttackAnimStop();
+        yield return new WaitForSeconds(1.13f);
+        if (Target.gameObject != null)
+        {
+            animator.SetBool("isAttacking", false);
+            AttackAnimStop();
+        }
     }
+
     protected virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
+
     protected virtual void AttackTime()
     {
         AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
