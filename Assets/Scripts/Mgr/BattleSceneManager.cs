@@ -35,12 +35,23 @@ public class BattleSceneManager : SingletonMono<BattleSceneManager>
     #endregion
     #region 전투씬 오브젝트 모음
     [Header("전투씬 관련 오브젝트")]
-    [SerializeField] private Camera MainCam;
-    [SerializeField] private GameObject SolaPanel, FireEffect;
-    [SerializeField] private GameObject[] Weel, Enemys;
+    [SerializeField]
+    private Camera MainCam;
+
+    [SerializeField]
+    private GameObject SolaPanel, FireEffect;
+    
+    [SerializeField]
+    private GameObject[] Weel, Enemys;
+    
     public GameObject[] BossKnockBackEnemy;
-    [SerializeField] private Sprite[] SolaSprite;
-    [SerializeField] private SpriteRenderer SSR;
+    
+    [SerializeField]
+    private Sprite[] SolaSprite;
+    
+    [SerializeField]
+    private SpriteRenderer SSR;
+
     public GameObject ExitObj, SoundObj, Castle, CastleBody, CastleDoor, NullFireButton, PauseObj;
     #endregion
 

@@ -21,7 +21,6 @@ public class VacuumCleanerCarUnit : BasicUnit
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
-        BGameManager = GameObject.Find("BattleSceneManagerObj");
         StartCoroutine(FirstSpawnAnim());
     }
 
@@ -150,7 +149,7 @@ public class VacuumCleanerCarUnit : BasicUnit
                     }
                     if (ECTarget)
                     {
-                        BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
+                        BattleSceneManager.In.EnemyHp -= Damage;
                         ECTarget.GetComponent<EnemyCastle>().IsHit = true;
                     }
                     AttackCount = 0;
@@ -188,7 +187,7 @@ public class VacuumCleanerCarUnit : BasicUnit
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
                     AttackTime();
-                    AttackAnim();
+                    StartCoroutine(AttackAnim());
                 }
                 else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
                 {
@@ -199,14 +198,15 @@ public class VacuumCleanerCarUnit : BasicUnit
         }
         else IsAttackReady = false;
     }
-    protected override void AttackAnim()
+    protected override IEnumerator AttackAnim()
     {
-        if (IsAttackAnim == false && Hp > 0)
-        {
-            IsAttackAnim = true;
-            //공격 애니 실행
-        }
+        if (IsAttackAnim == false) yield break;
+        IsAttackAnim = true;
+        animator.SetBool("isAttacking", true);
+        yield return new WaitForSeconds(2);
+        animator.SetBool("isAttacking", false);
     }
+
     protected override void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
     protected override void AttackTime()
     {
@@ -221,7 +221,7 @@ public class VacuumCleanerCarUnit : BasicUnit
             }
             if (ECTarget != null)
             {
-                BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
+                BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
             AttackCount = 0;

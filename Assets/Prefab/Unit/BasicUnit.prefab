@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: -7779811269763948273}
   - component: {fileID: 338093533620067778}
   - component: {fileID: 7062640989124344460}
+  - component: {fileID: 41252337395680330}
   m_Layer: 8
   m_Name: BasicUnit
   m_TagString: Unit
@@ -266,3 +267,22 @@ MonoBehaviour:
   LevelPerHp: 10
   LevelPerDamage: 1
   SpawnVector: {x: -2, y: -0.05, z: 0}
+--- !u!95 &41252337395680330
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7062640989124344457}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3bc36e1d0e8c004f8b8a8255600c003, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

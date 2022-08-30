@@ -8,7 +8,7 @@ public class BasicUnit : MonoBehaviour
     [Header("유닛 관련 변수")]
     public float Hp;
     [SerializeField] protected float Speed, Range, Damage, MaxHp; //캐릭터 이동속도, 적 인식 사거리, 공격 데미지, 최대체력
-    [SerializeField] protected GameObject Target, ECTarget, BGameManager, Castle, ClingMaskEnemy; //적 타켓, 적 성 타겟
+    [SerializeField] protected GameObject Target, ECTarget, Castle, ClingMaskEnemy; //적 타켓, 적 성 타겟
 
     [Header("유닛이 걸린 상태이상 변수")]
     [SerializeField] protected float StopCount; //상태이상 시간 : 정지
@@ -36,6 +36,9 @@ public class BasicUnit : MonoBehaviour
     protected Rigidbody2D rigid;
     public Vector3 SpawnVector;
     #endregion
+
+    protected Animator animator;
+
     protected virtual void Start()
     {
         if (GameManager.In.GameUnitData[UnitID - 1].UnitLevel > 1)
@@ -44,8 +47,8 @@ public class BasicUnit : MonoBehaviour
             MaxHp += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerHp);
             Damage += (GameManager.In.GameUnitData[UnitID - 1].UnitLevel * LevelPerDamage);
         }
-        BGameManager = GameObject.Find("BattleSceneManagerObj");
-        Castle = GameObject.Find("PlayerCastle");
+        Castle = BattleSceneManager.In.Castle;
+        animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
@@ -240,8 +243,8 @@ public class BasicUnit : MonoBehaviour
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
+                    StartCoroutine(AttackAnim());
                     AttackTime();
-                    AttackAnim();
                 }
                 else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
                 {
@@ -252,13 +255,14 @@ public class BasicUnit : MonoBehaviour
         }
         else IsAttackReady = false;
     }
-    protected virtual void AttackAnim()
+    protected virtual IEnumerator AttackAnim()
     {
-        if (IsAttackAnim == false)
-        {
-            IsAttackAnim = true;
-            //공격 애니 실행
-        }
+        if (IsAttackAnim == true) yield break;
+        IsAttackAnim = true;
+        animator.SetBool("isAttacking", true);
+        yield return new WaitForSeconds(2);
+        animator.SetBool("isAttacking", false);
+        AttackAnimStop();
     }
     protected virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
     protected virtual void AttackTime()
@@ -274,7 +278,7 @@ public class BasicUnit : MonoBehaviour
             }
             if (ECTarget != null)
             {
-                BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
+                BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
             AttackCount = 0;

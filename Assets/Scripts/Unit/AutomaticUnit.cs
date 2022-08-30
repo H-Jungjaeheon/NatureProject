@@ -24,7 +24,7 @@ public class AutomaticUnit : BasicUnit
             }
             if (ECTarget != null)
             {
-                BGameManager.GetComponent<BattleSceneManager>().EnemyHp -= Damage;
+                BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
             AttackCount = 0;
