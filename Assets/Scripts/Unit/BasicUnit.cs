@@ -263,7 +263,7 @@ public class BasicUnit : MonoBehaviour
         if (IsAttackAnim == true) yield break;
         IsAttackAnim = true;
         animator.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(1.13f);
+        yield return new WaitForSeconds(1.3f);
         if (Target.gameObject != null)
         {
             animator.SetBool("isAttacking", false);
