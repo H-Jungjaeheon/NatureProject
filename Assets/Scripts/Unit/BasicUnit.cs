@@ -25,10 +25,6 @@ public class BasicUnit : MonoBehaviour
     [SerializeField] protected float AttackCoolTimeCount;
     [SerializeField] protected float MaxAttackCoolTimeCount;
 
-    [Header("공격 실행 쿨타임")]
-    [SerializeField] protected float AttackCount;
-    [SerializeField] protected float MaxAttackCount;
-
     [Header("그 외")]
     [SerializeField] protected bool IsAttackAnim;
     [SerializeField] protected float StartY;
@@ -236,7 +232,7 @@ public class BasicUnit : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
         RaycastHit2D castlehit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("EnemyCastle"));
 
-        if (hit.collider != null || castlehit.collider != null)
+        if (IsAttackAnim == false && hit.collider != null || castlehit.collider != null)
         {
             Target = (hit.collider != null) ? Target = hit.collider.gameObject : null;
             ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : null;
@@ -246,8 +242,8 @@ public class BasicUnit : MonoBehaviour
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
+                    IsAttackReady = false;
                     StartCoroutine(AttackAnim());
-                    AttackTime();
                 }
                 else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
                 {
@@ -260,24 +256,26 @@ public class BasicUnit : MonoBehaviour
     }
     protected virtual IEnumerator AttackAnim()
     {
-        if (IsAttackAnim == true) yield break;
         IsAttackAnim = true;
-        animator.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(1.3f);
-        if (Target.gameObject != null)
-        {
-            animator.SetBool("isAttacking", false);
-            AttackAnimStop();
-        }
+        animator.ResetTrigger("isMove");
+        animator.SetTrigger("isAttack");
+        yield return null;
     }
 
-    protected virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
-
-    protected virtual void AttackTime()
+    public void AttackAnimStop()
     {
-        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
+        print("실행실행실행실행실행실행실행실행실행실행실행");
+        AttackCoolTimeCount = 0;
+        Target = null;
+        ECTarget = null;
+        IsAttackAnim = false;
+        animator.ResetTrigger("isAttack");
+        animator.SetTrigger("isMove");
+    } 
 
-        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
+    public virtual void AttackTime()
+    {
+        if (Target != null || ECTarget != null)
         {
             if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
             {
@@ -289,10 +287,6 @@ public class BasicUnit : MonoBehaviour
                 BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
-            AttackCount = 0;
-            AttackCoolTimeCount = 0;
-            Target = null;
-            ECTarget = null;
         }
     }
     protected virtual void Dead()

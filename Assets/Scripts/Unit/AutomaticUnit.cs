@@ -6,11 +6,9 @@ public class AutomaticUnit : BasicUnit
 {
     [Header("특수능력 확률")]
     [SerializeField] private int StopAttack = 0;
-    protected override void AttackTime()
+    public override void AttackTime()
     {
-        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-
-        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
+        if (Target != null || ECTarget != null)
         {
             StopAttack = Random.Range(0, 101);
             if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
@@ -27,7 +25,6 @@ public class AutomaticUnit : BasicUnit
                 BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
-            AttackCount = 0;
             AttackCoolTimeCount = 0;
             Target = null;
             ECTarget = null;

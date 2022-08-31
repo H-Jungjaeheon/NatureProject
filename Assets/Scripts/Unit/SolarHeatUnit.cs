@@ -37,16 +37,11 @@ public class SolarHeatUnit : BasicUnit
             if(IsAttacking == false) IsAttackReady = false;
         }
     }
-    protected override void AttackTime()
+    public override void AttackTime()
     {
-        AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount)
-        {
-           IsAttacking = true;
-           StartCoroutine(Attack());
-           AttackCount = 0;
-           AttackCoolTimeCount = 0;            
-        }
+        IsAttacking = true;
+        StartCoroutine(Attack());
+        AttackCoolTimeCount = 0;
     }
     private IEnumerator Attack()
     {
@@ -62,7 +57,6 @@ public class SolarHeatUnit : BasicUnit
                     Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
                 }
                 Target = null;
-                AttackCount = 0;
                 AttackCoolTimeCount = 0;
             }
             if (ECTarget != null)
@@ -73,14 +67,12 @@ public class SolarHeatUnit : BasicUnit
             yield return WFS;
         }
         IsAttacking = false;
-        AttackCount = 0;
         AttackCoolTimeCount = 0;
         ECTarget = null;
         yield return null;
     }
     protected override IEnumerator KnockBacking()
     {
-        AttackCount = 0;
         AttackCoolTimeCount = 0;
         StopCoroutine(Attack());
         return base.KnockBacking();

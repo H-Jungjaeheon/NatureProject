@@ -141,31 +141,26 @@ public class CleaningCarUnit : BasicUnit
             if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
             {
                 AttackAnim();
-                AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-                if (AttackCount >= MaxAttackCount)
+                for (int b = 0; b < Hit.Length; b++)
                 {
-                    for (int b = 0; b < Hit.Length; b++)
-                    {
-                        Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
+                    Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
 
-                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
-                        {
-                            Target.GetComponent<BasicEnemy>().Hp -= Damage;
-                            Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
-                            Target.GetComponent<BasicEnemy>().IsPush = true;
-                            Target = null;
-                        }
-                    }
-                    if (ECTarget)
+                    if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
                     {
-                        BattleSceneManager.In.EnemyHp -= Damage;
-                        ECTarget.GetComponent<EnemyCastle>().IsHit = true;
+                        Target.GetComponent<BasicEnemy>().Hp -= Damage;
+                        Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+                        Target.GetComponent<BasicEnemy>().IsPush = true;
+                        Target = null;
                     }
-                    AttackCount = 0;
-                    Hit = null;
-                    ECTarget = null;
-                    IsRush = false;
                 }
+                if (ECTarget)
+                {
+                    BattleSceneManager.In.EnemyHp -= Damage;
+                    ECTarget.GetComponent<EnemyCastle>().IsHit = true;
+                }
+                Hit = null;
+                ECTarget = null;
+                IsRush = false;
             }
             else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
             {
@@ -216,12 +211,9 @@ public class CleaningCarUnit : BasicUnit
         animator.SetBool("isAttacking", false);
     }
 
-    protected override void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
-    protected override void AttackTime()
+    public override void AttackTime()
     {
-        AttackCount = (IsAttackSlow == true) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;       
-
-        if(AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
+        if(Target != null || ECTarget != null)
         {
             if (Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
             {
@@ -233,7 +225,6 @@ public class CleaningCarUnit : BasicUnit
                 BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
-            AttackCount = 0;
             AttackCoolTimeCount = 0;
             Target = null;
             ECTarget = null;

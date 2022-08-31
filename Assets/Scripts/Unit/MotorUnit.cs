@@ -18,29 +18,24 @@ public class MotorUnit : BasicUnit
             if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
             {
                 AttackAnim();
-                AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-                if (AttackCount >= MaxAttackCount)
+                for (int b = 0; b < Hit.Length; b++)
                 {
-                    for (int b = 0; b < Hit.Length; b++)
-                    {
-                        Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
+                    Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
 
-                        if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
-                        {
-                            Target.GetComponent<BasicEnemy>().Hp -= Damage;
-                            Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
-                            Target = null;
-                        }
-                    }
-                    if (ECTarget)
+                    if (Target && Target.GetComponent<BasicEnemy>().IsKnockBack == false && Target.GetComponent<BasicEnemy>().IsPushing == false)
                     {
-                        BattleSceneManager.In.EnemyHp -= Damage;
-                        ECTarget.GetComponent<EnemyCastle>().IsHit = true;
+                        Target.GetComponent<BasicEnemy>().Hp -= Damage;
+                        Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
+                        Target = null;
                     }
-                    AttackCount = 0;
-                    Hit = null;
-                    ECTarget = null;
                 }
+                if (ECTarget)
+                {
+                    BattleSceneManager.In.EnemyHp -= Damage;
+                    ECTarget.GetComponent<EnemyCastle>().IsHit = true;
+                }
+                Hit = null;
+                ECTarget = null;
             }
             else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
             {

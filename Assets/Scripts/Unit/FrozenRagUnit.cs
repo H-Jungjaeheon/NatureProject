@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class FrozenRagUnit : BasicUnit
 {
-    protected override void AttackTime()
+    public override void AttackTime()
     {
-        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime; ;
-        
-        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && ECTarget != null)
+        if (Target != null || ECTarget != null)
         {
             if(Target != null && Target.GetComponent<BasicEnemy>().IsKnockBack == false)
             {
@@ -22,7 +20,6 @@ public class FrozenRagUnit : BasicUnit
                 BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
-            AttackCount = 0;
             AttackCoolTimeCount = 0;
             Target = null;
             ECTarget = null;
