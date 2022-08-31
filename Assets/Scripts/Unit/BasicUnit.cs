@@ -262,7 +262,7 @@ public class BasicUnit : MonoBehaviour
         yield return null;
     }
 
-    public void AttackAnimStop()
+    protected void AttackAnimStop()
     {
         print("角青角青角青角青角青角青角青角青角青角青角青");
         AttackCoolTimeCount = 0;

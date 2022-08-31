@@ -40,7 +40,8 @@ public class CarEnemy : BasicEnemy
                     if(IsRush == false)
                     {
                         AttackTime();
-                        AttackAnim();
+                        IsAttackReady = false;
+                        StartCoroutine(AttackAnim());
                     }
                     else
                     {
@@ -61,10 +62,6 @@ public class CarEnemy : BasicEnemy
                             BGameManager.GetComponent<BattleSceneManager>().PlayerHp -= Damage;
                             //PlayerCastle.GetComponent<PlayerCastle>().IsHit = true;
                         }
-                        AttackCount = 0;
-                        RushHits = null;
-                        PlayerCastle = null;
-                        IsRush = false;
                     }
                 }
                 else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)

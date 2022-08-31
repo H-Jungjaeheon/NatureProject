@@ -36,36 +36,28 @@ public class NuclearBoomEnemy : BasicEnemy
     }
     protected override void AttackTime()
     {
-        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount)
+        if (Target != null && Target.GetComponent<BasicUnit>().IsKnockBack == false)
         {
-            if (Target != null && Target.GetComponent<BasicUnit>().IsKnockBack == false)
+            RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, Vector2.left, Range, LayerMask.GetMask("Unit"));
+            for (int b = 0; b < hit.Length; b++)
             {
-                RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, Vector2.left, Range, LayerMask.GetMask("Unit"));
-                for (int b = 0; b < hit.Length; b++)
-                {
-                    Target = (hit[b] && hit[b].collider != null) ? Target = hit[b].collider.gameObject : Target = null;
+                Target = (hit[b] && hit[b].collider != null) ? Target = hit[b].collider.gameObject : Target = null;
 
-                    if (Target && Target.GetComponent<BasicUnit>().IsKnockBack == false)
-                    {
-                        Target.GetComponent<BasicUnit>().Hp -= Damage;
-                        Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
-                        Target = null;
-                    }
+                if (Target && Target.GetComponent<BasicUnit>().IsKnockBack == false)
+                {
+                    Target.GetComponent<BasicUnit>().Hp -= Damage;
+                    Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+                    Target = null;
                 }
             }
-            if (PlayerCastle != null)
-            {
-                BGameManager.GetComponent<BattleSceneManager>().PlayerHp -= Damage;
-                //PlayerCastle.GetComponent<PlayerCastle>().IsHit = true;
-            }
-            Hp -= MaxHp;
-            Dead();
-            AttackCount = 0;
-            AttackCoolTimeCount = 0;
-            Target = null;
-            PlayerCastle = null;
         }
+        if (PlayerCastle != null)
+        {
+            BGameManager.GetComponent<BattleSceneManager>().PlayerHp -= Damage;
+            //PlayerCastle.GetComponent<PlayerCastle>().IsHit = true;
+        }
+        Hp -= MaxHp;
+        Dead();
     }
     protected override void KnockBack()
     {

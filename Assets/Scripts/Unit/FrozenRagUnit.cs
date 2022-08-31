@@ -20,9 +20,6 @@ public class FrozenRagUnit : BasicUnit
                 BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
-            AttackCoolTimeCount = 0;
-            Target = null;
-            ECTarget = null;
         }
     }
 }

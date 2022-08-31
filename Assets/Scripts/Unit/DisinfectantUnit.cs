@@ -17,18 +17,32 @@ public class DisinfectantUnit : BasicUnit
                 {
                     Target.GetComponent<BasicEnemy>().StopCount = 1;
                 }
-
+                StartCoroutine(Fire(true));
+            }
+            if(ECTarget != null)
+            {
+                StartCoroutine(Fire(false));
+            }
+        }
+    }
+    IEnumerator Fire(bool isUnit)
+    {
+        float nowAttackCount = 0;
+        while (nowAttackCount < 5)
+        {
+            if (isUnit)
+            {
                 Target.GetComponent<BasicEnemy>().Hp -= Damage;
                 Target.GetComponent<BasicEnemy>().ReceivDamage += Damage;
             }
-            if(ECTarget != null)
+            else 
             {
                 BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
-            AttackCoolTimeCount = 0;
-            Target = null;
-            ECTarget = null;
+            yield return new WaitForSeconds(0.2f);
+            nowAttackCount++;
         }
+        
     }
 }

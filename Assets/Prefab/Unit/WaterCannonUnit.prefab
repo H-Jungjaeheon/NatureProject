@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8765829723088020963}
   - component: {fileID: 7575005271649196334}
   - component: {fileID: 5838972780232198900}
+  - component: {fileID: 2843882831967533725}
   m_Layer: 8
   m_Name: WaterCannonUnit
   m_TagString: Unit
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1129699687977582181}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2, y: 0.2, z: 0}
+  m_LocalPosition: {x: -0.11, y: 0.2, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 4820757438189373931}
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 84b178651f7c76e4e939b41c887e623f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -152,7 +153,6 @@ MonoBehaviour:
   MaxHp: 350
   Target: {fileID: 0}
   ECTarget: {fileID: 0}
-  BGameManager: {fileID: 0}
   Castle: {fileID: 0}
   ClingMaskEnemy: {fileID: 3057144654329098453}
   StopCount: 0
@@ -176,8 +176,6 @@ MonoBehaviour:
   IsStartAnim: 0
   AttackCoolTimeCount: 1
   MaxAttackCoolTimeCount: 1
-  AttackCount: 1
-  MaxAttackCount: 1
   IsAttackAnim: 0
   StartY: 0
   UnitID: 6
@@ -185,6 +183,25 @@ MonoBehaviour:
   LevelPerDamage: 8
   SpawnVector: {x: -2, y: 0.5, z: 0}
   StopAttack: 0
+--- !u!95 &2843882831967533725
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129699687977582181}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c738e1699390b048905c3abf1a4dd98, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3057144654329098453
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,18 +10,13 @@ public class CanEnemy : BasicEnemy
     [SerializeField] private Vector3 BulletSpawnVector;
     protected override void AttackTime()
     {
-        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && PlayerCastle != null)
+        if (Target != null && PlayerCastle != null)
         {
             if (Target != null || PlayerCastle != null)
             {
                 print("º“»Ø");
                 Instantiate(Bullet, transform.position + BulletSpawnVector, Bullet.transform.rotation);
             }
-            AttackCount = 0;
-            AttackCoolTimeCount = 0;
-            Target = null;
-            PlayerCastle = null;
         }
     }
 }

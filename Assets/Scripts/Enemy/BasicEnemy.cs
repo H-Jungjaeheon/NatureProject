@@ -15,10 +15,6 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] protected float AttackCoolTimeCount;
     [SerializeField] protected float MaxAttackCoolTimeCount;
 
-    [Header("공격 실행 쿨타임")]
-    [SerializeField] protected float AttackCount;
-    [SerializeField] protected float MaxAttackCount;
-
     [Header("상태 이상 관련 변수")]
     public bool IsKnockBack;
     public bool IsStop, IsAttackSlow, IsMoveSlow, IsPush, IsPushing, IsSuctioning;
@@ -36,6 +32,8 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] protected int SpawnCount;
     [SerializeField] protected Vector3 SpawnVector;
 
+    protected Animator animator;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -43,6 +41,7 @@ public class BasicEnemy : MonoBehaviour
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         EnemyCastle = GameObject.Find("EnemyCastle");
         BGameManager = GameObject.Find("BattleSceneManagerObj");
+        animator = GetComponent<Animator>();
         MaxReceivDamage = MaxHp / KnockBackCount;
         BossKnockBackStart();
         if (IsStartAnim)
@@ -173,8 +172,8 @@ public class BasicEnemy : MonoBehaviour
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
-                    AttackTime();
-                    AttackAnim();
+                    IsAttackReady = false;
+                    StartCoroutine(AttackAnim());
                 }
                 else if(AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
                 {
@@ -184,19 +183,27 @@ public class BasicEnemy : MonoBehaviour
         }
         else IsAttackReady = false;
     }
-    protected virtual void AttackAnim()
+    protected virtual IEnumerator AttackAnim()
     {
-        if(IsAttackAnim == false)
-        {
-            IsAttackAnim = true;
-            //공격 애니 실행
-        }
+        IsAttackAnim = true;
+        animator.ResetTrigger("isMove");
+        animator.SetTrigger("isAttack");
+        yield return null;
     }
-    protected virtual void AttackAnimStop() => IsAttackAnim = false; //공격 모션 캔슬 or 끝날 시 실행 함수
+    protected virtual void AttackAnimStop()
+    {
+        print("실행실행실행실행실행실행실행실행실행실행실행");
+        AttackCoolTimeCount = 0;
+        Target = null;
+        PlayerCastle = null;
+        IsAttackAnim = false;
+        animator.ResetTrigger("isAttack");
+        animator.SetTrigger("isMove");
+    }
+
     protected virtual void AttackTime()
     {
-        AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-        if (AttackCount >= MaxAttackCount && Target != null || AttackCount >= MaxAttackCount && PlayerCastle != null)
+        if (Target != null && PlayerCastle != null)
         {
             if (Target != null && Target.GetComponent<BasicUnit>().IsKnockBack == false)
             {
@@ -208,10 +215,6 @@ public class BasicEnemy : MonoBehaviour
                 BGameManager.GetComponent<BattleSceneManager>().PlayerHp -= Damage;
                 //PlayerCastle.GetComponent<PlayerCastle>().IsHit = true;
             }
-            AttackCount = 0;
-            AttackCoolTimeCount = 0;
-            Target = null;
-            PlayerCastle = null;
         }
     }
     protected virtual void Move()
@@ -256,7 +259,6 @@ public class BasicEnemy : MonoBehaviour
     protected virtual IEnumerator KnockBacking()
     {
         IsPush = false;
-        AttackCount = 0;
         IsKnockBack = true;
         AttackAnimStop();
         if (IsKnockBack)

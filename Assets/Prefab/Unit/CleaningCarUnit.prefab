@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 4725e2979ea476d42b7ad7f0b34cd416, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   Hp: 100
   Speed: 0.5
   Range: 2.5
-  Damage: 1
+  Damage: 50
   MaxHp: 100
   Target: {fileID: 0}
   ECTarget: {fileID: 0}

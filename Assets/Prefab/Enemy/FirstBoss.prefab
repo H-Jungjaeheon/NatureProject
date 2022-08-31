@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2766962213823200703}
   - component: {fileID: 2766962213823200696}
   - component: {fileID: 2766962213823200697}
+  - component: {fileID: -9076863864847850808}
   m_Layer: 7
   m_Name: FirstBoss
   m_TagString: Enemy
@@ -159,8 +160,6 @@ MonoBehaviour:
   AttackRangeVector: {x: 0, y: -1, z: 0}
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
-  AttackCount: 0
-  MaxAttackCount: 5
   IsKnockBack: 0
   IsStop: 0
   IsAttackSlow: 0
@@ -181,3 +180,23 @@ MonoBehaviour:
   SpawnMobs: {fileID: 8202437465774633708, guid: 550c62fe4f9a4714185397db4db74fdd, type: 3}
   SpawnCount: 5
   SpawnVector: {x: 0, y: -1, z: 0}
+  isHaveAnim: 1
+--- !u!95 &-9076863864847850808
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2766962213823200698}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 10620f25dd17e664ea66cb4d99ac1172, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

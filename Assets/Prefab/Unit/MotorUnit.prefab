@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 9fa22bdf82d0f7a4889fdf611ed608fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -152,7 +152,6 @@ MonoBehaviour:
   MaxHp: 450
   Target: {fileID: 0}
   ECTarget: {fileID: 0}
-  BGameManager: {fileID: 0}
   Castle: {fileID: 0}
   ClingMaskEnemy: {fileID: 9153112130648123716}
   StopCount: 0
@@ -176,8 +175,6 @@ MonoBehaviour:
   IsStartAnim: 0
   AttackCoolTimeCount: 0
   MaxAttackCoolTimeCount: 0
-  AttackCount: 0
-  MaxAttackCount: 0.2
   IsAttackAnim: 0
   StartY: 0
   UnitID: 8

@@ -159,8 +159,6 @@ MonoBehaviour:
   AttackRangeVector: {x: 0, y: 0, z: 0}
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
-  AttackCount: 0
-  MaxAttackCount: 5
   IsKnockBack: 0
   IsStop: 0
   IsAttackSlow: 0
@@ -181,3 +179,4 @@ MonoBehaviour:
   SpawnMobs: {fileID: 0}
   SpawnCount: 0
   SpawnVector: {x: 0, y: 0, z: 0}
+  isHaveAnim: 0

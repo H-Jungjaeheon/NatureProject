@@ -18,31 +18,27 @@ public class ChopsticksEnemy : BasicEnemy
             IsAttackReady = true;
             if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady == true)
             {
-                AttackAnim();
-                AttackCount = (IsAttackSlow) ? AttackCount += Time.deltaTime / 1.5f : AttackCount += Time.deltaTime;
-                if (AttackCount >= MaxAttackCount)
+                IsAttackReady = false;
+                StartCoroutine(AttackAnim());
+                for (int b = 0; b < hit.Length; b++)
                 {
-                    for (int b = 0; b < hit.Length; b++)
-                    {
-                        Target = (hit[b] && hit[b].collider != null) ? Target = hit[b].collider.gameObject : Target = null;
+                    Target = (hit[b] && hit[b].collider != null) ? Target = hit[b].collider.gameObject : Target = null;
 
-                        if (Target && Target.GetComponent<BasicUnit>().IsKnockBack == false)
-                        {
-                            Target.GetComponent<BasicUnit>().Hp -= Damage;
-                            Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
-                            Target = null;
-                        }
-                    }
-                    if (PlayerCastle)
+                    if (Target && Target.GetComponent<BasicUnit>().IsKnockBack == false)
                     {
-                        BGameManager.GetComponent<BattleSceneManager>().PlayerHp -= Damage;
-                        //PlayerCastle.GetComponent<EnemyCastle>().IsHit = true;
+                        Target.GetComponent<BasicUnit>().Hp -= Damage;
+                        Target.GetComponent<BasicUnit>().ReceivDamage += Damage;
+                        Target = null;
                     }
-                    AttackCount = 0;
-                    AttackCoolTimeCount = 0;
-                    hit = null;
-                    PlayerCastle = null;
                 }
+                if (PlayerCastle)
+                {
+                    BGameManager.GetComponent<BattleSceneManager>().PlayerHp -= Damage;
+                    //PlayerCastle.GetComponent<EnemyCastle>().IsHit = true;
+                }
+                AttackCoolTimeCount = 0;
+                hit = null;
+                PlayerCastle = null;
             }
             else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady == true)
             {

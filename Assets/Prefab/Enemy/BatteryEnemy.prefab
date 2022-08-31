@@ -156,10 +156,9 @@ MonoBehaviour:
   Range: 4
   KnockBackCount: 2
   PushSpeed: 0
+  AttackRangeVector: {x: 0, y: 0, z: 0}
   AttackCoolTimeCount: 2
   MaxAttackCoolTimeCount: 2
-  AttackCount: 0
-  MaxAttackCount: 0
   IsKnockBack: 0
   IsStop: 0
   IsAttackSlow: 0
@@ -179,5 +178,6 @@ MonoBehaviour:
   IsDeadSpawn: 0
   SpawnMobs: {fileID: 0}
   SpawnCount: 0
+  SpawnVector: {x: 0, y: 0, z: 0}
   Bullet: {fileID: 6896744565635985079, guid: 4dec218f334eb334e9f7201e7734f65c, type: 3}
   BulletSpawnVector: {x: 0, y: 0, z: 0}

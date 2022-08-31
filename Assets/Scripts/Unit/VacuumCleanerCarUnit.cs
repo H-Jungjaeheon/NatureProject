@@ -19,6 +19,7 @@ public class VacuumCleanerCarUnit : BasicUnit
         }
         IsRush = true;
         rigid = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
         StartCoroutine(FirstSpawnAnim());
@@ -131,7 +132,8 @@ public class VacuumCleanerCarUnit : BasicUnit
             IsAttackReady = true;
             if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
             {
-                AttackAnim();
+                IsAttackReady = false;
+                StartCoroutine(AttackAnim());
                 for (int b = 0; b < Hit.Length; b++)
                 {
                     Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
@@ -150,7 +152,6 @@ public class VacuumCleanerCarUnit : BasicUnit
                     ECTarget.GetComponent<EnemyCastle>().IsHit = true;
                 }
                 Hit = null;
-                ECTarget = null;
                 IsRush = false;
             }
             else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
@@ -171,7 +172,7 @@ public class VacuumCleanerCarUnit : BasicUnit
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("Enemy"));
         RaycastHit2D castlehit = Physics2D.Raycast(transform.position, Vector2.right, Range, LayerMask.GetMask("EnemyCastle"));
 
-        if (hit.collider != null || castlehit.collider != null)
+        if (hit.collider != null || castlehit.collider != null && Hp > 0)
         {
             Target = (hit.collider != null) ? Target = hit.collider.gameObject : Target = null;
             ECTarget = (castlehit.collider != null) ? ECTarget = castlehit.collider.gameObject : ECTarget = null;
@@ -181,7 +182,7 @@ public class VacuumCleanerCarUnit : BasicUnit
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
-                    AttackTime();
+                    IsAttackReady = false;
                     StartCoroutine(AttackAnim());
                 }
                 else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
@@ -195,11 +196,14 @@ public class VacuumCleanerCarUnit : BasicUnit
     }
     protected override IEnumerator AttackAnim()
     {
-        if (IsAttackAnim == false) yield break;
+        print("角青角青角青角青角青角青角青角青角青角青角青");
+        AttackCoolTimeCount = 0;
+        Target = null;
+        ECTarget = null;
         IsAttackAnim = true;
-        animator.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(2);
-        animator.SetBool("isAttacking", false);
+        animator.ResetTrigger("isMove");
+        animator.SetTrigger("isAttack");
+        yield return null;
     }
 
     public override void AttackTime()
@@ -216,9 +220,6 @@ public class VacuumCleanerCarUnit : BasicUnit
                 BattleSceneManager.In.EnemyHp -= Damage;
                 ECTarget.GetComponent<EnemyCastle>().IsHit = true;
             }
-            AttackCoolTimeCount = 0;
-            Target = null;
-            ECTarget = null;
         }
     }
     protected override void Dead()

@@ -20,6 +20,7 @@ public class CleaningCarUnit : BasicUnit
         rigid = GetComponent<Rigidbody2D>();
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         MaxReceivDamage = MaxHp / KnockBackCount;
+        animator = GetComponent<Animator>();
         Castle = BattleSceneManager.In.Castle;
         StartCoroutine(FirstSpawnAnim());
     }
@@ -140,7 +141,8 @@ public class CleaningCarUnit : BasicUnit
             IsAttackReady = true;
             if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
             {
-                AttackAnim();
+                IsAttackReady = false;
+                StartCoroutine(AttackAnim());
                 for (int b = 0; b < Hit.Length; b++)
                 {
                     Target = (Hit[b] && Hit[b].collider != null) ? Target = Hit[b].collider.gameObject : Target = null;
@@ -159,7 +161,6 @@ public class CleaningCarUnit : BasicUnit
                     ECTarget.GetComponent<EnemyCastle>().IsHit = true;
                 }
                 Hit = null;
-                ECTarget = null;
                 IsRush = false;
             }
             else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
@@ -190,7 +191,7 @@ public class CleaningCarUnit : BasicUnit
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
-                    AttackTime();
+                    IsAttackReady = false;
                     StartCoroutine(AttackAnim());
                 }
                 else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
@@ -204,11 +205,14 @@ public class CleaningCarUnit : BasicUnit
     }
     protected override IEnumerator AttackAnim()
     {
-        if (IsAttackAnim == false) yield break;
+        print("角青角青角青角青角青角青角青角青角青角青角青");
+        AttackCoolTimeCount = 0;
+        Target = null;
+        ECTarget = null;
         IsAttackAnim = true;
-        animator.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(2);
-        animator.SetBool("isAttacking", false);
+        animator.ResetTrigger("isMove");
+        animator.SetTrigger("isAttack");
+        yield return null;
     }
 
     public override void AttackTime()
