@@ -111,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7062640989124344457}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -1.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7308361524377441585}
@@ -235,7 +235,6 @@ MonoBehaviour:
   MaxHp: 100
   Target: {fileID: 0}
   ECTarget: {fileID: 0}
-  BGameManager: {fileID: 0}
   Castle: {fileID: 0}
   ClingMaskEnemy: {fileID: 275899030804776947}
   StopCount: 0
@@ -259,8 +258,6 @@ MonoBehaviour:
   IsStartAnim: 0
   AttackCoolTimeCount: 0
   MaxAttackCoolTimeCount: 0
-  AttackCount: 0
-  MaxAttackCount: 1
   IsAttackAnim: 0
   StartY: 0
   UnitID: 1

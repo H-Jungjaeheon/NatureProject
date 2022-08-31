@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7385756133105356357}
   - component: {fileID: 8558759639880839816}
   - component: {fileID: 5679377145982017874}
+  - component: {fileID: -3398730817326841874}
   m_Layer: 8
   m_Name: DisinfectantUnit
   m_TagString: Unit
@@ -152,7 +153,6 @@ MonoBehaviour:
   MaxHp: 200
   Target: {fileID: 0}
   ECTarget: {fileID: 0}
-  BGameManager: {fileID: 0}
   Castle: {fileID: 0}
   ClingMaskEnemy: {fileID: 8628818589575230665}
   StopCount: 0
@@ -176,8 +176,6 @@ MonoBehaviour:
   IsStartAnim: 0
   AttackCoolTimeCount: 0
   MaxAttackCoolTimeCount: 0
-  AttackCount: 1.5
-  MaxAttackCount: 1.5
   IsAttackAnim: 0
   StartY: 0
   UnitID: 4
@@ -185,6 +183,25 @@ MonoBehaviour:
   LevelPerDamage: 3
   SpawnVector: {x: -2, y: -0.05, z: 0}
   StopAttack: 0
+--- !u!95 &-3398730817326841874
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185711431313872323}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 338b8548908eda142ac3fc421d0c617d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8628818589575230665
 GameObject:
   m_ObjectHideFlags: 0

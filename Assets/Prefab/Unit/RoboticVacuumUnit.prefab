@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6089854230778487971}
   - component: {fileID: 6089854230778487968}
   - component: {fileID: 6089854230778487969}
+  - component: {fileID: 7382256616335899145}
   m_Layer: 8
   m_Name: RoboticVacuumUnit
   m_TagString: Unit
@@ -152,7 +153,6 @@ MonoBehaviour:
   MaxHp: 300
   Target: {fileID: 0}
   ECTarget: {fileID: 0}
-  BGameManager: {fileID: 0}
   Castle: {fileID: 0}
   ClingMaskEnemy: {fileID: 6605481137680156498}
   StopCount: 0
@@ -174,16 +174,33 @@ MonoBehaviour:
   IsSuction: 0
   IsBossKnockBack: 0
   IsStartAnim: 0
-  AttackCoolTimeCount: 0.5
-  MaxAttackCoolTimeCount: 0.5
-  AttackCount: 0.5
-  MaxAttackCount: 0.5
+  AttackCoolTimeCount: 0
+  MaxAttackCoolTimeCount: 0
   IsAttackAnim: 0
   StartY: 0
   UnitID: 5
   LevelPerHp: 20
   LevelPerDamage: 5
   SpawnVector: {x: -2, y: 0.22, z: 0}
+--- !u!95 &7382256616335899145
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089854230778487982}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 52159036e4e7dae4ebf9dff93c43b0f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6605481137680156498
 GameObject:
   m_ObjectHideFlags: 0

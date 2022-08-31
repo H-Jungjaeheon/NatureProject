@@ -5,7 +5,9 @@ using UnityEngine;
 public class AutomaticUnit : BasicUnit
 {
     [Header("특수능력 확률")]
-    [SerializeField] private int StopAttack = 0;
+    [SerializeField]
+    private int StopAttack = 0;
+
     public override void AttackTime()
     {
         if (Target != null || ECTarget != null)
@@ -48,8 +50,8 @@ public class AutomaticUnit : BasicUnit
                 IsAttackReady = true;
                 if (AttackCoolTimeCount >= MaxAttackCoolTimeCount && IsAttackReady)
                 {
-                    AttackTime();
-                    AttackAnim();
+                    IsAttackReady = false;
+                    StartCoroutine(AttackAnim());
                 }
                 else if (AttackCoolTimeCount < MaxAttackCoolTimeCount && IsAttackReady)
                 {

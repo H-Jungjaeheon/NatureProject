@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4527488594776558285}
   - component: {fileID: 3345460365271922176}
   - component: {fileID: 5251156149695615304}
+  - component: {fileID: -2435155105655500249}
   m_Layer: 8
   m_Name: AutomaticUnit
   m_TagString: Unit
@@ -234,7 +235,6 @@ MonoBehaviour:
   MaxHp: 700
   Target: {fileID: 0}
   ECTarget: {fileID: 0}
-  BGameManager: {fileID: 0}
   Castle: {fileID: 0}
   ClingMaskEnemy: {fileID: 173061633636719285}
   StopCount: 0
@@ -258,8 +258,6 @@ MonoBehaviour:
   IsStartAnim: 0
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
-  AttackCount: 0
-  MaxAttackCount: 0
   IsAttackAnim: 0
   StartY: 0
   UnitID: 9
@@ -267,3 +265,22 @@ MonoBehaviour:
   LevelPerDamage: 10
   SpawnVector: {x: -2, y: 1.11, z: 0}
   StopAttack: 0
+--- !u!95 &-2435155105655500249
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251156149695615307}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1912a92640b5604439e915eaccc74153, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
