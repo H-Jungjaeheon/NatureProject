@@ -9,10 +9,12 @@ public class SelectChapterManager : MonoBehaviour
 {
     [Header("챕터 선택_변수")]
     [SerializeField]
-    private Button[] Chapters; 
+    private Button[] Chapters;
     [SerializeReference]
     public Sprite[] OnSwipeImage; 
     public Sprite[] OffSwipeImage;
+    [SerializeField]
+    public GameObject Map;
 
     [Header("챕터 선택_연출변수")]
     [SerializeField]
@@ -82,6 +84,7 @@ public class SelectChapterManager : MonoBehaviour
         yield return null;
         UI.gameObject.SetActive(false);
         DOTween.To(() => Cam.orthographicSize, x => Cam.orthographicSize = x, CamMoveSize, CamMoveDur);
+        Map.transform.DOScale(Vector3.one * 0.7f, CamMoveDur);
         Cam.transform.DOMove(CameraMovePos[Chapter], CamMoveDur);
 
         yield return new WaitForSeconds(CamMoveDur);
