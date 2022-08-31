@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 
@@ -95,6 +96,8 @@ public class SelectStageManager : MonoBehaviour
         {
             GameManager.In.Energy -= GameManager.In.DicStageInfo[StageName].SpendEnergy;
             GameManager.In.DicStageInfo[StageName].ClearCheck = true;
+
+            SceneManager.LoadScene("BattleScreenTest");
         }
     }
 
