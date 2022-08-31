@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6238142024221334019}
   - component: {fileID: 5056413763826247374}
   - component: {fileID: 2348998081986101636}
+  - component: {fileID: 4819480680804870752}
   m_Layer: 8
   m_Name: CleaningCarUnit
   m_TagString: Unit
@@ -152,7 +153,6 @@ MonoBehaviour:
   MaxHp: 100
   Target: {fileID: 0}
   ECTarget: {fileID: 0}
-  BGameManager: {fileID: 0}
   Castle: {fileID: 0}
   ClingMaskEnemy: {fileID: 6949046403578999140}
   StopCount: 0
@@ -176,8 +176,6 @@ MonoBehaviour:
   IsStartAnim: 0
   AttackCoolTimeCount: 3
   MaxAttackCoolTimeCount: 3
-  AttackCount: 3
-  MaxAttackCount: 3
   IsAttackAnim: 0
   StartY: 0
   UnitID: 11
@@ -185,6 +183,25 @@ MonoBehaviour:
   LevelPerDamage: 10
   SpawnVector: {x: -2, y: 0.78, z: 0}
   IsRush: 0
+--- !u!95 &4819480680804870752
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2348998081986101637}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1325d4d1b05d525488a162169492810d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6949046403578999140
 GameObject:
   m_ObjectHideFlags: 0
